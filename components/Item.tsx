@@ -2,6 +2,10 @@ export { }
 /**CLASS ITEM
  * Used to store/load items inside app
  * usage example: let a = new Item(123456, "test item", "A", "https://idk.com");
+ * @argument barcode: the barcode given to the item
+ * @argument name: the name of the item
+ * @argument nutriScore: A score given to the item that indicates the 'healthiness', A-F
+ * @argument IMGurl: some items get an img, some not.
  */
 class Item {
     name: string;
