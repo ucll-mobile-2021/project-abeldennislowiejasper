@@ -1,59 +1,31 @@
 import * as React from 'react';
 import { View, Text, Button } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, StackRouter } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import HomeScreen from './screens/HomeScreen';
 import StashScreen from './screens/StashScreen';
 import ScannerScreen from './screens/ScannerScreen';
+import ItemScreen from './screens/ItemScreen';
 
 
 
 
-// const Stack = createStackNavigator();
+const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-
 function App() {
+  
   return (
     <NavigationContainer>
-      {/* <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
-        <Stack.Screen name="DetailsScreen" component={DetailsScreen} /> 
-      </Stack.Navigator> */}
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName = "";
-
-          if (route.name === 'HOME') {
-            iconName = focused ? 'home' : 'home-outline';
-          } else if (route.name === 'STASH') {
-            iconName = focused ? 'fast-food' : 'fast-food-outline';
-          }
-          else if (route.name === 'SCAN') {
-            iconName = focused ? 'barcode' : 'barcode-outline';
-          }
-
-          // You can return any component that you like here!
-          return <Ionicons name={iconName} size={size} color={color} />;
-        },
-      })}
-      tabBarOptions={{
-        activeBackgroundColor: 'lightgray',
-        activeTintColor: 'red',
-        inactiveTintColor: 'gray',
-        keyboardHidesTabBar: true,
-      }}
-    >
-      <Tab.Screen name="HOME" component={HomeScreen} />
-      <Tab.Screen name="STASH" component={StashScreen} options={{ tabBarBadge: 3 }} />
-      <Tab.Screen name="SCAN" component={ScannerScreen} />
-    </Tab.Navigator>
-
-  </NavigationContainer>
-  
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Stash" component={StashScreen} />
+        <Stack.Screen name="Scanner" component={ScannerScreen} />
+        <Stack.Screen name="ItemScreen" component={ItemScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
