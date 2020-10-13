@@ -13,12 +13,12 @@ function ItemScreen({route, navigation}) {
     var {name, nutriScore, barcode, IMGurl} = route.params;
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Home Screen</Text>
+        <Text>Information about {name}</Text>
 
-        <Text> {name}</Text>
-        <Text> {nutriScore}</Text>
-        <Text> {barcode}</Text>
-        <Text> {IMGurl}</Text>
+        <Text>Name: {name}</Text>
+        <Text>Nutri Score: {nutriScore}</Text>
+        <Text>Barcode: {barcode}</Text>
+        <Text>IMG URL: {IMGurl}</Text>
     
       </View>
     );
