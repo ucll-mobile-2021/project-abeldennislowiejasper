@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "352955736043",
+    "firebase_url": "https://koelkastapp-c309e.firebaseio.com",
+    "project_id": "koelkastapp-c309e",
+    "storage_bucket": "koelkastapp-c309e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:352955736043:android:1b27ed06e09b15df0c03ae",
+        "android_client_info": {
+          "package_name": "com.koelkastapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "352955736043-841rnntteh23id0fjjrq4m99m4f43erp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWl8EVanZQ2NJJ3-5qFikgWgLE1lH_8qU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "352955736043-841rnntteh23id0fjjrq4m99m4f43erp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
