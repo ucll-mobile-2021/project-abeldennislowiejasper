@@ -1,42 +1,44 @@
 import * as React from 'react';
-import { View, Button, StyleSheet, Keyboard } from 'react-native';
+import {useState} from 'react';
+import { View, Button, StyleSheet, TextInput } from 'react-native';
 import { Text } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Scanner from '.././components/CameraScanner';
-import Form from '.././components/Form';
 
-function ScannerScreen({ navigation }) {
+function ScannerScreen({ navigation } : any) {
+   let [valueName, setName] = useState("");
+   let [valueNutri, setNutri] = useState("");
+   let [valueIMG, setIMG] = useState("");
+   let [valueAllergene, setAllergene] = useState("");
+   const changeForm = (props: { [x: string]: any[]; } | { [x: string]: any; }) => {
+       console.log(props)
+       setName(props["name"]);
+       setNutri(props["nutriscore"]);
+       setIMG(props["imgURL"]);
+       setAllergene(props["allergens"].join(', '));
+       }
+
    return (
       <View style={styles.ScannerScreenContainer}>
          <Text h1 style={styles.title}>Add product</Text>
-         <Scanner />
+         <Scanner setForm={changeForm} />
          <View style={styles.form}>
-            <View style={styles.FormContainer}>
-               <Form
-                  buttonText="Submit"
-                  fields={{
-                     ProductName: {
-                        label: 'Product Name:',
-                        placeholder: 'M&M Peanuts 1KG/1000g'
-                     },
-                     Nutriscore: {
-                        label: 'Nutriscore:',
-                        placeholder: 'A'
-                     },
-                     ExpirationDate: {
-                        label: 'Expiration date:',
-                        placeholder: 'DD-MM-YYYY',
-                        inputProps: { //TODO; Add '-' automatically
-                           //keyboardType: 'numeric',
-                        }
-                     },
-                     IMGurl: {
-                        label: 'Image URL:',
-                        placeholder: 'https://media.s-bol.com/qQKD7o5z5qXD/550x464.jpg'
-                     },
-                  }}
-               />
+
+            <Text style={styles.label}>Product Name</Text>
+            <TextInput style={styles.textInput} placeholder="M&M Peanuts 1KG/1000g" value={valueName}/>
+
+            <Text style={styles.label}>Product Nutriscore</Text>
+            <TextInput style={styles.textInput} placeholder="A" value={valueNutri}/>
+
+            <Text style={styles.label}>Product's Allergene</Text>
+            <TextInput style={styles.textInput} placeholder="Peanuts" value={valueAllergene}/>
+
+            <Text style={styles.label}>Image url</Text>
+            <TextInput style={styles.textInput} placeholder="htpp://dummy.com" value={valueIMG}/>
+
+            <View style={styles.buttonText}>
+               <Button title="Add product" onPress={() => { console.log("Item added") }} />
             </View>
          </View>
       </View>
@@ -60,11 +62,24 @@ const styles = StyleSheet.create({
       borderBottomWidth: 1,
    },
    form: {
+      width: '75%',
+      marginLeft: '12.5%'
    },
    cameraButtonContainer: {
       width: "50%",
       marginLeft: '25%',
       paddingTop: 10
+   },
+   label: {
+      paddingTop: 25
+   },
+   textInput: {
+      borderBottomColor: 'black',
+      borderBottomWidth: 1,
+      margin: 0
+   },
+   buttonText: {
+      paddingTop: 20
    }
 });
 

@@ -5,12 +5,13 @@ export { }
  * @argument barcode: the barcode given to the item
  * @argument name: the name of the item
  * @argument nutriScore: A score given to the item that indicates the 'healthiness', A-F
+ * @argument allergene: an arraylist of strings representing the allergenes of the Item.
  * @argument IMGurl: some items get an img, some not.
  */
 class Item {
 
-    constructor(public barcode: number, public name: string, public nutriscore: string, public IMGurl:string) {}
-    
+    constructor(public barcode: number, public name: string, public nutriscore: string, public allergene: string[], public IMGurl: string) { }
+
     /**
      * Function: get the text version of an Item.
      */

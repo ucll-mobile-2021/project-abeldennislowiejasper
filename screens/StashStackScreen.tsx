@@ -7,8 +7,8 @@ import Item from "../components/Item"
 import ItemScreen from "./ItemScreen"
 import StashScreen from "./StashScreen"
 
-var soep = new Item(1234, "Soep", "a", "lalala");
-var kaka = new Item(4321, "kaka", "d", "ladieda");
+var soep = new Item(1234, "Soep", "a",["idk"] ,"lalala");
+var kaka = new Item(4321, "kaka", "d",["idk"] ,"ladieda");
 
 var items = [soep, kaka];
 const HomeStack = createStackNavigator();
