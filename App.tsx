@@ -29,13 +29,13 @@ function App() {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName = "";
 
-            if (route.name === 'Home') {
-              iconName = focused ? 'home' : 'home-outline';
-            } else if (route.name === 'Stash') {
-              iconName = focused ? 'fast-food' : 'fast-food-outline';
+            if (route.name === 'HOME') {
+              iconName = focused ? 'home-outline' : 'home-outline';
+            } else if (route.name === 'STASH') {
+              iconName = focused ? 'fast-food-outline' : 'fast-food-outline';
             }
-            else if (route.name === 'Scan') {
-              iconName = focused ? 'barcode' : 'barcode-outline';
+            else if (route.name === 'SCAN') {
+              iconName = focused ? 'barcode-outline' : 'barcode-outline';
             }
 
             // You can return any component that you like here!
@@ -43,15 +43,16 @@ function App() {
           },
         })}
         tabBarOptions={{
-          activeBackgroundColor: 'lightgray',
+          activeBackgroundColor: '#009ac1',
           activeTintColor: 'red',
-          inactiveTintColor: 'gray',
+          inactiveTintColor: 'red',
           keyboardHidesTabBar: true,
+          inactiveBackgroundColor: '#32bcdf'
         }}
       >
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Stash" component={StashStackScreen} options={{ tabBarBadge: 3 }} />
-        <Tab.Screen name="Scan" component={ScannerScreen} />
+        <Tab.Screen name="HOME" component={HomeScreen} />
+        <Tab.Screen name="STASH" component={StashStackScreen} options={{ tabBarBadge: 3 }} />
+        <Tab.Screen name="SCAN" component={ScannerScreen} />
       </Tab.Navigator>
 
     </NavigationContainer>
