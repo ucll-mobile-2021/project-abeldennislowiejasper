@@ -8,24 +8,14 @@ export { }
  * @argument IMGurl: some items get an img, some not.
  */
 class Item {
-    name: string;
-    barcode: number;
-    IMGurl: string;
-    nutriScore: string;
 
-    constructor(barcode: number, name: string, nutriscore: string, IMGurl:string) {
-        //TODO validation
-        this.name = name;
-        this.barcode = barcode;
-        this.IMGurl = IMGurl;
-        this.nutriScore = nutriscore
-    }
+    constructor(public barcode: number, public name: string, public nutriscore: string, public IMGurl:string) {}
     
     /**
      * Function: get the text version of an Item.
      */
     itemToText() {
-        return `${this.name}: barcode: ${this.barcode}, ${this.nutriScore}-score`;
+        return `${this.name}: barcode: ${this.barcode}, ${this.nutriscore}-score`;
     }
 }
 export default Item;

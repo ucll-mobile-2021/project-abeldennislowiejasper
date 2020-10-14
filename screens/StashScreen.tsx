@@ -5,10 +5,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Item from "../components/Item"
 import ItemScreen from "../screens/ItemScreen"
 
-var soep = new Item(1234, "Soep", "a", "lalala");
-var kaka = new Item(4321, "kaka", "d", "ladieda");
+let soep = new Item(1234, "Soep", "a", "lalala");
+let kaka = new Item(4321, "kaka", "d", "ladieda");
 
-var items = [soep, kaka];
+let items = [soep, kaka];
 
 function Stash({navigation}) {
   return (
