@@ -4,12 +4,16 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Notifications } from 'react-native-notifications';
 
-function test(){
-  Notifications.postLocalNotification({
-    title: "Local notification",
-    body: "Ik stuur een notification naar Dennis en Jasper en Lowie cuz its cool",
-    extra: "data"
-});
+function test() {
+  Notifications.registerRemoteNotifications();
+
+  Notifications.events().registerRemoteNotificationsRegistered((event: Registered) => {
+    // TODO: Send the token to my server so it could send back push notifications...
+    console.log("Device Token Received", event.deviceToken);
+  });
+  Notifications.events().registerRemoteNotificationsRegistrationFailed((event: RegistrationError) => {
+    console.error(event);
+  });
 }
 
 function Home({ navigation }) {
