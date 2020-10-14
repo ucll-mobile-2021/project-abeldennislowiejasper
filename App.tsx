@@ -8,6 +8,9 @@ import StashStackScreen from './screens/StashStackScreen';
 import StashScreen from './screens/StashScreen';
 import ScannerScreen from './screens/ScannerScreen';
 import HomeScreen from './screens/HomeScreen';
+import ItemScreen from './screens/ItemScreen';
+import { getItemsLength } from './screens/StashStackScreen';
+
 
 
 //const Stack = createStackNavigator();
@@ -51,7 +54,7 @@ function App() {
         }}
       >
         <Tab.Screen name="HOME" component={HomeScreen} />
-        <Tab.Screen name="STASH" component={StashStackScreen} options={{ tabBarBadge: 3 }} />
+        <Tab.Screen name="STASH" component={StashStackScreen} options={{ tabBarBadge: getItemsLength() }} />
         <Tab.Screen name="SCAN" component={ScannerScreen} />
       </Tab.Navigator>
 
