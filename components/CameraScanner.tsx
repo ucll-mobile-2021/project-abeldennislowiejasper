@@ -3,6 +3,7 @@ import { Component } from "react";
 import React from 'react';
 import { View, Text, Button, StyleSheet } from "react-native";
 import { RNCamera } from "react-native-camera";
+import { TapGestureHandler } from "react-native-gesture-handler";
 
 /**
  * Scanner class, used to obtain camera module
@@ -12,16 +13,18 @@ interface IState {
     barcode: string;
     expirationDate: string;
 }
-class Scanner extends React.Component< { setForm: ({props} : Record<string,string> | Record<string,[]>) => void; }, IState> {
-    changeForm: ((props: { [x: string]: any[]; } | { [x: string]: any; }) => void);
-    constructor(props: { setForm: ({props}: { [x: string]: any[]; } | { [x: string]: any; }) => void; } | Readonly<{ setForm: ({props}: { [x: string]: any[]; } | { [x: string]: any; }) => void; }>) {
+class Scanner extends React.Component<{ setFormBarcode: ({ props }: Record<string, string> | Record<string, []>) => void; setFormExpirationDate: (date: string) => void }, IState> {
+    changeFormBarcodeData: ((props: { [x: string]: any[]; } | { [x: string]: any; }) => void);
+    changeFormExpirationDate: ((date: string) => void);
+    constructor(props: { setFormBarcode: ({ props }: { [x: string]: any[]; } | { [x: string]: any; }) => void; setFormExpirationDate: (date: string) => void }) {
         super(props);
         this.state = {
-            visible: false,
+            visible: TapGestureHandler,
             barcode: "",
             expirationDate: ""
         }
-        this.changeForm = props.setForm;
+        this.changeFormBarcodeData = props.setFormBarcode;
+        this.changeFormExpirationDate = props.setFormExpirationDate;
     }
     //Toggle the visibility status of the camera
     toggleState() {
@@ -31,13 +34,31 @@ class Scanner extends React.Component< { setForm: ({props} : Record<string,strin
             expirationDate: ""
         })
     }
+    //Check if the text is a date
+    checkIfDate(checkboxes: string | any[]) { //    [{..},{..},{..}]
+        if (this.state.expirationDate == "") {
+            for (let i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i]["value"].match(/\d+[\.\/]+\d+[\.\/]+\d+/) != null) {
+                    this.setState({
+                        expirationDate: checkboxes[i]["value"].match(/\d+[\.\/]*\d+[\.\/]*\d+/)[0]
+                    });
+                    this.changeFormExpirationDate(checkboxes[i]["value"].match(/\d+[\.\/]*\d+[\.\/]*\d+/)[0]);
+                    return;
+                }
+            }
+        }
+    }
+
+    //If a barcode is found, this function is called ONCE.
     async barcodeFound(barcodes: any[]) {
         if (this.state.barcode == "") {
             barcodes.forEach(async (barcode) => {
                 if (!isNaN(barcode.data)) {
                     this.setState({ barcode: barcode.data });
                     let a = await this.fetchData(barcode.data);
-                    this.changeForm(a)
+                    if (a != undefined) {
+                        this.changeFormBarcodeData(a)
+                    }
                     return;
                 }
             })
@@ -77,12 +98,18 @@ class Scanner extends React.Component< { setForm: ({props} : Record<string,strin
                 { // Only show the camera when state.visible == true
                     this.state.visible &&
                     <View style={styles.camera}>
+                        <View style={styles.infoBox}>
+                            <Text>Barcode found: {this.state.barcode == ""?<Text style={styles.red}>No</Text>:<Text style={styles.green}>Yes</Text>}</Text>
+                            <Text>Expiration date found: {this.state.expirationDate == ""?<Text style={styles.red}>No</Text>:<Text style={styles.green}>Yes</Text>}</Text>
+                        </View>
                         <RNCamera //This is the camera
                             captureAudio={false}
                             style={{
                                 flex: 1,
                             }}
                             onGoogleVisionBarcodesDetected={({ barcodes }) => { this.barcodeFound(barcodes) }}
+
+                            onTextRecognized={(textBlocks) => textBlocks["textBlocks"].length != 0 ? this.checkIfDate(textBlocks["textBlocks"]) : ""}
                         />
                         <View style={styles.closeCameraButton}>
                             <Button
@@ -113,6 +140,24 @@ const styles = StyleSheet.create({
         transform: [
             { translateX: -50 },
         ]
+    },
+    infoBox: {
+        position: 'absolute',
+        top: 0,
+        left: "-12.5%",
+        zIndex: 100,
+        backgroundColor: "rgba(255, 255, 255,0.75)",
+        borderBottomWidth: 1,
+        borderBottomColor: "black",
+        borderRightWidth: 1,
+        borderRightColor: "black",
+        padding: 5
+    },
+    red: {
+        color: "red",
+        },
+    green: {
+        color: "green"
     }
 })
 export default Scanner;
