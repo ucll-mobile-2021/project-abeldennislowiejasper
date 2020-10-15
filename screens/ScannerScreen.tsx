@@ -29,19 +29,19 @@ function ScannerScreen({ navigation }: any) {
             < View style={styles.form}>
 
             <Text style={styles.label}>Product Name</Text>
-            <TextInput style={styles.textInput} placeholder="M&M Peanuts 1KG/1000g" value={valueName} />
+            <TextInput style={styles.textInput} placeholder="M&M Peanuts 1KG/1000g" onChangeText={name => setName(name)} value={valueName} />
 
             <Text style={styles.label}>Product Nutriscore</Text>
-            <TextInput style={styles.textInput} placeholder="A" value={valueNutri} />
+            <TextInput style={styles.textInput} placeholder="A" value={valueNutri} onChangeText={nutri => setNutri(nutri)} />
 
             <Text style={styles.label}>Product's Allergene</Text>
-            <TextInput style={styles.textInput} placeholder="Peanuts" value={valueAllergene} />
+            <TextInput style={styles.textInput} placeholder="Peanuts" onChangeText={allergene => setAllergene(allergene)} value={valueAllergene} />
 
             <Text style={styles.label}>Expiration date</Text>
-            <TextInput style={styles.textInput} placeholder="05.05.2020" value={valueDate} />
+            <TextInput style={styles.textInput} placeholder="05.05.2020" onChangeText={date => setDate(date)} value={valueDate} />
 
             <Text style={styles.label}>Image url</Text>
-            <TextInput style={styles.textInput} placeholder="htpp://dummy.com" value={valueIMG} />
+            <TextInput style={styles.textInput} placeholder="htpp://dummy.com" onChangeText={img => setIMG(img)} value={valueIMG} />
 
 
             <View style={styles.buttonText}>
