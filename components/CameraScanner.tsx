@@ -19,7 +19,7 @@ class Scanner extends React.Component<{ setFormBarcode: ({ props }: Record<strin
     constructor(props: { setFormBarcode: ({ props }: { [x: string]: any[]; } | { [x: string]: any; }) => void; setFormExpirationDate: (date: string) => void }) {
         super(props);
         this.state = {
-            visible: TapGestureHandler,
+            visible: false,
             barcode: "",
             expirationDate: ""
         }
