@@ -10,20 +10,18 @@ let soep = new Item(1234, "Soep", "a", "lalala");
 let kaka = new Item(4321, "kaka", "d", "ladieda");
 
 let items = [soep, kaka];
-let number = 1;
 
 class Stash extends Component{
   constructor(props){
     super(props);
     this.state = {
-       nr: number
+       nr: items.length
     }
   }
 
   render(){
     setTimeout(() => {
-      number++
-      this.setState({nr: number})
+      this.setState({nr: items.length})
     }, 1000)
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -43,7 +41,6 @@ export function getItemsLength(){
 
 export function updateItems(item:Item){
   items.push(item);
-  console.log(items.length)
 }
 
 export default Stash;
