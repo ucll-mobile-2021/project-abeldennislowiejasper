@@ -9,7 +9,7 @@ import StashScreen from './screens/StashScreen';
 import ScannerScreen from './screens/ScannerScreen';
 import HomeScreen from './screens/HomeScreen';
 import ItemScreen from './screens/ItemScreen';
-import { getItemsLength } from './screens/StashStackScreen';
+import { getItemsLength } from './screens/StashScreen';
 import { DrawerContent } from './screens/DrawerContent';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
@@ -19,14 +19,28 @@ const Drawer = createDrawerNavigator();
 //const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-function DrawerNavigator() {
+function DrawerHomeNavigator() {
   return (
   <Drawer.Navigator hideStatusBar={true} drawerContent={props => <DrawerContent {... props}/> }>
     <Drawer.Screen name="HOME" component={HomeScreen} />
-    <Drawer.Screen name="STASH" component={StashScreen} />
-    <Drawer.Screen name="SCAN" component={ScannerScreen} />
   </Drawer.Navigator>
   );
+}
+
+function DrawerStashNavigator(){
+  return (
+    <Drawer.Navigator hideStatusBar={true} drawerContent={props => <DrawerContent {... props}/> }>
+      <Drawer.Screen name="STASH" component={StashStackScreen} />
+    </Drawer.Navigator>
+    );
+}
+
+function DrawerScannerNavigator(){
+  return (
+    <Drawer.Navigator hideStatusBar={true} drawerContent={props => <DrawerContent {... props}/> }>
+      <Drawer.Screen name="SCAN" component={ScannerScreen} />
+    </Drawer.Navigator>
+    );
 }
 
 function App() {
@@ -66,9 +80,9 @@ function App() {
           inactiveBackgroundColor: '#32bcdf'
         }}
       >
-        <Tab.Screen name="HOME" component={DrawerNavigator} />
-        <Tab.Screen name="STASH" component={StashStackScreen} options={{ tabBarBadge: getItemsLength() }} />
-        <Tab.Screen name="SCAN" component={ScannerScreen} />
+        <Tab.Screen name="HOME" component={DrawerHomeNavigator} />
+        <Tab.Screen name="STASH" component={DrawerStashNavigator} options={{ tabBarBadge: getItemsLength() }} />
+        <Tab.Screen name="SCAN" component={DrawerScannerNavigator} />
       </Tab.Navigator>
 
     </NavigationContainer>

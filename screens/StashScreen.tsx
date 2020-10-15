@@ -22,4 +22,8 @@ function Stash({navigation}) {
   );
 }
 
+export function getItemsLength(){
+  return items.length;
+}
+
 export default Stash;
