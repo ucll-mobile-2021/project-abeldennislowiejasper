@@ -12,28 +12,28 @@ var kaka = new Item(4321, "kaka", "d", "ladieda");
 var pipi = new Item(4331, "pipi", "d", "ladieda");
 
 var items = [soep, kaka];
-const HomeStack = createStackNavigator();
+const ScannerStack = createStackNavigator();
 
 
 //pas options.title aan naar itemnaam door route params mee te geven
 function ScannerStackScreen() {textAlign: ''
     return (
-      <HomeStack.Navigator>
-       <HomeStack.Screen name="Stash" component={StashScreen} options={{ title: 'My Stash', headerStyle:{
+      <ScannerStack.Navigator>
+       <ScannerStack.Screen name="Stash" component={StashScreen} options={{ title: 'My Stash', headerStyle:{
             backgroundColor: '#32bcdf',
           },
           headerTintColor: '#fff',
           headerTitleStyle: {
             fontWeight: 'bold', textAlign: 'center'
           }, }}/> 
-       <HomeStack.Screen name="ItemScreen" component={ItemScreen} options={({ route }) => ({ title: route.params.name, headerStyle:{
+       <ScannerStack.Screen name="ItemScreen" component={ItemScreen} options={({ route }) => ({ title: route.params.name, headerStyle:{
             backgroundColor: '#32bcdf',
           },
           headerTintColor: '#fff',
           headerTitleStyle: {
             fontWeight: 'bold'
           },  })}/>
-      </HomeStack.Navigator>
+      </ScannerStack.Navigator>
      );
    }
 
