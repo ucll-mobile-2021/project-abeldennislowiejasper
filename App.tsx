@@ -19,6 +19,13 @@ const Drawer = createDrawerNavigator();
 //const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+let uniqueValue = 1
+
+export function forceUpdate(){
+  uniqueValue += 1
+  console.log("Unique value=" + uniqueValue)
+}
+
 function DrawerHomeNavigator() {
   return (
   <Drawer.Navigator hideStatusBar={true} drawerContent={props => <DrawerContent {... props}/> }>
@@ -46,7 +53,7 @@ function DrawerScannerNavigator(){
 function App() {
 
   return (
-    <NavigationContainer>
+    <NavigationContainer key={uniqueValue}>
       {/* <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Stash" component={StashScreen} />

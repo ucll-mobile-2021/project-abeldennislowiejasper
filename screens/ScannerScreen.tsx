@@ -5,6 +5,8 @@ import { Text } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Scanner from '.././components/CameraScanner';
+import Item from '../components/Item'
+import {updateItems} from './StashScreen'
 
 function ScannerScreen({ navigation }: any) {
    let [valueName, setName] = useState("");
@@ -21,6 +23,8 @@ function ScannerScreen({ navigation }: any) {
    const changeDateData = (date: string) => {
       setDate(date);
    }
+
+   let newItem = new Item(54671, "test", "f", ["lol"], "1234@hotmail")
 
    return (
       <View style={styles.ScannerScreenContainer}>
@@ -43,9 +47,8 @@ function ScannerScreen({ navigation }: any) {
             <Text style={styles.label}>Image url</Text>
             <TextInput style={styles.textInput} placeholder="htpp://dummy.com" onChangeText={img => setIMG(img)} value={valueIMG} />
 
-
             <View style={styles.buttonText}>
-               <Button title="Add product" onPress={() => { console.log("Item added") }} />
+               <Button title="Add product" onPress={() => {updateItems(newItem)}} />
             </View>
          </View>
       </View>
