@@ -13,10 +13,11 @@ interface IState {
     barcode: string;
     expirationDate: string;
 }
-class Scanner extends React.Component<{ setFormBarcode: ({ props }: Record<string, string> | Record<string, []>) => void; setFormExpirationDate: (date: string) => void }, IState> {
+class Scanner extends React.Component<{ setFormBarcode: ({ props }: Record<string, string> | Record<string, []>) => void; setFormExpirationDate: (date: string) => void;dateRegex: RegExp}, IState> {
     changeFormBarcodeData: ((props: { [x: string]: any[]; } | { [x: string]: any; }) => void);
     changeFormExpirationDate: ((date: string) => void);
-    constructor(props: { setFormBarcode: ({ props }: { [x: string]: any[]; } | { [x: string]: any; }) => void; setFormExpirationDate: (date: string) => void }) {
+    dateRegex: RegExp;
+    constructor(props: { setFormBarcode: ({ props }: { [x: string]: any[]; } | { [x: string]: any; }) => void; setFormExpirationDate: (date: string) => void; dateRegex: RegExp}) {
         super(props);
         this.state = {
             visible: false,
@@ -25,6 +26,7 @@ class Scanner extends React.Component<{ setFormBarcode: ({ props }: Record<strin
         }
         this.changeFormBarcodeData = props.setFormBarcode;
         this.changeFormExpirationDate = props.setFormExpirationDate;
+        this.dateRegex = props.dateRegex;
     }
     //Toggle the visibility status of the camera
     toggleState() {
@@ -38,14 +40,20 @@ class Scanner extends React.Component<{ setFormBarcode: ({ props }: Record<strin
     checkIfDate(checkboxes: string | any[]) { //    [{..},{..},{..}]
         if (this.state.expirationDate == "") {
             for (let i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i]["value"].match(/\d+[\.\/]+\d+[\.\/]+\d+/) != null) {
-                    this.setState({
-                        expirationDate: checkboxes[i]["value"].match(/\d+[\.\/]*\d+[\.\/]*\d+/)[0]
-                    });
-                    this.changeFormExpirationDate(checkboxes[i]["value"].match(/\d+[\.\/]*\d+[\.\/]*\d+/)[0]);
+                if (checkboxes[i]["value"].match(this.dateRegex) != null) {
+                    let match = checkboxes[i]["value"].match(this.dateRegex)
+                    this.setState({ expirationDate: match[0] });
+                    this.changeFormExpirationDate(match[0]);
+                    //CHECKALLDATA RAN BEFORE SETSTATE.. ? TODO
+                    this.checkAllData()
                     return;
                 }
             }
+        }
+    }
+    checkAllData(){
+        if(this.state.expirationDate != "" && this.state.barcode != ""){
+            this.toggleState();
         }
     }
 
@@ -58,6 +66,7 @@ class Scanner extends React.Component<{ setFormBarcode: ({ props }: Record<strin
                     let a = await this.fetchData(barcode.data);
                     if (a != undefined) {
                         this.changeFormBarcodeData(a)
+                        this.checkAllData()
                     }
                     return;
                 }

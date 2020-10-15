@@ -5,7 +5,7 @@ import { Text } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Scanner from '.././components/CameraScanner';
-
+const dateRegex = /\d+[\.|\/]\d+[\.|\/]\d+/;
 function ScannerScreen({ navigation }: any) {
    let [valueName, setName] = useState("");
    let [valueNutri, setNutri] = useState("");
@@ -18,14 +18,19 @@ function ScannerScreen({ navigation }: any) {
       setIMG(props["imgURL"]);
       setAllergene(props["allergens"].join(', '));
    }
+   const checkDate = (date: string) => {
+      return date.match(/^[0-9/]*$/);
+   }
    const changeDateData = (date: string) => {
-      setDate(date);
+      if(checkDate(date.replace(/\.|-| /,"/")) != undefined){
+         setDate(date.replace(/\.|-| /,"/"));
+      }
    }
 
    return (
       <View style={styles.ScannerScreenContainer}>
          <Text h1 style={styles.title}>Add product</Text>
-         <Scanner setFormBarcode={changeBarcodeData} setFormExpirationDate={changeDateData}/>
+         <Scanner setFormBarcode={changeBarcodeData} setFormExpirationDate={changeDateData} dateRegex={dateRegex}/>
             < View style={styles.form}>
 
             <Text style={styles.label}>Product Name</Text>
@@ -38,11 +43,10 @@ function ScannerScreen({ navigation }: any) {
             <TextInput style={styles.textInput} placeholder="Peanuts" onChangeText={allergene => setAllergene(allergene)} value={valueAllergene} />
 
             <Text style={styles.label}>Expiration date</Text>
-            <TextInput style={styles.textInput} placeholder="05.05.2020" onChangeText={date => setDate(date)} value={valueDate} />
+            <TextInput style={styles.textInput} placeholder="05/05/2020" onChangeText={date => changeDateData(date)} value={valueDate} />
 
             <Text style={styles.label}>Image url</Text>
             <TextInput style={styles.textInput} placeholder="htpp://dummy.com" onChangeText={img => setIMG(img)} value={valueIMG} />
-
 
             <View style={styles.buttonText}>
                <Button title="Add product" onPress={() => { console.log("Item added") }} />
@@ -51,7 +55,6 @@ function ScannerScreen({ navigation }: any) {
       </View>
    );
 }
-
 const styles = StyleSheet.create({
    ScannerScreenContainer: {
       flex: 1,
