@@ -13,11 +13,11 @@ interface IState {
     barcode: string;
     expirationDate: string;
 }
-class Scanner extends React.Component<{ setFormBarcode: ({ props }: Record<string, string> | Record<string, []>) => void; setFormExpirationDate: (date: string) => void;dateRegex: RegExp}, IState> {
+class Scanner extends React.Component<{ setFormBarcode: ({ props }: Record<string, string> | Record<string, []>) => void; setFormExpirationDate: (date: string) => void; dateRegex: RegExp }, IState> {
     changeFormBarcodeData: ((props: { [x: string]: any[]; } | { [x: string]: any; }) => void);
     changeFormExpirationDate: ((date: string) => void);
     dateRegex: RegExp;
-    constructor(props: { setFormBarcode: ({ props }: { [x: string]: any[]; } | { [x: string]: any; }) => void; setFormExpirationDate: (date: string) => void; dateRegex: RegExp}) {
+    constructor(props: { setFormBarcode: ({ props }: { [x: string]: any[]; } | { [x: string]: any; }) => void; setFormExpirationDate: (date: string) => void; dateRegex: RegExp }) {
         super(props);
         this.state = {
             visible: false,
@@ -51,8 +51,8 @@ class Scanner extends React.Component<{ setFormBarcode: ({ props }: Record<strin
             }
         }
     }
-    checkAllData(){
-        if(this.state.expirationDate != "" && this.state.barcode != ""){
+    checkAllData() {
+        if (this.state.expirationDate != "" && this.state.barcode != "") {
             this.toggleState();
         }
     }
@@ -108,8 +108,8 @@ class Scanner extends React.Component<{ setFormBarcode: ({ props }: Record<strin
                     this.state.visible &&
                     <View style={styles.camera}>
                         <View style={styles.infoBox}>
-                            <Text>Barcode found: {this.state.barcode == ""?<Text style={styles.red}>No</Text>:<Text style={styles.green}>Yes</Text>}</Text>
-                            <Text>Expiration date found: {this.state.expirationDate == ""?<Text style={styles.red}>No</Text>:<Text style={styles.green}>Yes</Text>}</Text>
+                            <Text>Barcode found: {this.state.barcode == "" ? <Text style={styles.red}>No</Text> : <Text style={styles.green}>Yes</Text>}</Text>
+                            <Text>Expiration date found: {this.state.expirationDate == "" ? <Text style={styles.red}>No</Text> : <Text style={styles.green}>Yes</Text>}</Text>
                         </View>
                         <RNCamera //This is the camera
                             captureAudio={false}
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     },
     red: {
         color: "red",
-        },
+    },
     green: {
         color: "green"
     }

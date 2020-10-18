@@ -5,47 +5,76 @@ import { Text } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Scanner from '.././components/CameraScanner';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { State } from 'react-native-gesture-handler';
+
+
 const dateRegex = /\d+[\.|\/]\d+[\.|\/]\d+/;
 function ScannerScreen({ navigation }: any) {
-   let [valueName, setName] = useState("");
-   let [valueNutri, setNutri] = useState("");
-   let [valueIMG, setIMG] = useState("");
-   let [valueAllergene, setAllergene] = useState("");
-   let [valueDate, setDate] = useState("");
-   const changeBarcodeData = (props: { [x: string]: any[]; } | { [x: string]: any; } ) => {
+   //All values for an item
+   const [valueName, setName] = useState("");
+   const [valueNutri, setNutri] = useState("");
+   const [valueIMG, setIMG] = useState("");
+   const [valueAllergene, setAllergene] = useState("");
+   const [valueDate, setDate] = useState(new Date(Date.now()));
+   //used to toggle DateTimePicker
+   const [showDate, setShowDate] = useState(false);
+   const changeBarcodeData = (props: { [x: string]: any[]; } | { [x: string]: any; }) => {
       setName(props["name"]);
       setNutri(props["nutriscore"]);
       setIMG(props["imgURL"]);
       setAllergene(props["allergens"].join(', '));
    }
-   const checkDate = (date: string) => {
-      return date.match(/^[0-9/]*$/);
+   const onChangeDate = (_event: any, selectedDate: any) => {
+      const currentDate = selectedDate || valueDate;
+      toggleShowDate()
+      setDate(currentDate);
+   };
+   const changeDateData = (data: string) => {
+      // data: DD/MM/YYYY
+      let test: string = data.replace(/\./gi,"/")
+      console.log(test)
+      let formattedDate: string[] = test.split("/")
+   
+      var dateObject = new Date(+formattedDate[2], parseInt(formattedDate[1]) - 1, +formattedDate[0]) || valueDate; 
+      setDate(dateObject);
    }
-   const changeDateData = (date: string) => {
-      if(checkDate(date.replace(/\.|-| /,"/")) != undefined){
-         setDate(date.replace(/\.|-| /,"/"));
-      }
+   const toggleShowDate = () => {
+      setShowDate(!showDate);
+   }
+   const dateToDDMMYYYY = () => {
+      let formated: string[] =  valueDate.toLocaleDateString().split("/")
+      return formated[1] + "/" + formated[0] + "/" + formated[2]
    }
 
    return (
       <View style={styles.ScannerScreenContainer}>
          <Text h1 style={styles.title}>Add product</Text>
-         <Scanner setFormBarcode={changeBarcodeData} setFormExpirationDate={changeDateData} dateRegex={dateRegex}/>
-            < View style={styles.form}>
+         <Scanner setFormBarcode={changeBarcodeData} setFormExpirationDate={changeDateData} dateRegex={dateRegex} />
+         < View style={styles.form}>
 
-            <Text style={styles.label}>Product Name</Text>
+            <Text style={styles.label}>Product Name:</Text>
             <TextInput style={styles.textInput} placeholder="M&M Peanuts 1KG/1000g" onChangeText={name => setName(name)} value={valueName} />
 
-            <Text style={styles.label}>Product Nutriscore</Text>
+            <Text style={styles.label}>Product Nutriscore:</Text>
             <TextInput style={styles.textInput} placeholder="A" value={valueNutri} onChangeText={nutri => setNutri(nutri)} />
 
-            <Text style={styles.label}>Product's Allergene</Text>
+            <Text style={styles.label}>Product's Allergene:</Text>
             <TextInput style={styles.textInput} placeholder="Peanuts" onChangeText={allergene => setAllergene(allergene)} value={valueAllergene} />
 
-            <Text style={styles.label}>Expiration date</Text>
-            <TextInput style={styles.textInput} placeholder="05/05/2020" onChangeText={date => changeDateData(date)} value={valueDate} />
+   <Text style={styles.label}>Expiration date: {dateToDDMMYYYY()}</Text>
 
-            <Text style={styles.label}>Image url</Text>
+            <View style={{width: "75%", marginLeft: "12.5%"}}><Button onPress={toggleShowDate} title="Show date picker!" /></View>
+            {showDate &&
+               <DateTimePicker
+                  testID="dateTimePicker"
+                  value={valueDate}
+                  mode={"date"}
+                  display="default"
+                  onChange={onChangeDate}
+               />}
+
+            <Text style={styles.label}>Image url:</Text>
             <TextInput style={styles.textInput} placeholder="htpp://dummy.com" onChangeText={img => setIMG(img)} value={valueIMG} />
 
             <View style={styles.buttonText}>
