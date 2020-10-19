@@ -5,13 +5,10 @@ import { Text } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Scanner from '.././components/CameraScanner';
-<<<<<<< HEAD
 import Item from '../components/Item'
-import {updateItems} from './StashScreen'
-=======
+import { updateItems } from './StashScreen'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { State } from 'react-native-gesture-handler';
->>>>>>> Dennis
 
 
 const dateRegex = /\d+[\.|\/]\d+[\.|\/]\d+/;
@@ -36,20 +33,23 @@ function ScannerScreen({ navigation }: any) {
       setDate(currentDate);
    };
    const changeDateData = (data: string) => {
-      // data: DD/MM/YYYY
-      let test: string = data.replace(/\./gi,"/")
-      console.log(test)
-      let formattedDate: string[] = test.split("/")
-   
-      var dateObject = new Date(+formattedDate[2], parseInt(formattedDate[1]) - 1, +formattedDate[0]) || valueDate; 
+      // data: DD.MM.YYYY -> DD/MM/YYYY
+      let replacedString: string = data.replace(/\./gi, "/")
+      let formattedDate: string[] = replacedString.split("/")
+
+      var dateObject = new Date(+formattedDate[2], parseInt(formattedDate[1]) - 1, +formattedDate[0]) || valueDate;
       setDate(dateObject);
    }
    const toggleShowDate = () => {
       setShowDate(!showDate);
    }
    const dateToDDMMYYYY = () => {
-      let formated: string[] =  valueDate.toLocaleDateString().split("/")
+      let formated: string[] = valueDate.toLocaleDateString().split("/")
       return formated[1] + "/" + formated[0] + "/" + formated[2]
+   }
+   //Check if nutriscore is A-F
+   const setNutriVerification = (nutri: string) => {
+      ["A","B","C","D","E","F",""].includes(nutri.toUpperCase())?setNutri(nutri):""
    }
 
    let newItem = new Item(54671, "test", "f", ["lol"], "1234@hotmail")
@@ -64,14 +64,14 @@ function ScannerScreen({ navigation }: any) {
             <TextInput style={styles.textInput} placeholder="M&M Peanuts 1KG/1000g" onChangeText={name => setName(name)} value={valueName} />
 
             <Text style={styles.label}>Product Nutriscore:</Text>
-            <TextInput style={styles.textInput} placeholder="A" value={valueNutri} onChangeText={nutri => setNutri(nutri)} />
+            <TextInput style={styles.textInput} placeholder="A" value={valueNutri} onChangeText={nutri => setNutriVerification(nutri)} />
 
             <Text style={styles.label}>Product's Allergene:</Text>
             <TextInput style={styles.textInput} placeholder="Peanuts" onChangeText={allergene => setAllergene(allergene)} value={valueAllergene} />
 
-   <Text style={styles.label}>Expiration date: {dateToDDMMYYYY()}</Text>
+            <Text style={styles.label}>Expiration date: {dateToDDMMYYYY()}</Text>
 
-            <View style={{width: "75%", marginLeft: "12.5%"}}><Button onPress={toggleShowDate} title="Show date picker!" /></View>
+            <View style={{ width: "75%", marginLeft: "12.5%" }}><Button onPress={toggleShowDate} title="Show date picker!" /></View>
             {showDate &&
                <DateTimePicker
                   testID="dateTimePicker"
@@ -80,15 +80,11 @@ function ScannerScreen({ navigation }: any) {
                   display="default"
                   onChange={onChangeDate}
                />}
+            <Text style={styles.label}>Product image:</Text>
+            <TextInput style={styles.textInput} placeholder="http://idk.com" value={valueIMG} onChangeText={img => setIMG(img)} />
 
-<<<<<<< HEAD
-=======
-            <Text style={styles.label}>Image url:</Text>
-            <TextInput style={styles.textInput} placeholder="htpp://dummy.com" onChangeText={img => setIMG(img)} value={valueIMG} />
-
->>>>>>> Dennis
             <View style={styles.buttonText}>
-               <Button title="Add product" onPress={() => {updateItems(newItem)}} />
+               <Button title="Add product" onPress={() => { updateItems(newItem) }} />
             </View>
          </View>
       </View>

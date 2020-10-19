@@ -107,10 +107,6 @@ class Scanner extends React.Component<{ setFormBarcode: ({ props }: Record<strin
                 { // Only show the camera when state.visible == true
                     this.state.visible &&
                     <View style={styles.camera}>
-                        <View style={styles.infoBox}>
-                            <Text>Barcode found: {this.state.barcode == "" ? <Text style={styles.red}>No</Text> : <Text style={styles.green}>Yes</Text>}</Text>
-                            <Text>Expiration date found: {this.state.expirationDate == "" ? <Text style={styles.red}>No</Text> : <Text style={styles.green}>Yes</Text>}</Text>
-                        </View>
                         <RNCamera //This is the camera
                             captureAudio={false}
                             style={{
@@ -125,6 +121,10 @@ class Scanner extends React.Component<{ setFormBarcode: ({ props }: Record<strin
                                 title="Close Camera"
                                 onPress={() => this.toggleState()}
                             />
+                        </View>
+                        <View style={styles.infoBox}>
+                            <Text>Barcode found: {this.state.barcode == "" ? <Text style={styles.red}>No</Text> : <Text style={styles.green}>Yes</Text>}</Text>
+                            <Text>Expiration date found: {this.state.expirationDate == "" ? <Text style={styles.red}>No</Text> : <Text style={styles.green}>Yes</Text>}</Text>
                         </View>
                     </View>
                 }
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 0,
         left: "-12.5%",
-        zIndex: 100,
+        zIndex: 101,
         backgroundColor: "rgba(255, 255, 255,0.75)",
         borderBottomWidth: 1,
         borderBottomColor: "black",
