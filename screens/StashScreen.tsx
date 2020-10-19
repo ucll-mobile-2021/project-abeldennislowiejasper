@@ -26,11 +26,11 @@ class Stash extends Component {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>Stash Screen</Text>
-        <FlatList key={items.length} data={items} extraData={this.state} keyExtractor={item => item.barcode + ""} renderItem={({ item }) => <Text style={[{ fontSize: 25 }]}>{item.name}</Text>} />
+        <FlatList key={items.length} data={items} extraData={this.state} keyExtractor={item => item.barcode + ""} renderItem={({ item }) => <Text style={[{ fontSize: 25 }]}  onPress={()=>this.props.navigation.navigate('ItemScreen', item)}>{item.name}</Text>} />
         {/* { items.map((item, key)=>(
          <Text key={key} style={({fontSize:25})} onPress={()=>navigation.navigate('ItemScreen', item)}> { item.name } </Text>)
          )} */}
-      </View>
+      </View> 
     );
   }
 
