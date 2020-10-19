@@ -6,8 +6,8 @@ import Item from "../components/Item";
 import ItemScreen from "../screens/ItemScreen";
 import { State } from 'react-native-gesture-handler';
 
-let soep = new Item(1234, "Soep", "a", "lalala");
-let kaka = new Item(4321, "kaka", "d", "ladieda");
+let soep = new Item(1234, "Soep", "a", ["lalala"], "idk.com");
+let kaka = new Item(4321, "kaka", "d", ["lalala"], "idk.com");
 
 let items = [soep, kaka];
 
