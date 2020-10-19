@@ -10,6 +10,8 @@ target 'koelkastapp' do
 
   pod 'react-native-camera', :path => '../node_modules/react-native-camera'
 
+  pod 'RNDateTimePicker', :path => '../node_modules/@react-native-community/datetimepicker'
+
   target 'koelkastappTests' do
     inherit! :complete
     # Pods for testing
