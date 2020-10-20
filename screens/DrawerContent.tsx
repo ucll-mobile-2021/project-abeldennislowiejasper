@@ -18,11 +18,12 @@ export function DrawerContent(props){
             <DrawerContentScrollView {... props}>
             <View style={styles.drawerContent}>
             <View style={{flexDirection:'row',marginTop: 15, marginLeft: 10}}>
-            <Avatar.Image 
+            <Avatar.Image
                                 source={{
-                                    uri: 'https://cdn.discordapp.com/attachments/615560557289799687/766235598163148830/0.png'
+                                    uri: 'https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png'
                                 }}
                                 size={50}
+                                color='#759E9A'
                             />
                  <View style={{marginLeft: 5, flexDirection:'column'}}>
                                 <Title style={styles.title}>Dennis</Title>                                
@@ -32,10 +33,11 @@ export function DrawerContent(props){
                 <DrawerItem
                     icon={({color, size}) => (
                         <Icon name ="person-circle-outline"
-                        color='red'
+                        color='#759E9A'
                         size={size}/>                            
                     )}
                     label="My profile"
+                    labelStyle={styles.caption}
                     onPress={() => {}}
                 />
 
@@ -44,10 +46,11 @@ export function DrawerContent(props){
                 <DrawerItem
                     icon={({color, size}) => (
                         <Icon name ="document-text-outline"
-                        color='red'
+                        color='#759E9A'
                         size={size}/>                            
                     )}
                     label="Shopping List"
+                    labelStyle={styles.caption}
                     onPress={() => {}}
                 />
 
@@ -56,10 +59,11 @@ export function DrawerContent(props){
                 <DrawerItem
                     icon={({color, size}) => (
                         <Icon name ="stats-chart-outline"
-                        color='red'
+                        color='#759E9A'
                         size={size}/>                            
                     )}
                     label="Statistics"
+                    labelStyle={styles.caption}
                     onPress={() => {}}
                 />
 
@@ -68,10 +72,11 @@ export function DrawerContent(props){
                 <DrawerItem
                     icon={({color, size}) => (
                         <Icon name ="settings-outline"
-                        color='red'
+                        color='#759E9A'
                         size={size}/>                            
                     )}
                     label="Settings"
+                    labelStyle={styles.caption}
                     onPress={() => {}}
                 />
 
@@ -84,11 +89,12 @@ export function DrawerContent(props){
                     icon={({color, size}) => (
                         <Icon 
                         name="help-circle-outline" 
-                        color='red'
+                        color='#759E9A'
                         size={size}
                         />
                     )}
                     label="Help"
+                    labelStyle={styles.caption}
                     onPress={() => {}}
                 />
             </Drawer.Section>
@@ -99,11 +105,11 @@ export function DrawerContent(props){
 const styles = StyleSheet.create({
     drawerTab: {
       flex: 1,
-      backgroundColor: '#32bcdf',
+      backgroundColor: '#9ED2CE',
     },
     drawerContent: {
       flex: 1,
-      backgroundColor: '#32bcdf',
+      backgroundColor: '#9ED2CE',
     },
     userInfoSection: {
       paddingLeft: 20,
@@ -113,11 +119,12 @@ const styles = StyleSheet.create({
       marginTop: 5,
       marginLeft: 10,
       fontWeight: 'bold',
-      color: 'red',
+      color: '#3D5250',
     },
     caption: {
       fontSize: 14,
       lineHeight: 14,
+      color: '#3D5250'
     },
     row: {
       marginTop: 20,

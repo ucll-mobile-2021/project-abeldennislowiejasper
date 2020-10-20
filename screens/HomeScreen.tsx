@@ -4,6 +4,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Notifications } from 'react-native-notifications';
 
+
+
 function test() {
   Notifications.registerRemoteNotifications();
 
@@ -18,19 +20,22 @@ function test() {
 
 function Home({ navigation }) {
   return (
-
+    
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
+      
       <Button
         title="Go to Stash"
-        onPress={() => navigation.navigate('Stash')}
+        onPress={() => navigation.navigate('STASH')}
+        color='#8AB8B4'
       />
 
       <Button
         title="send notification"
         onPress={() => test()}
+        color='#8AB8B4'
       />
     </View>
+  
   );
 }
 

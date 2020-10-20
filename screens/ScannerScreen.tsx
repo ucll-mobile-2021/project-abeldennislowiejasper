@@ -56,7 +56,6 @@ function ScannerScreen({ navigation }: any) {
 
    return (
       <View style={styles.ScannerScreenContainer}>
-         <Text h1 style={styles.title}>Add product</Text>
          <Scanner setFormBarcode={changeBarcodeData} setFormExpirationDate={changeDateData} dateRegex={dateRegex} />
          < View style={styles.form}>
 
@@ -71,7 +70,7 @@ function ScannerScreen({ navigation }: any) {
 
             <Text style={styles.label}>Expiration date: {dateToDDMMYYYY()}</Text>
 
-            <View style={{ width: "75%", marginLeft: "12.5%" }}><Button onPress={toggleShowDate} title="Show date picker!" /></View>
+            <View style={{ width: "75%", marginLeft: "12.5%" }}><Button color='#8AB8B4' onPress={toggleShowDate} title="Show date picker!" /></View>
             {showDate &&
                <DateTimePicker
                   testID="dateTimePicker"
@@ -84,7 +83,7 @@ function ScannerScreen({ navigation }: any) {
             <TextInput style={styles.textInput} placeholder="http://idk.com" value={valueIMG} onChangeText={img => setIMG(img)} />
 
             <View style={styles.buttonText}>
-               <Button title="Add product" onPress={() => { updateItems(newItem) }} />
+               <Button title="Add product" color='#8AB8B4' onPress={() => { updateItems(newItem) }} />
             </View>
          </View>
       </View>

@@ -9,6 +9,8 @@ import StashScreen from './screens/StashScreen';
 import ScannerScreen from './screens/ScannerScreen';
 import HomeScreen from './screens/HomeScreen';
 import ItemScreen from './screens/ItemScreen';
+import HomeStackScreen from './screens/HomeStackScreen';
+import ScannerStackScreen from './screens/ScannerStackScreen';
 import { getItemsLength } from './screens/StashScreen';
 import { DrawerContent } from './screens/DrawerContent';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -16,7 +18,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 const Drawer = createDrawerNavigator();
 
 
-//const Stack = createStackNavigator();
+const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 let uniqueValue = 1
@@ -28,15 +30,15 @@ export function forceUpdate(){
 
 function DrawerHomeNavigator() {
   return (
-  <Drawer.Navigator hideStatusBar={true} drawerContent={props => <DrawerContent {... props}/> }>
-    <Drawer.Screen name="HOME" component={HomeScreen} />
+  <Drawer.Navigator hideStatusBar={false} drawerContent={props => <DrawerContent {... props}/> }>
+    <Drawer.Screen name="HOME" component={HomeStackScreen} />
   </Drawer.Navigator>
   );
 }
 
 function DrawerStashNavigator(){
   return (
-    <Drawer.Navigator hideStatusBar={true} drawerContent={props => <DrawerContent {... props}/> }>
+    <Drawer.Navigator hideStatusBar={false} drawerContent={props => <DrawerContent {... props}/> }>
       <Drawer.Screen name="STASH" component={StashStackScreen} />
     </Drawer.Navigator>
     );
@@ -44,23 +46,19 @@ function DrawerStashNavigator(){
 
 function DrawerScannerNavigator(){
   return (
-    <Drawer.Navigator hideStatusBar={true} drawerContent={props => <DrawerContent {... props}/> }>
-      <Drawer.Screen name="SCAN" component={ScannerScreen} />
+    <Drawer.Navigator hideStatusBar={false} drawerContent={props => <DrawerContent {... props}/> }>
+      <Drawer.Screen name="SCAN" component={ScannerStackScreen} />
     </Drawer.Navigator>
     );
 }
+
+
+
 
 function App() {
 
   return (
     <NavigationContainer key={uniqueValue}>
-      {/* <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Stash" component={StashScreen} />
-        <Stack.Screen name="Scanner" component={ScannerScreen} />
-        <Stack.Screen name="ItemScreen" component={ItemScreen} />
-      </Stack.Navigator> */}
-    
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
@@ -74,22 +72,25 @@ function App() {
             else if (route.name === 'SCAN') {
               iconName = focused ? 'barcode' : 'barcode';
             }
+            
 
             // You can return any component that you like here!
             return <Ionicons name={iconName} size={size} color={color} />;
           },
         })}
         tabBarOptions={{
-          activeBackgroundColor: '#009ac1',
-          activeTintColor: 'red',
-          inactiveTintColor: 'red',
+          activeBackgroundColor: '#8AB8B4',
+          activeTintColor: '#2F403E',
+          inactiveTintColor: '#5C7D7A',
           keyboardHidesTabBar: true,
-          inactiveBackgroundColor: '#32bcdf'
+          inactiveBackgroundColor: '#9ED2CE'
         }}
       >
+        
         <Tab.Screen name="HOME" component={DrawerHomeNavigator} />
         <Tab.Screen name="STASH" component={DrawerStashNavigator} options={{ tabBarBadge: getItemsLength() }} />
         <Tab.Screen name="SCAN" component={DrawerScannerNavigator} />
+        
       </Tab.Navigator>
 
     </NavigationContainer>

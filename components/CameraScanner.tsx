@@ -101,6 +101,7 @@ class Scanner extends React.Component<{ setFormBarcode: ({ props }: Record<strin
                 { // Only show this button if state.visible == false
                     !this.state.visible && <Button
                         title="Enter info by camera"
+                        color='#8AB8B4'
                         onPress={() => this.toggleState()}
                     />
                 }
