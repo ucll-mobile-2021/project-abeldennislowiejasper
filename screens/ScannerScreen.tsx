@@ -52,7 +52,6 @@ function ScannerScreen({ navigation }: any) {
       ["A","B","C","D","E","F",""].includes(nutri.toUpperCase())?setNutri(nutri):""
    }
 
-   let newItem = new Item(54671, "test", "f", ["lol"], "1234@hotmail")
 
    return (
       <View style={styles.ScannerScreenContainer}>
@@ -84,7 +83,7 @@ function ScannerScreen({ navigation }: any) {
             <TextInput style={styles.textInput} placeholder="http://idk.com" value={valueIMG} onChangeText={img => setIMG(img)} />
 
             <View style={styles.buttonText}>
-               <Button title="Add product" onPress={() => { updateItems(newItem) }} />
+               <Button title="Add product" onPress={() => { updateItems(new Item(0, valueName, valueNutri, valueAllergene.split(", "), valueIMG)) }} />
             </View>
          </View>
       </View>
