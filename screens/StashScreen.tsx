@@ -17,9 +17,9 @@ let db = new Database();
 
 let refresh = false;
 
-class Stash extends Component {
+let lijst = db.getAllProducts();
 
-  lijst = db.results;
+class Stash extends Component {
 
   constructor(props) {
     super(props);
@@ -31,17 +31,19 @@ class Stash extends Component {
 
   onRefresh(){
     refresh = true;
-    this.lijst = db.getAllProducts()
+    lijst = db.getAllProducts()
     refresh = false;
   }
 
   render() {
     setTimeout(() => {
-      console.log("4")
+      this.setState({ nr: db.length })
+      lijst = db.getAllProducts();
+      console.log(lijst);
     }, 1000)
     return (
       <View style={styles.view}>
-        <FlatList style={styles.flatlist} refreshing={this.state.refreshing} onRefresh={this.onRefresh} data={this.lijst} extraData={this.state} keyExtractor={item => item.barcode + ""} renderItem={({ item }) => <Text style={[{ fontSize: 25 }]}  onPress={()=>this.props.navigation.navigate('ItemScreen', item)}>{item.name}</Text>} />
+        <FlatList style={styles.flatlist} /*refreshing={this.state.refreshing} onRefresh={this.onRefresh}*/ data={lijst} extraData={this.state} keyExtractor={item => item.barcode + ""} renderItem={({ item }) => <Text style={[{ fontSize: 25 }]}  onPress={()=>this.props.navigation.navigate('ItemScreen', item)}>{item.name}</Text>} />
         {/* { items.map((item, key)=>(
          <Text key={key} style={({fontSize:25})} onPress={()=>navigation.navigate('ItemScreen', item)}> { item.name } </Text>)
          )} */}

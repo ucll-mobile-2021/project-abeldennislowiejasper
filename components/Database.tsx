@@ -51,6 +51,7 @@ class Database {
         results.push(new Item(item.toJSON().barcode, item.toJSON().name, item.toJSON().nutriscore, item.toJSON().allergene, item.toJSON().IMGurl));
       } 
       console.log(results)
+      console.log("length =" + this.length)
       realm.close()
     })
     this.results = results;
@@ -69,13 +70,11 @@ class Database {
           IMGurl: item.IMGurl
         })
        })
-       
 
        const lijst = realm.objects('Product')
-       console.log(lijst)
        this.length = lijst.length;
-       console.log(this.length)
-
+       console.log(lijst)
+       console.log("length =" + this.length)
        realm.close()
      })
    }
