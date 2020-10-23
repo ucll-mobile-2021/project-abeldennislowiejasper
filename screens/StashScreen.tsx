@@ -39,7 +39,6 @@ class Stash extends Component {
     setTimeout(() => {
       this.setState({ nr: db.length })
       lijst = db.getAllProducts();
-      console.log(lijst);
     }, 1000)
     return (
       <View style={styles.view}>
