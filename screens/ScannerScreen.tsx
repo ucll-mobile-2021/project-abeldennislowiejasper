@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { View, Button, StyleSheet, TextInput } from 'react-native';
+import { ScrollView, View, Button, StyleSheet, TextInput } from 'react-native';
 import { Text } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -52,10 +52,15 @@ function ScannerScreen({ navigation }: any) {
       ["A","B","C","D","E","F",""].includes(nutri.toUpperCase())?setNutri(nutri):""
    }
 
+   //Split the Allergenen op , of spatie en zet in lijst
+   const splitAllergenen = (allergenen: string) => {
+      return allergenen.split(/[\s,]+/)
+   }
+
    let newItem = new Item(54671, "test", "f", ["lol"], "1234@hotmail")
 
    return (
-      <View style={styles.ScannerScreenContainer}>
+      <ScrollView style={styles.ScannerScreenContainer}>
          <Scanner setFormBarcode={changeBarcodeData} setFormExpirationDate={changeDateData} dateRegex={dateRegex} />
          < View style={styles.form}>
 
@@ -83,10 +88,10 @@ function ScannerScreen({ navigation }: any) {
             <TextInput style={styles.textInput} placeholder="http://idk.com" value={valueIMG} onChangeText={img => setIMG(img)} />
 
             <View style={styles.buttonText}>
-               <Button title="Add product" color='#8AB8B4' onPress={() => { updateItems(newItem) }} />
+               <Button title="Add product" color='#8AB8B4' onPress={() => updateItems(new Item(Math.floor(Math.random() *1000), valueName, valueNutri, splitAllergenen(valueAllergene), valueIMG))} />
             </View>
          </View>
-      </View>
+      </ScrollView>
    );
 }
 const styles = StyleSheet.create({

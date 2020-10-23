@@ -6,27 +6,44 @@ import Item from "../components/Item";
 import ItemScreen from "../screens/ItemScreen";
 import { State } from 'react-native-gesture-handler';
 import { white } from 'react-native-paper/lib/typescript/src/styles/colors';
+import Database from '../components/Database'
 
 let soep = new Item(1234, "Soep", "a", ["lalala"], "idk.com");
 let kaka = new Item(4321, "kaka", "d", ["lalala"], "idk.com");
 
-let items = [soep, kaka];
+
+
+let db = new Database;
 
 class Stash extends Component {
+
+  lijst = db.results;
+
   constructor(props) {
     super(props);
     this.state = {
-      nr: items.length
+      nr: db.length,
+      refreshing: false
+    }
+  }
+
+  onRefresh(){
+    this.state = {
+      refreshing: true
+    }
+    this.lijst = db.getAllProducts()
+    this.state = {
+      refreshing: false
     }
   }
 
   render() {
     setTimeout(() => {
-      this.setState({ nr: items.length })
+      this.setState({ nr: db.length })
     }, 1000)
     return (
       <View style={styles.view}>
-        <FlatList style={styles.flatlist} key={items.length} data={items} extraData={this.state} keyExtractor={item => item.barcode + ""} renderItem={({ item }) => <Text style={[{ fontSize: 25 }]}  onPress={()=>this.props.navigation.navigate('ItemScreen', item)}>{item.name}</Text>} />
+        <FlatList style={styles.flatlist} /*refreshing={this.state.refreshing} onRefresh={this.onRefresh}*/ data={this.lijst} extraData={this.state} keyExtractor={item => item.barcode + ""} renderItem={({ item }) => <Text style={[{ fontSize: 25 }]}  onPress={()=>this.props.navigation.navigate('ItemScreen', item)}>{item.name}</Text>} />
         {/* { items.map((item, key)=>(
          <Text key={key} style={({fontSize:25})} onPress={()=>navigation.navigate('ItemScreen', item)}> { item.name } </Text>)
          )} */}
@@ -36,12 +53,35 @@ class Stash extends Component {
 
 }
 
-export function getItemsLength() {
-  return items.length;
-}
+
+
+
+// function Stash({navigation}) {
+
+//     let lijst = db.getAllProducts();
+//     let nr = db.getItemsCount();
+    
+//     setTimeout(() => {
+//       lijst = db.getAllProducts();
+//       console.log("RELOAD")
+//     }, 1000)
+
+//     console.log(lijst)
+//     return (
+//       <View style={styles.view}>
+//         <FlatList style={styles.flatlist} onRefresh={db.getAllProducts} key={lijst.length} data={lijst} extraData={db.length} keyExtractor={item => item.barcode + ""} renderItem={({ item }) => <Text style={[{ fontSize: 25 }]}  onPress={()=>navigation.navigate('ItemScreen', item)}>{item.name}</Text>} />
+//         {/* { items.map((item, key)=>(
+//          <Text key={key} style={({fontSize:25})} onPress={()=>navigation.navigate('ItemScreen', item)}> { item.name } </Text>)
+//          )} */}
+//       </View> 
+//     );
+  
+
+// }
+
 
 export function updateItems(item: Item) {
-  items.push(item);
+  db.addProduct(item);
 }
 
 export default Stash;

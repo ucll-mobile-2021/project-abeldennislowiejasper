@@ -12,6 +12,12 @@ target 'koelkastapp' do
 
   pod 'RNDateTimePicker', :path => '../node_modules/@react-native-community/datetimepicker'
 
+  pod 'react-native-sqlite-storage', :path => '../node_modules/react-native-sqlite-storage'
+
+  pod 'RNSqlite2', :path => '../node_modules/react-native-sqlite-2'
+
+  pod 'RealmJS', :path => '../node_modules/realm'
+
   target 'koelkastappTests' do
     inherit! :complete
     # Pods for testing

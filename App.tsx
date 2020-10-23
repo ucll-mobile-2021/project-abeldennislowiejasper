@@ -11,9 +11,10 @@ import HomeScreen from './screens/HomeScreen';
 import ItemScreen from './screens/ItemScreen';
 import HomeStackScreen from './screens/HomeStackScreen';
 import ScannerStackScreen from './screens/ScannerStackScreen';
-import { getItemsLength } from './screens/StashScreen';
+//import { getItemsLength } from './screens/StashScreen';
 import { DrawerContent } from './screens/DrawerContent';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import Database from './components/Database'
 
 const Drawer = createDrawerNavigator();
 
@@ -57,6 +58,7 @@ function DrawerScannerNavigator(){
 
 function App() {
 
+  const db = new Database();
   return (
     <NavigationContainer key={uniqueValue}>
       <Tab.Navigator
@@ -88,7 +90,7 @@ function App() {
       >
         
         <Tab.Screen name="HOME" component={DrawerHomeNavigator} />
-        <Tab.Screen name="STASH" component={DrawerStashNavigator} options={{ tabBarBadge: getItemsLength() }} />
+        <Tab.Screen name="STASH" component={DrawerStashNavigator} options={{ tabBarBadge: db.getItemsCount() }} />
         <Tab.Screen name="SCAN" component={DrawerScannerNavigator} />
         
       </Tab.Navigator>
