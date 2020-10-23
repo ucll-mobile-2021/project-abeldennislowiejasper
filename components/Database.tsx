@@ -54,7 +54,7 @@ class Database {
       realm.close()
     })
     this.results = results;
-    
+
     return results;
    }
 
@@ -73,6 +73,8 @@ class Database {
 
        const lijst = realm.objects('Product')
        console.log(lijst)
+       this.length = lijst.length;
+       console.log(this.length)
 
        realm.close()
      })
