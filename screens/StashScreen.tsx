@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, Button, FlatList, StyleSheet } from 'react-native';
+import { View, Text, Button, FlatList, StyleSheet, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Item from "../components/Item";
 import ItemScreen from "../screens/ItemScreen";
-import { State } from 'react-native-gesture-handler';
+import { State, TouchableOpacity } from 'react-native-gesture-handler';
 import { white } from 'react-native-paper/lib/typescript/src/styles/colors';
 import Database from '../components/Database'
-
-let soep = new Item(1234, "Soep", "a", ["lalala"], "idk.com");
-let kaka = new Item(4321, "kaka", "d", ["lalala"], "idk.com");
-
 
 
 let db = new Database();
@@ -29,7 +25,7 @@ class Stash extends Component {
     }
   }
 
-  onRefresh(){
+  onRefresh() {
     refresh = true;
     lijst = db.getAllProducts()
     refresh = false;
@@ -41,43 +37,24 @@ class Stash extends Component {
       lijst = db.getAllProducts();
     }, 1000)
     return (
-      <View style={styles.view}>
-        <FlatList style={styles.flatlist} /*refreshing={this.state.refreshing} onRefresh={this.onRefresh}*/ data={lijst} extraData={this.state} keyExtractor={item => item.barcode + ""} renderItem={({ item }) => <Text style={[{ fontSize: 25 }]}  onPress={()=>this.props.navigation.navigate('ItemScreen', item)}>{item.name}</Text>} />
-        {/* { items.map((item, key)=>(
-         <Text key={key} style={({fontSize:25})} onPress={()=>navigation.navigate('ItemScreen', item)}> { item.name } </Text>)
-         )} */}
-      </View> 
+      <View style={styles.container}>
+        <FlatList style={styles.flatlist} data={lijst} extraData={this.state}
+          keyExtractor={item => item.barcode + ""}
+          renderItem={
+            ({ item }) =>
+              <TouchableOpacity style={styles.item}  onPress={() => this.props.navigation.navigate('ItemScreen', item)}>
+                <Text style={styles.itemText}>{item.name}</Text>
+                
+                <Image style={styles.image} source={item.IMGurl ? { uri: item.IMGurl } : { uri:"https://pdsohio.com/wp-content/uploads/2017/04/default-image.jpg"}}  />
+              </TouchableOpacity>
+          }
+        />
+
+      </View>
     );
   }
 
 }
-
-
-
-
-// function Stash({navigation}) {
-
-//     let lijst = db.getAllProducts();
-//     let nr = db.getItemsCount();
-    
-//     setTimeout(() => {
-//       lijst = db.getAllProducts();
-//       console.log("RELOAD")
-//     }, 1000)
-
-//     console.log(lijst)
-//     return (
-//       <View style={styles.view}>
-//         <FlatList style={styles.flatlist} onRefresh={db.getAllProducts} key={lijst.length} data={lijst} extraData={db.length} keyExtractor={item => item.barcode + ""} renderItem={({ item }) => <Text style={[{ fontSize: 25 }]}  onPress={()=>navigation.navigate('ItemScreen', item)}>{item.name}</Text>} />
-//         {/* { items.map((item, key)=>(
-//          <Text key={key} style={({fontSize:25})} onPress={()=>navigation.navigate('ItemScreen', item)}> { item.name } </Text>)
-//          )} */}
-//       </View> 
-//     );
-  
-
-// }
-
 
 export function updateItems(item: Item) {
   db.addProduct(item);
@@ -86,12 +63,39 @@ export function updateItems(item: Item) {
 export default Stash;
 
 const styles = StyleSheet.create({
-  view: {
-    alignItems: 'flex-start', 
-    justifyContent: 'center',
-    flex: 1,
+  container: {
+    
   },
   flatlist: {
+    
+    },
+  item: {
     padding: 15,
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: "10%",
+    width: "80%",
+    borderWidth: 2,
+    borderColor: "#759E9A",
+    backgroundColor: "#9ED2CE",
+    borderRadius: 15,
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 5,
+    shadowOpacity: 1.0,
+    elevation: 15,
+    flex: 1,
+    justifyContent: 'space-between',
+    flexDirection:'row',
+    alignItems:'center'
   },
+  itemText: {
+    fontSize: 25
+  },
+  image: {
+    height:50,
+    width:50}
 });
