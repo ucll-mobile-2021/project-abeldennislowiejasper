@@ -84,7 +84,7 @@ function App() {
           inactiveTintColor: '#5C7D7A',
           keyboardHidesTabBar: true,
           inactiveBackgroundColor: '#9ED2CE'
-        }}
+        }}  
       >
         
         <Tab.Screen name="HOME" component={DrawerHomeNavigator} />
