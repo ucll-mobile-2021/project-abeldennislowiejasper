@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { View, Button, StyleSheet, TextInput } from 'react-native';
+import { ScrollView, View, Button, StyleSheet, TextInput } from 'react-native';
 import { Text } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -9,12 +9,14 @@ import Item from '../components/Item'
 import { updateItems } from './StashScreen'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { State } from 'react-native-gesture-handler';
+import { parse } from '@babel/core';
 
 
 const dateRegex = /\d+[\.|\/]\d+[\.|\/]\d+/;
 function ScannerScreen({ navigation }: any) {
    //All values for an item
    const [valueName, setName] = useState("");
+   const [valuePrice, setPrice] = useState("");
    const [valueNutri, setNutri] = useState("");
    const [valueIMG, setIMG] = useState("");
    const [valueAllergene, setAllergene] = useState("");
@@ -52,24 +54,38 @@ function ScannerScreen({ navigation }: any) {
       ["A","B","C","D","E","F",""].includes(nutri.toUpperCase())?setNutri(nutri):""
    }
 
-   let newItem = new Item(54671, "test", "f", ["lol"], "1234@hotmail")
+   //Split the Allergenen op , of spatie en zet in lijst
+   const splitAllergenen = (allergenen: string) => {
+      return allergenen.split(/[\s,]+/)
+   }
+   const submit = () => {
+      updateItems(new Item(Math.floor(Math.random() *1000), valueName, valueNutri, splitAllergenen(valueAllergene), valueIMG, parseFloat(valuePrice)));
+      setName("");
+      setPrice("");
+      setNutri("");
+      setIMG("");
+      setAllergene("");
+      setDate(new Date(Date.now()));
+   }
 
    return (
-      <View style={styles.ScannerScreenContainer}>
+      <ScrollView style={styles.ScannerScreenContainer}>
          <Scanner setFormBarcode={changeBarcodeData} setFormExpirationDate={changeDateData} dateRegex={dateRegex} />
          < View style={styles.form}>
 
             <Text style={styles.label}>Product Name:</Text>
             <TextInput style={styles.textInput} placeholder="M&M Peanuts 1KG/1000g" onChangeText={name => setName(name)} value={valueName} />
 
+            <Text style={styles.label}>Product price:</Text>
+            <TextInput keyboardType ={"numeric"} style={styles.textInput} placeholder="12,50" value={valuePrice.toString()} onChangeText={price => setPrice(price)} />
+
             <Text style={styles.label}>Product Nutriscore:</Text>
             <TextInput style={styles.textInput} placeholder="A" value={valueNutri} onChangeText={nutri => setNutriVerification(nutri)} />
-
+            
             <Text style={styles.label}>Product's Allergene:</Text>
             <TextInput style={styles.textInput} placeholder="Peanuts" onChangeText={allergene => setAllergene(allergene)} value={valueAllergene} />
 
             <Text style={styles.label}>Expiration date: {dateToDDMMYYYY()}</Text>
-
             <View style={{ width: "75%", marginLeft: "12.5%" }}><Button color='#8AB8B4' onPress={toggleShowDate} title="Show date picker!" /></View>
             {showDate &&
                <DateTimePicker
@@ -83,10 +99,10 @@ function ScannerScreen({ navigation }: any) {
             <TextInput style={styles.textInput} placeholder="http://idk.com" value={valueIMG} onChangeText={img => setIMG(img)} />
 
             <View style={styles.buttonText}>
-               <Button title="Add product" color='#8AB8B4' onPress={() => { updateItems(newItem) }} />
+               <Button title="Add product" color='#8AB8B4' onPress={() => submit()} />
             </View>
          </View>
-      </View>
+      </ScrollView>
    );
 }
 const styles = StyleSheet.create({
