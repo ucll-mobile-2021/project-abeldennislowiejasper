@@ -60,6 +60,10 @@ export function updateItems(item: Item) {
   db.addProduct(item);
 }
 
+export function removeItem(barcode: string){
+  db.removeProduct(barcode);
+}
+
 export default Stash;
 
 const styles = StyleSheet.create({

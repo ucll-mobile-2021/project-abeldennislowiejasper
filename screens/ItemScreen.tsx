@@ -2,6 +2,7 @@ import * as React from 'react';
 import { View, Text, Button, StyleSheet, TextBase } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import {removeItem} from './StashScreen'
 
 import Item from "../components/Item"
 
@@ -18,7 +19,13 @@ function ItemScreen({route, navigation}) {
         <Text>Nutri Score: {nutriscore}</Text>
         <Text>Barcode: {barcode}</Text>
         <Text>IMG URL: {IMGurl}</Text>
-    
+        <Button
+        title="Delete product"
+        onPress={
+          () => { removeItem(barcode); navigation.navigate('STASH');}
+        }
+        color='#8AB8B4'
+      />
       </View>
     );
   }
