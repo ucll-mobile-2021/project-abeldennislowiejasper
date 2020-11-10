@@ -42,7 +42,6 @@ class Database {
   lijstBijnaVervallen: Item[] = [];
 
   constructor() {
-    console.log("OPEN")
     if (realm == null) {
       realm = new Realm({ schema: [ProductSchema, RemovedSchema], schemaVersion: 6 })
     }
@@ -90,7 +89,6 @@ class Database {
     const lijst = realm.objects('Product')
     this.length = lijst.length;
 
-    console.log(this.lijstBijnaVervallen)
   }
 
   public removeProduct(barcode: string) {
@@ -135,20 +133,15 @@ class Database {
     let currentdate = new Date();
     let weeklaterdate = new Date();
     weeklaterdate.setDate(weeklaterdate.getDate() + 7)
-    console.log(currentdate)
-    console.log(weeklaterdate)
 
 
     const lijst = realm.objects('Product').filtered("expiration_date >= $0 and expiration_date <= $1", currentdate, weeklaterdate)
     this.length = lijst.length;
     for (let i = 0; i < lijst.length; ++i) {
       var item = lijst[i]
-      console.log("ITEM")
-      console.log(item);
       results.push(new Item(item.toJSON().barcode, item.toJSON().name, item.toJSON().nutriscore, item.toJSON().allergene, item.toJSON().IMGurl, item.toJSON().price, item.toJSON().expiration_date));
     }
     this.lijstRemoved = results;
-    console.log(this.lijstBijnaVervallen);
     return results;
 
   }
