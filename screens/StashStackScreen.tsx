@@ -31,7 +31,8 @@ function StashStackScreen() {
           },
           headerTintColor: '#fff',
           headerTitleStyle: {
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            color: '#3D5250'
           },  })}/>
       </StashStack.Navigator>
      );

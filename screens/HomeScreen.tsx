@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity, Dimensions} from 'react-native';
+import { View, Text, Button, Image, StyleSheet, FlatList, TouchableOpacity, Dimensions} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Notifications } from 'react-native-notifications';
@@ -7,19 +7,28 @@ import {
   PieChart
 } from "react-native-chart-kit";
 import Item from '../components/Item';
+import Database from '../components/Database';
+
+import { getAll } from './StashScreen';
+
+const db = new Database();
 
 
-let soep = new Item(1234, "Soep", "a", ["bla","bli"], "bla", 11.23);
-let kaka = new Item(4321, "kaka", "d", ["bla","bli"], "bla", 12.45);
-
-let items = [soep, kaka];
 
 function getTotalPrice(){
   let total = 0;
-  items.forEach(element => {
+  db.getLijstVervallen().forEach(element => {
     total += element.price;
 });
-return total;
+
+/* function getTotalWeight(){
+  let total = 0;
+  db.getLijstVervallen().forEach(element => {
+    total += element.weight;
+}); */
+
+
+return Math.round((total * 100)) / 100;
 }
 
 
@@ -40,22 +49,22 @@ function test() {
 
 const data = [
   {
-    name: "% Fresh",
-    amount: 50,
+    name: "Fresh",
+    amount: db.getLijstVers().length,
     color: "#93C4C0",
     legendFontColor: "#7F7F7F",
     legendFontSize: 15
   },
   {
-    name: "% Spoils soon",
-    amount: 30,
+    name: "Spoils soon",
+    amount: db.getLijstBijnaVervallen().length,
     color: '#779E9B',
     legendFontColor: "#7F7F7F",
     legendFontSize: 15
   },
   {
-    name: "% Spoiled",
-    amount: 20,
+    name: "Spoiled",
+    amount: db.getLijstVervallen().length,
     color: "#2A3837",
     legendFontColor: "#7F7F7F",
     legendFontSize: 15
@@ -101,12 +110,29 @@ function Home({ navigation }) {
           <Text style={styles.blu}>wasted this month</Text>
           </View>
         <View style={styles.stattext}>
-        <Text style={styles.bli}>{items.length} kg</Text>
+        <Text style={styles.bli}>{/* getTotalWeight() */} kg</Text>
           <Text style={styles.blu}>wasted this month</Text>
         </View>
       </View>
+      <Text style={styles.headerBox}>Spoils soon:</Text>
       <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('STASH')}>
-        <Text>Item lijst</Text>
+      
+      <FlatList  data={db.getLijstBijnaVervallen()}
+          keyExtractor={item => item.barcode + ""}
+          renderItem={
+            ({ item }) =>
+            <TouchableOpacity style={styles.item}  onPress={() => navigation.navigate('ItemScreen', item)}>
+                <View style={styles.imageView}>
+                <Image   resizeMode="cover" style={styles.image} source={item.IMGurl ? { uri: item.IMGurl } : { uri:"https://pdsohio.com/wp-content/uploads/2017/04/default-image.jpg"}}  />
+                </View>
+                <Text style={styles.itemText}>{item.name}</Text>
+                <Text style={styles.arrow}>{'→'}</Text>
+
+              </TouchableOpacity>
+
+              
+          }
+        />
       </TouchableOpacity>
     </View>
 
@@ -129,6 +155,41 @@ const styles = StyleSheet.create({
     alignItems: 'center'
     
   },
+  headerBox: {
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    fontSize: 20
+  },
+  item: {
+    marginTop: 15,
+    //paddingTop: 25,
+    backgroundColor: "#80ABA7", //#9ED2CE
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    width: "99%",
+    borderRadius: 12,
+    marginLeft: "0%"
+  },
+  itemText: {
+    fontSize: 25,
+    width: "60%",
+    alignSelf: "center",
+    paddingLeft: 15,
+  },
+  imageView: {
+    width: "25%",
+    height: "100%",
+    //backgroundColor: "red"
+  },
+  image: {
+    width: 45,
+    height: 45,
+    alignSelf: "center"
+  },
+  arrow: {
+    width: "15%",
+    fontSize: 20,
+  },
   bla:{
     flexDirection: 'row'
   },
@@ -145,7 +206,7 @@ const styles = StyleSheet.create({
     width: "90%",
     borderWidth: 2,
     borderColor: "#759E9A",
-    backgroundColor: "#9ED2CE",
+    backgroundColor: "#9ED2CE", //#779E9B
     borderRadius: 15,
     shadowColor: '#000000',
     shadowOffset: {

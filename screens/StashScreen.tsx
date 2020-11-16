@@ -3,6 +3,7 @@ import { View, Text, Button, FlatList, StyleSheet, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Item from "../components/Item";
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import ItemScreen from "../screens/ItemScreen";
 import { State, TouchableOpacity } from 'react-native-gesture-handler';
 import { white } from 'react-native-paper/lib/typescript/src/styles/colors';
@@ -15,8 +16,14 @@ let refresh = false;
 
 let lijst = db.getAllProducts();
 
+
+
 export function getAll(){
   return lijst;
+}
+
+export function getDB(){
+  return db;
 }
 
 class Stash extends Component {
@@ -50,8 +57,11 @@ class Stash extends Component {
                 <View style={styles.imageView}>
                 <Image   resizeMode="cover" style={styles.image} source={item.IMGurl ? { uri: item.IMGurl } : { uri:"https://pdsohio.com/wp-content/uploads/2017/04/default-image.jpg"}}  />
                 </View>
+                {/* dees toevoegen als een item vervallen is}
+                {/* <Ionicons name={'md-warning'} size={35} color={'red'} /> */}
                 <Text style={styles.itemText}>{item.name}</Text>
                 <Text style={styles.arrow}>{'→'}</Text>
+
               </TouchableOpacity>
           }
         />

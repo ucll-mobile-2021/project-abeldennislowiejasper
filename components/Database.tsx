@@ -128,6 +128,24 @@ class Database {
     return results;
   }
 
+  public getLijstVers(): Item[] {
+    let results: Item[] = []
+    let currentdate = new Date();
+    let weeklaterdate = new Date();
+    weeklaterdate.setDate(currentdate.getDate() + 7)
+
+
+    const lijst = realm.objects('Product').filtered("expiration_date >= $0", weeklaterdate)
+    this.length = lijst.length;
+    for (let i = 0; i < lijst.length; ++i) {
+      var item = lijst[i]
+      results.push(new Item(item.toJSON().barcode, item.toJSON().name, item.toJSON().nutriscore, item.toJSON().allergene, item.toJSON().IMGurl, item.toJSON().price, item.toJSON().expiration_date));
+    }
+    this.lijstRemoved = results;
+    return results;
+
+  }
+
   public getLijstBijnaVervallen(): Item[] {
     let results: Item[] = []
     let currentdate = new Date();
@@ -136,6 +154,22 @@ class Database {
 
 
     const lijst = realm.objects('Product').filtered("expiration_date >= $0 and expiration_date <= $1", currentdate, weeklaterdate)
+    this.length = lijst.length;
+    for (let i = 0; i < lijst.length; ++i) {
+      var item = lijst[i]
+      results.push(new Item(item.toJSON().barcode, item.toJSON().name, item.toJSON().nutriscore, item.toJSON().allergene, item.toJSON().IMGurl, item.toJSON().price, item.toJSON().expiration_date));
+    }
+    this.lijstRemoved = results;
+    return results;
+
+  }
+
+  public getLijstVervallen(): Item[] {
+    let results: Item[] = []
+    let currentdate = new Date();
+
+
+    const lijst = realm.objects('Product').filtered("expiration_date < $0", currentdate)
     this.length = lijst.length;
     for (let i = 0; i < lijst.length; ++i) {
       var item = lijst[i]

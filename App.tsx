@@ -5,7 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import StashStackScreen from './screens/StashStackScreen';
-import StashScreen from './screens/StashScreen';
+import StashScreen, { getDB } from './screens/StashScreen';
 import ScannerScreen from './screens/ScannerScreen';
 import HomeScreen from './screens/HomeScreen';
 import ItemScreen from './screens/ItemScreen';
@@ -15,8 +15,9 @@ import ScannerStackScreen from './screens/ScannerStackScreen';
 import { DrawerContent } from './screens/DrawerContent';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Database from './components/Database'
-
+import { getAll } from './screens/StashScreen';
 const Drawer = createDrawerNavigator();
+
 
 
 const Stack = createStackNavigator();
@@ -90,7 +91,7 @@ function App() {
       >
         
         <Tab.Screen name="HOME" component={DrawerHomeNavigator} />
-        <Tab.Screen name="STASH" component={DrawerStashNavigator} options={{ tabBarBadge: db.getItemsCount() }} />
+        <Tab.Screen name="STASH" component={DrawerStashNavigator} options={{ tabBarBadge: db.getLijstVervallen().length }} />
         <Tab.Screen name="SCAN" component={DrawerScannerNavigator} />
         
       </Tab.Navigator>
