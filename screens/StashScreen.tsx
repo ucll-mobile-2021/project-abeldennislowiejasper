@@ -43,9 +43,11 @@ class Stash extends Component {
           renderItem={
             ({ item }) =>
               <TouchableOpacity style={styles.item}  onPress={() => this.props.navigation.navigate('ItemScreen', item)}>
+                <View style={styles.imageView}>
+                <Image   resizeMode="cover" style={styles.image} source={item.IMGurl ? { uri: item.IMGurl } : { uri:"https://pdsohio.com/wp-content/uploads/2017/04/default-image.jpg"}}  />
+                </View>
                 <Text style={styles.itemText}>{item.name}</Text>
-                
-                <Image style={styles.image} source={item.IMGurl ? { uri: item.IMGurl } : { uri:"https://pdsohio.com/wp-content/uploads/2017/04/default-image.jpg"}}  />
+                <Text style={styles.arrow}>{'→'}</Text>
               </TouchableOpacity>
           }
         />
@@ -74,32 +76,32 @@ const styles = StyleSheet.create({
     
     },
   item: {
-    padding: 15,
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: "10%",
-    width: "80%",
-    borderWidth: 2,
-    borderColor: "#759E9A",
-    backgroundColor: "#9ED2CE",
-    borderRadius: 15,
-    shadowColor: '#000000',
-    shadowOffset: {
-      width: 0,
-      height: 3
-    },
-    shadowRadius: 5,
-    shadowOpacity: 1.0,
-    elevation: 15,
-    flex: 1,
-    justifyContent: 'space-between',
-    flexDirection:'row',
-    alignItems:'center'
+    marginTop: 15,
+    //paddingTop: 25,
+    backgroundColor: "white", //#9ED2CE
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    width: "95%",
+    marginLeft: "2.5%"
   },
   itemText: {
-    fontSize: 25
+    fontSize: 25,
+    width: "60%",
+    alignSelf: "center",
+    paddingLeft: 15,
+  },
+  imageView: {
+    width: "25%",
+    height: "100%",
+    //backgroundColor: "red"
   },
   image: {
-    height:50,
-    width:50}
+    width: 90,
+    height: 90,
+    alignSelf: "center"
+  },
+  arrow: {
+    width: "15%",
+    fontSize: 40,
+  }
 });
