@@ -59,7 +59,7 @@ function ScannerScreen({ navigation }: any) {
       return allergenen.split(/[\s,]+/)
    }
    const submit = () => {
-      updateItems(new Item(Math.floor(Math.random() *1000), valueName, valueNutri, splitAllergenen(valueAllergene), valueIMG, parseFloat(valuePrice)));
+      updateItems(new Item(Math.floor(Math.random() *1000), valueName, valueNutri, splitAllergenen(valueAllergene), valueIMG, parseFloat(valuePrice), valueDate));
       setName("");
       setPrice("");
       setNutri("");
