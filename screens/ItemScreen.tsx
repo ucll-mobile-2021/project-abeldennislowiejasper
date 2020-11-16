@@ -22,7 +22,9 @@ function ItemScreen({route, navigation}) {
         <Button
         title="Delete product"
         onPress={
-          () => { removeItem(barcode); navigation.navigate('STASH');}
+          () => { removeItem(barcode); 
+            navigation.navigate('Stash');
+          }
         }
         color='#8AB8B4'
       />
