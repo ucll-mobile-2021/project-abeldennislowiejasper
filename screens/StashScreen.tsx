@@ -15,6 +15,10 @@ let refresh = false;
 
 let lijst = db.getAllProducts();
 
+export function getAll(){
+  return lijst;
+}
+
 class Stash extends Component {
 
   constructor(props) {
@@ -59,6 +63,8 @@ class Stash extends Component {
 export function updateItems(item: Item) {
   db.addProduct(item);
 }
+
+
 
 export default Stash;
 

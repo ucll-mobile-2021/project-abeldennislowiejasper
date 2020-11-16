@@ -74,16 +74,16 @@ function ScannerScreen({ navigation }: any) {
          < View style={styles.form}>
 
             <Text style={styles.label}>Product Name:</Text>
-            <TextInput style={styles.textInput} placeholder="M&M Peanuts 1KG/1000g" onChangeText={name => setName(name)} value={valueName} />
+            <TextInput style={styles.textInput} onChangeText={name => setName(name)} value={valueName} />
 
             <Text style={styles.label}>Product price:</Text>
-            <TextInput keyboardType ={"numeric"} style={styles.textInput} placeholder="12,50" value={valuePrice.toString()} onChangeText={price => setPrice(price)} />
+            <TextInput keyboardType={"numeric"} style={styles.textInput} value={valuePrice.toString()} onChangeText={price => setPrice(price)} />
 
             <Text style={styles.label}>Product Nutriscore:</Text>
-            <TextInput style={styles.textInput} placeholder="A" value={valueNutri} onChangeText={nutri => setNutriVerification(nutri)} />
+            <TextInput style={styles.textInput} value={valueNutri} onChangeText={nutri => setNutriVerification(nutri)} />
             
             <Text style={styles.label}>Product's Allergene:</Text>
-            <TextInput style={styles.textInput} placeholder="Peanuts" onChangeText={allergene => setAllergene(allergene)} value={valueAllergene} />
+            <TextInput style={styles.textInput} onChangeText={allergene => setAllergene(allergene)} value={valueAllergene} />
 
             <Text style={styles.label}>Expiration date: {dateToDDMMYYYY()}</Text>
             <View style={{ width: "75%", marginLeft: "12.5%" }}><Button color='#8AB8B4' onPress={toggleShowDate} title="Show date picker!" /></View>
@@ -96,8 +96,7 @@ function ScannerScreen({ navigation }: any) {
                   onChange={onChangeDate}
                />}
             <Text style={styles.label}>Product image:</Text>
-            <TextInput style={styles.textInput} placeholder="http://idk.com" value={valueIMG} onChangeText={img => setIMG(img)} />
-
+            <TextInput style={styles.textInput} placeholder="http://url.com" value={valueIMG} onChangeText={img => setIMG(img)} />
             <View style={styles.buttonText}>
                <Button title="Add product" color='#8AB8B4' onPress={() => submit()} />
             </View>

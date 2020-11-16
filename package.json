@@ -20,6 +20,7 @@
     "react": "16.13.1",
     "react-native": "0.63.3",
     "react-native-camera": "^3.40.0",
+    "react-native-chart-kit": "^6.6.1",
     "react-native-elements": "^2.3.2",
     "react-native-gesture-handler": "^1.8.0",
     "react-native-notifications": "^3.3.4",
@@ -29,6 +30,7 @@
     "react-native-screens": "^2.11.0",
     "react-native-sqlite-2": "^3.1.1",
     "react-native-sqlite-storage": "^5.0.0",
+    "react-native-svg": "^12.1.0",
     "react-native-vector-icons": "^7.1.0",
     "realm": "^10.0.1"
   },
@@ -38,6 +40,7 @@
     "@react-native-community/eslint-config": "^1.1.0",
     "@types/jest": "^25.2.3",
     "@types/react-native": "^0.63.2",
+    "@types/react-native-svg-charts": "^5.0.6",
     "@types/react-native-vector-icons": "^6.4.6",
     "@types/react-test-renderer": "^16.9.2",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
