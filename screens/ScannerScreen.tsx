@@ -10,6 +10,7 @@ import { updateItems } from './StashScreen'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { State } from 'react-native-gesture-handler';
 import { parse } from '@babel/core';
+import { getTotalPrice } from './HomeScreen';
 
 
 const dateRegex = /\d+[\.|\/]\d+[\.|\/]\d+/;
@@ -98,7 +99,7 @@ function ScannerScreen({ navigation }: any) {
             <Text style={styles.label}>Product image:</Text>
             <TextInput style={styles.textInput} placeholder="http://url.com" value={valueIMG} onChangeText={img => setIMG(img)} />
             <View style={styles.buttonText}>
-               <Button title="Add product" color='#8AB8B4' onPress={() => submit()} />
+               <Button title="Add product" color='#8AB8B4' onPress={() => {submit(), navigation.navigate('STASH')}} />
             </View>
          </View>
       </ScrollView>

@@ -14,7 +14,7 @@ const HomeStack = createStackNavigator();
 
 
 
-function HomeStackScreen({navigation}) {
+function HomeStackScreen({ navigation }: any) {
     return(
         <HomeStack.Navigator>
            <HomeStack.Screen

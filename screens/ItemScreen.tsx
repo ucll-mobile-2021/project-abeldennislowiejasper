@@ -9,7 +9,7 @@ import Item from "../components/Item"
 
 const Stack = createStackNavigator();
  
-function ItemScreen({route, navigation}) {
+function ItemScreen({route, navigation }: any) {
     var {name, nutriscore, barcode, IMGurl} = route.params;
     return (
       <View style={styles.items}>

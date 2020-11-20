@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { View, Text, Button, Image, StyleSheet, FlatList, TouchableOpacity, Dimensions} from 'react-native';
+import React, { Component } from 'react';
+import { View, Text, Button, Image, StyleSheet, FlatList, TouchableOpacity, Dimensions } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Notifications } from 'react-native-notifications';
@@ -10,26 +10,51 @@ import Item from '../components/Item';
 import Database from '../components/Database';
 
 import { getAll } from './StashScreen';
+import { totalmem } from 'os';
 
 const db = new Database();
+let lijstBijnaVervallen : any;
+let refresh = false;
 
 
+function getLijstBijnaVervallen() {
+  return db.getLijstBijnaVervallen();
+}
 
-function getTotalPrice(){
-  let total = 0;
+export function getTotalPrice() {
+  let totalPrice = 0;
+  let date = new Date();
   db.getLijstVervallen().forEach(element => {
-    total += element.price;
-});
+    totalPrice += element.price;
+  });
+
+  /* if(date.getDate() === 17 && date.getHours() === 0 && date.getMinutes() === 27){
+    totalPrice = 0;
+    } */
+  return Math.round((totalPrice * 100)) / 100;
+}
 
 /* function getTotalWeight(){
   let total = 0;
   db.getLijstVervallen().forEach(element => {
     total += element.weight;
-}); */
+}); 
+  let totalresult = total;
+  if(date.getDate() === 1 && date.getHours() === 0){
+    totalresult = 0;
+    }
+  return totalresult;
+}*/
 
-
-return Math.round((total * 100)) / 100;
+let code : any;
+function ifLijst() {
+  if(getLijstBijnaVervallen().length == 0) {
+     code = <Text>Nothing spoils soon</Text>
+  } else { return null;}
+  return code;
+  
 }
+
 
 
 
@@ -69,11 +94,11 @@ const data = [
     legendFontColor: "#7F7F7F",
     legendFontSize: 15
   },
-  
+
 ];
 
 const chartConfig = {
- 
+
   color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
   strokeWidth: 2, // optional, default 3
   barPercentage: 0.5,
@@ -84,40 +109,62 @@ const chartConfig = {
 const screenWidth = Dimensions.get("window").width;
 
 
-function Home({ navigation }) {
-  return (
+class Home extends Component {
+  constructor(props: {} | Readonly<{}>) {
+    super(props);
+    this.state = {
+      nr: db.length,
+      refreshing: refresh
+    }
+  }
 
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-     
-      {/* <Button
-        title="send notification"
-        onPress={() => test()}
-        color='#8AB8B4'
-      /> */}
-      <PieChart
-        data={data}
-        width={screenWidth}
-        height={180}
-        chartConfig={chartConfig}
-        accessor="amount"
-        backgroundColor="transparent"
-        paddingLeft="10"
-        absolute
-      /> 
-      <View style={styles.bla}>
-        <View style={styles.stattext}>
-          <Text style={styles.bli}>€ {getTotalPrice()}</Text>
-          <Text style={styles.blu}>wasted this month</Text>
+  onRefresh() {
+    refresh = true;
+    getTotalPrice();
+    db.getLijstBijnaVervallen();
+    
+    ifLijst();
+    refresh = false;
+  }
+
+  render() {
+    setTimeout(() => {
+      getTotalPrice();
+      getLijstBijnaVervallen();
+      ifLijst();
+    }, 1000)
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+
+        {/* <Button
+      title="send notification"
+      onPress={() => test()}
+      color='#8AB8B4'
+    /> */}
+        <PieChart
+          data={data}
+          width={screenWidth}
+          height={180}
+          chartConfig={chartConfig}
+          accessor="amount"
+          backgroundColor="transparent"
+          paddingLeft="10"
+          absolute
+        />
+        <View style={styles.bla}>
+          <View style={styles.stattext}>
+            <Text style={styles.bli}>€ {getTotalPrice()}</Text>
+            <Text style={styles.blu}>wasted</Text>
           </View>
-        <View style={styles.stattext}>
-        <Text style={styles.bli}>{/* getTotalWeight() */} kg</Text>
-          <Text style={styles.blu}>wasted this month</Text>
+          <View style={styles.stattext}>
+            <Text style={styles.bli}>{/* getTotalWeight() */} kg</Text>
+            <Text style={styles.blu}>wasted</Text>
+          </View>
         </View>
-      </View>
-      <Text style={styles.headerBox}>Spoils soon:</Text>
-      <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('STASH')}>
-      
-      <FlatList  data={db.getLijstBijnaVervallen()}
+        <Text style={styles.headerBox}>Spoils soon:</Text>
+        <TouchableOpacity style={styles.box} onPress={() => this.props.navigation.navigate('STASH')}>
+        {ifLijst()}
+        <FlatList  data={getLijstBijnaVervallen()}
           keyExtractor={item => item.barcode + ""}
           renderItem={
             ({ item }) =>
@@ -128,22 +175,21 @@ function Home({ navigation }) {
                 <Text style={styles.itemText}>{item.name}</Text>
                 <Text style={styles.arrow}>{'→'}</Text>
 
-              </TouchableOpacity>
-
-              
+              </TouchableOpacity>             
           }
         />
-      </TouchableOpacity>
-    </View>
-
-  );
+        
+        </TouchableOpacity>
+      </View>
+    );
+  }
 }
 
 export default Home;
 
 
 const styles = StyleSheet.create({
-  stattext:{
+  stattext: {
     padding: 12,
     marginTop: 2,
     marginBottom: 2,
@@ -153,7 +199,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 6,
     alignItems: 'center'
-    
+
   },
   headerBox: {
     justifyContent: 'flex-start',
@@ -168,7 +214,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     width: "99%",
     borderRadius: 12,
-    marginLeft: "0%"
+    marginLeft: "0%",
   },
   itemText: {
     fontSize: 25,
@@ -190,15 +236,15 @@ const styles = StyleSheet.create({
     width: "15%",
     fontSize: 20,
   },
-  bla:{
+  bla: {
     flexDirection: 'row'
   },
-  bli:{
+  bli: {
     fontSize: 20,
     color: 'black',
     fontWeight: 'bold'
   },
-  blu:{fontSize: 10,color: 'black'},
+  blu: { fontSize: 10, color: 'black' },
   box: {
     padding: 15,
     marginTop: 10,

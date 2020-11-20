@@ -14,7 +14,7 @@ const ScannerStack = createStackNavigator();
 
 
 
-function ScannerStackScreen({navigation}) {
+function ScannerStackScreen({ navigation }: any) {
     return(
         <ScannerStack.Navigator>
            <ScannerStack.Screen

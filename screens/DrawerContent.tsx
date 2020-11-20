@@ -11,7 +11,7 @@ import {
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
-export function DrawerContent(props){
+export function DrawerContent({props, navigation} : any){
     return (
       
         <View style={styles.drawerTab}>  

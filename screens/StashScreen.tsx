@@ -28,7 +28,7 @@ export function getDB(){
 
 class Stash extends Component {
 
-  constructor(props) {
+  constructor(props: {} | Readonly<{}>) {
     super(props);
     this.state = {
       nr: db.length,

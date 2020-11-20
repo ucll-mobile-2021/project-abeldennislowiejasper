@@ -4,7 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import PropTypes from 'prop-types';
 
 
-const DrawerButton = ({ navigation }) => (
+const DrawerButton = ({ navigation } : any) => (
     <Ionicons style={styles.icon}
        
     name='menu-outline'
