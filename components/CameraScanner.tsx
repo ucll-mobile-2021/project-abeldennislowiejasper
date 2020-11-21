@@ -4,6 +4,7 @@ import React from 'react';
 import { View, Text, Button, StyleSheet } from "react-native";
 import { RNCamera } from "react-native-camera";
 import { TapGestureHandler } from "react-native-gesture-handler";
+import { parse } from "react-native-svg";
 
 /**
  * Scanner class, used to obtain camera module
@@ -78,6 +79,12 @@ class Scanner extends React.Component<{ setFormBarcode: ({ props }: Record<strin
         let nutriscore: string = "";
         let allergens: string = "";
         let img: string = "";
+        let sugar: string = "";
+        let kcal: string = "";
+        let proteins :string = "";
+        let sodium : string = "";
+        let fat : string = "";
+        let quantity : string = "";
         try {
             //Send fetch request, this returns product info in JSON format
             let response = await fetch('https://world.openfoodfacts.org/api/v0/product/' + barcode + '.json');
@@ -87,7 +94,16 @@ class Scanner extends React.Component<{ setFormBarcode: ({ props }: Record<strin
             nutriscore = json["product"]["nutriscore_grade"];
             allergens = json["product"]["allergens_tags"];
             img = json["product"]["image_front_url"];
-            return { "name": name, "nutriscore": nutriscore, "allergens": allergens, "imgURL": img };
+            sugar = json["product"]["nutriments"]["sugars_100g"];
+            kcal = json["product"]["nutriments"]["energy-kcal_100g"];
+            proteins = json["product"]["nutriments"]["proteins_100g"];
+            sodium = json["product"]["nutriments"]["sodium_100g"];
+            fat = json["product"]["nutriments"]["fat_100g"];
+            quantity = json["product"]["product_quantity"];
+            
+            return { "name": name, "nutriscore": nutriscore, "allergens": allergens, "imgURL": img,
+                    "sugar": parseFloat(sugar), "kcal": parseFloat(kcal), "proteins": parseFloat(proteins),
+                     "sodium": parseFloat(sodium), "fat": parseFloat(fat), "quantity": parseFloat(quantity) };
         } catch (error) {
             //pls never trigger thx
             console.error(error);
@@ -119,7 +135,7 @@ class Scanner extends React.Component<{ setFormBarcode: ({ props }: Record<strin
                         />
                         <View style={styles.closeCameraButton}>
                             <Button
-                                title="Close Camera"
+                                title="Hide camera"
                                 onPress={() => this.toggleState()}
                             />
                         </View>
@@ -139,13 +155,13 @@ const styles = StyleSheet.create({
     },
     camera: {
         height: '100%',
-        position: 'relative'
+        position: 'relative',
     },
     closeCameraButton: {
-        opacity: 0.5,
+        opacity: 1,
         zIndex: 100,
         position: 'absolute',
-        bottom: 80,
+        bottom: 0,
         left: '50%',
         transform: [
             { translateX: -50 },
