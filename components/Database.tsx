@@ -13,7 +13,13 @@ const ProductSchema = {
     allergene: 'string',
     IMGurl: 'string',
     price: 'float',
-    expiration_date: "date"
+    expiration_date: "date",
+    energy_kcal_value: 'int', 
+    proteins_100g: 'float',
+    sugars_100g: 'float',
+    sodium_100g: 'float',
+    fat_100g: 'float',
+    product_quantity: 'int'
   }
 }
 
@@ -26,7 +32,13 @@ const RemovedSchema = {
     allergene: 'string',
     IMGurl: 'string',
     price: 'float',
-    expiration_date: "date"
+    expiration_date: "date",
+    energy_kcal_value: 'int', 
+    proteins_100g: 'float',
+    sugars_100g: 'float',
+    sodium_100g: 'float',
+    fat_100g: 'float',
+    product_quantity: 'int'
   }
 }
 
@@ -43,13 +55,25 @@ class Database {
 
   constructor() {
     if (realm == null) {
-      realm = new Realm({ schema: [ProductSchema, RemovedSchema], schemaVersion: 6 })
+      realm = new Realm({ schema: [ProductSchema, RemovedSchema], schemaVersion: 7 })
     }
     const lijst = realm.objects('Product')
     this.length = lijst.length;
     for (let i = 0; i < lijst.length; ++i) {
       var item = lijst[i]
-      this.results.push(new Item(item.toJSON().barcode, item.toJSON().name, item.toJSON().nutriscore, item.toJSON().allergene, item.toJSON().IMGurl, item.toJSON().price, item.toJSON().expiration_date));
+      this.results.push(new Item(item.toJSON().barcode, 
+      item.toJSON().name, 
+      item.toJSON().nutriscore, 
+      item.toJSON().allergene, 
+      item.toJSON().IMGurl, 
+      item.toJSON().price, 
+      item.toJSON().expiration_date, 
+      item.toJSON().energy_kcal_value,
+      item.toJSON().proteins_100g, 
+      item.toJSON().sugars_100g, 
+      item.toJSON().sodium_100g, 
+      item.toJSON().fat_100g, 
+      item.toJSON().product_quantity));
     }
     this.lijstBijnaVervallen = this.getLijstBijnaVervallen();
   }
@@ -65,8 +89,21 @@ class Database {
     this.length = lijst.length;
     for (let i = 0; i < lijst.length; ++i) {
       var item = lijst[i]
-      results.push(new Item(item.toJSON().barcode, item.toJSON().name, item.toJSON().nutriscore, item.toJSON().allergene, item.toJSON().IMGurl, item.toJSON().price, item.toJSON().expiration_date));
+      results.push(new Item(item.toJSON().barcode, 
+      item.toJSON().name, 
+      item.toJSON().nutriscore, 
+      item.toJSON().allergene, 
+      item.toJSON().IMGurl, 
+      item.toJSON().price, 
+      item.toJSON().expiration_date, 
+      item.toJSON().energy_kcal_value,
+      item.toJSON().proteins_100g, 
+      item.toJSON().sugars_100g, 
+      item.toJSON().sodium_100g, 
+      item.toJSON().fat_100g, 
+      item.toJSON().product_quantity));
     }
+    
     this.results = results;
 
     return results;
@@ -82,7 +119,13 @@ class Database {
         allergene: item.allergene.toString(),
         IMGurl: item.IMGurl,
         price: item.price,
-        expiration_date: item.expiration_date
+        expiration_date: item.expiration_date,
+        energy_kcal_value: item.energy_kcal_value,
+        proteins_100g: item.proteins_100g,
+        sugars_100g: item.sugars_100g,
+        sodium_100g: item.sodium_100g,
+        fat_100g: item.fat_100g,
+        product_quantity: item.product_quantity
       })
     })
 
@@ -94,7 +137,19 @@ class Database {
   public removeProduct(barcode: string) {
     var item: Item;
     var temp = realm.objects('Product').filtered(`barcode = ${barcode}`)[0]
-    item = new Item(temp.toJSON().barcode, temp.toJSON().name, temp.toJSON().nutriscore, temp.toJSON().allergene, temp.toJSON().IMGurl, temp.toJSON().price, temp.toJSON().expiration_date)
+    item = new Item(temp.toJSON().barcode, 
+      temp.toJSON().name, 
+      temp.toJSON().nutriscore, 
+      temp.toJSON().allergene, 
+      temp.toJSON().IMGurl, 
+      temp.toJSON().price, 
+      temp.toJSON().expiration_date,
+      temp.toJSON().energy_kcal_value, 
+      temp.toJSON().proteins_100g, 
+      temp.toJSON().sugars_100g, 
+      temp.toJSON().sodium_100g, 
+      temp.toJSON().fat_100g, 
+      temp.toJSON().product_quantity)
     realm.write(() => {
       realm.delete(temp);
 
@@ -106,7 +161,13 @@ class Database {
         allergene: item.allergene.toString(),
         IMGurl: item.IMGurl,
         price: item.price,
-        expiration_date: item.expiration_date
+        expiration_date: item.expiration_date,
+        energy_kcal_value: item.energy_kcal_value,
+        proteins_100g: item.proteins_100g,
+        sugars_100g: item.sugars_100g,
+        sodium_100g: item.sodium_100g,
+        fat_100g: item.fat_100g,
+        product_quantity: item.product_quantity
       })
     });
 
@@ -121,7 +182,19 @@ class Database {
     this.length = lijst.length;
     for (let i = 0; i < lijst.length; ++i) {
       var item = lijst[i]
-      results.push(new Item(item.toJSON().barcode, item.toJSON().name, item.toJSON().nutriscore, item.toJSON().allergene, item.toJSON().IMGurl, item.toJSON().price, item.toJSON().expiration_date));
+      results.push(new Item(item.toJSON().barcode, 
+      item.toJSON().name, 
+      item.toJSON().nutriscore, 
+      item.toJSON().allergene, 
+      item.toJSON().IMGurl, 
+      item.toJSON().price, 
+      item.toJSON().expiration_date, 
+      item.toJSON().energy_kcal_value,
+      item.toJSON().proteins_100g, 
+      item.toJSON().sugars_100g, 
+      item.toJSON().sodium_100g, 
+      item.toJSON().fat_100g, 
+      item.toJSON().product_quantity));
     }
     this.lijstRemoved = results;
 
@@ -139,7 +212,19 @@ class Database {
     this.length = lijst.length;
     for (let i = 0; i < lijst.length; ++i) {
       var item = lijst[i]
-      results.push(new Item(item.toJSON().barcode, item.toJSON().name, item.toJSON().nutriscore, item.toJSON().allergene, item.toJSON().IMGurl, item.toJSON().price, item.toJSON().expiration_date));
+      results.push(new Item(item.toJSON().barcode, 
+      item.toJSON().name, 
+      item.toJSON().nutriscore, 
+      item.toJSON().allergene, 
+      item.toJSON().IMGurl, 
+      item.toJSON().price, 
+      item.toJSON().expiration_date, 
+      item.toJSON().energy_kcal_value,
+      item.toJSON().proteins_100g, 
+      item.toJSON().sugars_100g, 
+      item.toJSON().sodium_100g, 
+      item.toJSON().fat_100g, 
+      item.toJSON().product_quantity));
     }
     this.lijstRemoved = results;
     return results;
@@ -157,7 +242,19 @@ class Database {
     this.length = lijst.length;
     for (let i = 0; i < lijst.length; ++i) {
       var item = lijst[i]
-      results.push(new Item(item.toJSON().barcode, item.toJSON().name, item.toJSON().nutriscore, item.toJSON().allergene, item.toJSON().IMGurl, item.toJSON().price, item.toJSON().expiration_date));
+      results.push(new Item(item.toJSON().barcode, 
+      item.toJSON().name, 
+      item.toJSON().nutriscore, 
+      item.toJSON().allergene, 
+      item.toJSON().IMGurl, 
+      item.toJSON().price, 
+      item.toJSON().expiration_date, 
+      item.toJSON().energy_kcal_value,
+      item.toJSON().proteins_100g, 
+      item.toJSON().sugars_100g, 
+      item.toJSON().sodium_100g, 
+      item.toJSON().fat_100g, 
+      item.toJSON().product_quantity));
     }
     this.lijstRemoved = results;
     return results;
@@ -173,7 +270,19 @@ class Database {
     this.length = lijst.length;
     for (let i = 0; i < lijst.length; ++i) {
       var item = lijst[i]
-      results.push(new Item(item.toJSON().barcode, item.toJSON().name, item.toJSON().nutriscore, item.toJSON().allergene, item.toJSON().IMGurl, item.toJSON().price, item.toJSON().expiration_date));
+      results.push(new Item(item.toJSON().barcode, 
+      item.toJSON().name, 
+      item.toJSON().nutriscore, 
+      item.toJSON().allergene, 
+      item.toJSON().IMGurl, 
+      item.toJSON().price, 
+      item.toJSON().expiration_date, 
+      item.toJSON().energy_kcal_value,
+      item.toJSON().proteins_100g, 
+      item.toJSON().sugars_100g, 
+      item.toJSON().sodium_100g, 
+      item.toJSON().fat_100g, 
+      item.toJSON().product_quantity));
     }
     this.lijstRemoved = results;
     return results;
