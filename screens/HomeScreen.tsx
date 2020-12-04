@@ -35,17 +35,17 @@ export function getTotalPrice() {
   return Math.round((totalPrice * 100)) / 100;
 }
 
-/* function getTotalWeight(){
+function getTotalWeight(){
   let total = 0;
   db.getLijstVervallen().forEach(element => {
-    total += element.weight;
+    total += element.product_quantity;
 }); 
-  let totalresult = total;
+  /* let totalresult = total;
   if(date.getDate() === 1 && date.getHours() === 0){
     totalresult = 0;
-    }
-  return totalresult;
-}*/
+    } */
+  return total;
+}
 
 let code : any;
 function ifLijst() {
@@ -160,7 +160,7 @@ class Home extends Component {
             <Text style={styles.blu}>wasted</Text>
           </View>
           <View style={styles.stattext}>
-            <Text style={styles.bli}>{/* getTotalWeight() */} kg</Text>
+            <Text style={styles.bli}>{ getTotalWeight()/1000} kg</Text>
             <Text style={styles.blu}>wasted</Text>
           </View>
         </View>

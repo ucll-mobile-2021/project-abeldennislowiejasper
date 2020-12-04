@@ -289,34 +289,51 @@ class Database {
 
   }
 
-  /* public getNutriScoreAAmount(): Item[] {
-    let results: Item[] = []
-    
+   public getNutriScoreAmount(String : any): number {
+    let score = String;
+    let a = 0;
+    let b = 0;
+    let c = 0;
+    let d = 0;
+    let e = 0;
+    const lijst = realm.objects('Product')
 
-
-    const lijst = realm.objects('Product').filtered("nutriscore == a")
     this.length = lijst.length;
     for (let i = 0; i < lijst.length; ++i) {
-      var item = lijst[i]
-      results.push(new Item(item.toJSON().barcode, 
-      item.toJSON().name, 
-      item.toJSON().nutriscore, 
-      item.toJSON().allergene, 
-      item.toJSON().IMGurl, 
-      item.toJSON().price, 
-      item.toJSON().expiration_date, 
-      item.toJSON().energy_kcal_value,
-      item.toJSON().proteins_100g, 
-      item.toJSON().sugars_100g, 
-      item.toJSON().sodium_100g, 
-      item.toJSON().fat_100g, 
-      item.toJSON().product_quantity));
+      if(lijst[i].nutriscore == 'a' ){
+        a += 1;
+      }
+      if(lijst[i].nutriscore == 'b'){
+        b += 1;
+      }
+      if(lijst[i].nutriscore == 'c'){
+        c += 1;
+      }
+      if(lijst[i].nutriscore == 'd'){
+        d += 1;
+      }
+      if(lijst[i].nutriscore == 'e'){
+        e += 1;
+      }
+    };
+    
+    if(score == 'a'){
+      return a;
+    } else if(score == 'b'){
+      return b;
+    } else if (score == 'c'){
+      return c;
+    } else if (score == 'd'){
+      return d;
+    } else if (score== 'e'){
+      return e;
+    } else {
+      return 255;
     }
-    this.lijstRemoved = results;
-    return results;
 
   }
 
+  /*
   public getNutriScoreBAmount(): Item[] {
     let results: Item[] = []
     

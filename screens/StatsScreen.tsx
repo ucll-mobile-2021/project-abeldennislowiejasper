@@ -13,36 +13,36 @@ let lijst = db.getAllProducts();
 const data_pie = [
   {
     name: "A",
-    amount: db.getAllProducts().length,
-    color: "#93C4C0",
+    amount: db.getNutriScoreAmount('a'),
+    color: "#12FA83",
     legendFontColor: "#7F7F7F",
     legendFontSize: 15
   },
   {
     name: "B",
-    amount: db.getAllProducts().length,
-    color: '#779E9B',
+    amount: db.getNutriScoreAmount('b'),
+    color: '#B7FA54',
     legendFontColor: "#7F7F7F",
     legendFontSize: 15
   },
   {
     name: "C",
-    amount: db.getAllProducts().length,
-    color: "#2A3837",
+    amount: db.getNutriScoreAmount('c'),
+    color: "#FAED01",
     legendFontColor: "#7F7F7F",
     legendFontSize: 15
   },
   {
     name: "D",
-    amount: db.getAllProducts().length,
-    color: "#2A3837",
+    amount: db.getNutriScoreAmount('d'),
+    color: "#FA7C2C",
     legendFontColor: "#7F7F7F",
     legendFontSize: 15
   },
   {
     name: "E",
-    amount: db.getAllProducts().length,
-    color: "#2A3837",
+    amount: db.getNutriScoreAmount('e'),
+    color: "#FA2929",
     legendFontColor: "#7F7F7F",
     legendFontSize: 15
   },
@@ -50,10 +50,10 @@ const data_pie = [
 ];
 
 const data_bar = {
-  labels: ["Sugar/100g", "Fat/100g", "Sodium/100g", "Proteins/100g"],
+  labels: ["Sugar / 100g", "Fat / 100g", "Sodium / 100g", "Proteins / 100g"],
   datasets: [
     {
-      data: [db.getTotalSugar(), db.getTotalFat(), db.getTotalSodium(), db.getTotalProteins()]
+      data: [Math.round(db.getTotalSugar()), Math.round(db.getTotalFat()), Math.round(db.getTotalSodium()), Math.round(db.getTotalProteins())]
     }
   ]
 };
@@ -68,7 +68,7 @@ const chartConfig_pie = {
 
 const chartConfig_bar = {
 
-  color: (opacity = 0) => `rgba(0, 0, 0, ${opacity})`,
+  color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
   strokeWidth: 2, // optional, default 3
   barPercentage: 0.5,
   backgroundColor: "#FFFFF",
@@ -102,27 +102,31 @@ class StatsScreen extends Component {
       }, 1000)
       return (
         <View style={styles.container}>
+          <Text>NutriScore ratio</Text>
           <PieChart
           data={data_pie}
           width={screenWidth}
-          height={180}
+          height={200}
           chartConfig={chartConfig_pie}
           accessor="amount"
           backgroundColor="transparent"
-          paddingLeft="10"
+          paddingLeft="20"
           absolute
         />
-{
+        <Text>Nutrient ratio</Text>
+
+  
  <BarChart
   data={data_bar}
   width={screenWidth}
   height={200}
   yAxisLabel=""
-  yAxisSuffix=""
+  yAxisSuffix=" gr"
   chartConfig={chartConfig_bar}
   verticalLabelRotation={0}
+  showValuesOnTopOfBars={true}
 /> 
-}
+
         
         </View>
       );

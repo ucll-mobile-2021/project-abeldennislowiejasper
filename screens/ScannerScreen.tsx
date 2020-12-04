@@ -120,7 +120,7 @@ function ScannerScreen({ navigation }: any) {
                </View>
                <View style={{width: "35%", marginLeft: "30%"}}>
                   <Text style={styles.label}>Nutriscore:</Text>
-                  <TextInput style={styles.textInput} value={valueNutri} onChangeText={nutri => setNutriVerification(nutri)} />
+                  <TextInput style={styles.textInput} value={valueNutri.toLowerCase()} onChangeText={nutri => setNutriVerification(nutri)} />
                </View>
             </View>
             
