@@ -10,6 +10,7 @@ import {
 } from 'react-native-paper';
 
 import Icon from 'react-native-vector-icons/Ionicons';
+import StatsStackScreen from './StatsStackScreen';
 
 export function DrawerContent({props, navigation} : any){
     return (
@@ -64,7 +65,7 @@ export function DrawerContent({props, navigation} : any){
                     )}
                     label="Statistics"
                     labelStyle={styles.caption}
-                    onPress={() => {}}
+                    onPress={() => {navigation.navigate('STATS')}}
                 />
 
             </Drawer.Section>

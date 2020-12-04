@@ -16,6 +16,7 @@ import { DrawerContent } from './screens/DrawerContent';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Database from './components/Database'
 import { getAll } from './screens/StashScreen';
+import StatsStackScreen from './screens/StatsStackScreen';
 const Drawer = createDrawerNavigator();
 
 
@@ -54,6 +55,13 @@ function DrawerScannerNavigator(){
     );
 }
 
+function StatsStackNavigator(){
+  return (
+    <Drawer.Navigator hideStatusBar={false} drawerContent={props => <DrawerContent {... props}/> }>
+      <Drawer.Screen name="STATS" component={StatsStackScreen} />
+    </Drawer.Navigator>
+    );
+}
 
 
 
@@ -93,7 +101,7 @@ function App() {
         <Tab.Screen name="HOME" component={DrawerHomeNavigator} />
         <Tab.Screen name="STASH" component={DrawerStashNavigator} options={{ tabBarBadge: db.getLijstVervallen().length }} />
         <Tab.Screen name="SCAN" component={DrawerScannerNavigator} />
-        
+        <Tab.Screen name="STATS" component={StatsStackNavigator} /> 
       </Tab.Navigator>
 
     </NavigationContainer>

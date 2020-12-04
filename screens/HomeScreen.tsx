@@ -18,7 +18,8 @@ let refresh = false;
 
 
 function getLijstBijnaVervallen() {
-  return db.getLijstBijnaVervallen();
+  lijstBijnaVervallen = db.getLijstBijnaVervallen();
+  return lijstBijnaVervallen;
 }
 
 export function getTotalPrice() {
@@ -121,7 +122,7 @@ class Home extends Component {
   onRefresh() {
     refresh = true;
     getTotalPrice();
-    db.getLijstBijnaVervallen();
+    getLijstBijnaVervallen();
     
     ifLijst();
     refresh = false;
@@ -132,7 +133,9 @@ class Home extends Component {
       getTotalPrice();
       getLijstBijnaVervallen();
       ifLijst();
-    }, 1000)
+      this.onRefresh();
+      console.log('refreshed')
+    }, 2000)
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 
