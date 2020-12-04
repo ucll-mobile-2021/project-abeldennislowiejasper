@@ -289,6 +289,208 @@ class Database {
 
   }
 
+  /* public getNutriScoreAAmount(): Item[] {
+    let results: Item[] = []
+    
+
+
+    const lijst = realm.objects('Product').filtered("nutriscore == a")
+    this.length = lijst.length;
+    for (let i = 0; i < lijst.length; ++i) {
+      var item = lijst[i]
+      results.push(new Item(item.toJSON().barcode, 
+      item.toJSON().name, 
+      item.toJSON().nutriscore, 
+      item.toJSON().allergene, 
+      item.toJSON().IMGurl, 
+      item.toJSON().price, 
+      item.toJSON().expiration_date, 
+      item.toJSON().energy_kcal_value,
+      item.toJSON().proteins_100g, 
+      item.toJSON().sugars_100g, 
+      item.toJSON().sodium_100g, 
+      item.toJSON().fat_100g, 
+      item.toJSON().product_quantity));
+    }
+    this.lijstRemoved = results;
+    return results;
+
+  }
+
+  public getNutriScoreBAmount(): Item[] {
+    let results: Item[] = []
+    
+
+
+    const lijst = realm.objects('Product').filtered("nutriscore == b")
+    this.length = lijst.length;
+    for (let i = 0; i < lijst.length; ++i) {
+      var item = lijst[i]
+      results.push(new Item(item.toJSON().barcode, 
+      item.toJSON().name, 
+      item.toJSON().nutriscore, 
+      item.toJSON().allergene, 
+      item.toJSON().IMGurl, 
+      item.toJSON().price, 
+      item.toJSON().expiration_date, 
+      item.toJSON().energy_kcal_value,
+      item.toJSON().proteins_100g, 
+      item.toJSON().sugars_100g, 
+      item.toJSON().sodium_100g, 
+      item.toJSON().fat_100g, 
+      item.toJSON().product_quantity));
+    }
+    this.lijstRemoved = results;
+    return results;
+
+  }
+
+  public getNutriScoreCAmount(): Item[] {
+    let results: Item[] = []
+    
+
+
+    const lijst = realm.objects('Product').filtered("nutriscore == c")
+    this.length = lijst.length;
+    for (let i = 0; i < lijst.length; ++i) {
+      var item = lijst[i]
+      results.push(new Item(item.toJSON().barcode, 
+      item.toJSON().name, 
+      item.toJSON().nutriscore, 
+      item.toJSON().allergene, 
+      item.toJSON().IMGurl, 
+      item.toJSON().price, 
+      item.toJSON().expiration_date, 
+      item.toJSON().energy_kcal_value,
+      item.toJSON().proteins_100g, 
+      item.toJSON().sugars_100g, 
+      item.toJSON().sodium_100g, 
+      item.toJSON().fat_100g, 
+      item.toJSON().product_quantity));
+    }
+    this.lijstRemoved = results;
+    return results;
+
+  }
+
+  public getNutriScoreDAmount(): Item[] {
+    let results: Item[] = []
+    
+
+
+    const lijst = realm.objects('Product').filtered("nutriscore == d")
+    this.length = lijst.length;
+    for (let i = 0; i < lijst.length; ++i) {
+      var item = lijst[i]
+      results.push(new Item(item.toJSON().barcode, 
+      item.toJSON().name, 
+      item.toJSON().nutriscore, 
+      item.toJSON().allergene, 
+      item.toJSON().IMGurl, 
+      item.toJSON().price, 
+      item.toJSON().expiration_date, 
+      item.toJSON().energy_kcal_value,
+      item.toJSON().proteins_100g, 
+      item.toJSON().sugars_100g, 
+      item.toJSON().sodium_100g, 
+      item.toJSON().fat_100g, 
+      item.toJSON().product_quantity));
+    }
+    this.lijstRemoved = results;
+    return results;
+
+  }
+
+  public getNutriScoreEAmount(): Item[] {
+    let results: Item[] = []
+    
+
+
+    const lijst = realm.objects('Product').filtered("nutriscore == e")
+    this.length = lijst.length;
+    for (let i = 0; i < lijst.length; ++i) {
+      var item = lijst[i]
+      results.push(new Item(item.toJSON().barcode, 
+      item.toJSON().name, 
+      item.toJSON().nutriscore, 
+      item.toJSON().allergene, 
+      item.toJSON().IMGurl, 
+      item.toJSON().price, 
+      item.toJSON().expiration_date, 
+      item.toJSON().energy_kcal_value,
+      item.toJSON().proteins_100g, 
+      item.toJSON().sugars_100g, 
+      item.toJSON().sodium_100g, 
+      item.toJSON().fat_100g, 
+      item.toJSON().product_quantity));
+    }
+    this.lijstRemoved = results;
+    return results;
+
+  } */
+
+  public getTotalSugar(): number {
+    let totalSugar = 0;
+
+    const lijst = realm.objects('Product')
+    
+    this.length = lijst.length;
+    for (let i = 0; i < lijst.length; ++i) {
+      totalSugar += lijst[i].sugars_100g;
+    }
+    return totalSugar;
+  }
+
+  public getTotalFat(): number {
+    let totalFat = 0;
+
+    const lijst = realm.objects('Product')
+    
+    this.length = lijst.length;
+    for (let i = 0; i < lijst.length; ++i) {
+      totalFat += lijst[i].fat_100g;
+    }
+    return totalFat;
+  }
+
+  public getTotalSodium(): number {
+    let totalSodium = 0;
+
+    const lijst = realm.objects('Product')
+    
+    this.length = lijst.length;
+    for (let i = 0; i < lijst.length; ++i) {
+      totalSodium += lijst[i].sodium_100g;
+    }
+    return totalSodium;
+  }
+
+  
+  public getTotalProteins(): number {
+    let totalProteins = 0;
+
+    const lijst = realm.objects('Product')
+    
+    this.length = lijst.length;
+    for (let i = 0; i < lijst.length; ++i) {
+      totalProteins += lijst[i].proteins_100g;
+    }
+    return totalProteins;
+  }
+
+  public getTotalKcal(): number {
+    let totalKcal = 0;
+
+    const lijst = realm.objects('Product')
+    
+    this.length = lijst.length;
+    for (let i = 0; i < lijst.length; ++i) {
+      totalKcal += lijst[i].energy_kcal_value;
+    }
+    return totalKcal;
+  }
+
+
 }
 
 export default Database;

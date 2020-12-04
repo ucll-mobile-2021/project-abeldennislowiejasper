@@ -83,6 +83,9 @@ function App() {
             else if (route.name === 'SCAN') {
               iconName = focused ? 'barcode' : 'barcode';
             }
+            else if (route.name === 'STATS') {
+              iconName = focused ? 'stats-chart' : 'stats-chart';
+            }
             
 
             // You can return any component that you like here!

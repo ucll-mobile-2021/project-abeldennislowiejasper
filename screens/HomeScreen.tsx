@@ -164,6 +164,7 @@ class Home extends Component {
             <Text style={styles.blu}>wasted</Text>
           </View>
         </View>
+        <Button title="STATS" color='#8AB8B4' onPress={() => this.props.navigation.navigate('StatsScreen')} />
         <Text style={styles.headerBox}>Spoils soon:</Text>
         <TouchableOpacity style={styles.box} onPress={() => this.props.navigation.navigate('STASH')}>
         {ifLijst()}
