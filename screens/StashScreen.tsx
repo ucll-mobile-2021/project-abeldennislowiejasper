@@ -57,8 +57,10 @@ class Stash extends Component {
                 <View style={styles.imageView}>
                 <Image   resizeMode="cover" style={styles.image} source={item.IMGurl ? { uri: item.IMGurl } : { uri:"https://pdsohio.com/wp-content/uploads/2017/04/default-image.jpg"}}  />
                 </View>
-                {/* dees toevoegen als een item vervallen is}
-                {/* <Ionicons name={'md-warning'} size={35} color={'red'} /> */}
+                {/* dees toevoegen als een item vervallen is */}
+                <View style={styles.icon}>
+                  {item.expiration_date < Date.now() && <Ionicons name={'md-warning'} style={{alignSelf: "center"}} size={35} color={'red'} /> }
+                </View>
                 <Text style={styles.itemText}>{item.name}</Text>
                 <Text style={styles.arrow}>{'→'}</Text>
 
@@ -100,9 +102,12 @@ const styles = StyleSheet.create({
   },
   itemText: {
     fontSize: 25,
-    width: "60%",
+    width: "40%",
     alignSelf: "center",
     paddingLeft: 15,
+  },
+  icon:{
+    width: "20%"
   },
   imageView: {
     width: "25%",

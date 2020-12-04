@@ -9,10 +9,14 @@ export { }
  * @argument allergene: an arraylist of strings representing the allergenes of the Item.
  * @argument IMGurl: some items get an img, some not.
  * @argument expiration_date: the date this product will expire
+ * 
  */
 class Item {
 
-    constructor(public barcode: number, public name: string, public nutriscore: string, public allergene: string[], public IMGurl: string, public price: number, public expiration_date: Date) { }
+    constructor(public barcode: number, public name: string, public nutriscore: string,
+         public allergene: string[], public IMGurl: string, public price: number, public expiration_date: Date,
+         public energy_kcal_value: number, public proteins_100g: number, public sugars_100g: number,
+         public sodium_100g: number, public fat_100g: number, public product_quantity: number) { }
 
     /**
      * Function: get the text version of an Item.
