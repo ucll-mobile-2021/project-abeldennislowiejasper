@@ -164,7 +164,6 @@ class Home extends Component {
             <Text style={styles.blu}>wasted</Text>
           </View>
         </View>
-        <Button title="STATS" color='#8AB8B4' onPress={() => this.props.navigation.navigate('StatsScreen')} />
         <Text style={styles.headerBox}>Spoils soon:</Text>
         <TouchableOpacity style={styles.box} onPress={() => this.props.navigation.navigate('STASH')}>
         {ifLijst()}
@@ -172,7 +171,7 @@ class Home extends Component {
           keyExtractor={item => item.barcode + ""}
           renderItem={
             ({ item }) =>
-            <TouchableOpacity style={styles.item}  onPress={() => navigation.navigate('ItemScreen', item)}>
+            <TouchableOpacity style={styles.item}  onPress={() => this.props.navigation.navigate('ItemScreen', item)}>
                 <View style={styles.imageView}>
                 <Image   resizeMode="cover" style={styles.image} source={item.IMGurl ? { uri: item.IMGurl } : { uri:"https://pdsohio.com/wp-content/uploads/2017/04/default-image.jpg"}}  />
                 </View>
