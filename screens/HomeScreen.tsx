@@ -130,6 +130,7 @@ class Home extends Component {
 
   render() {
     setTimeout(() => {
+      this.setState({ nr: db.length })
       getTotalPrice();
       getLijstBijnaVervallen();
       ifLijst();
@@ -168,7 +169,7 @@ class Home extends Component {
         <Text style={styles.headerBox}>Spoils soon:</Text>
         <TouchableOpacity style={styles.box} onPress={() => this.props.navigation.navigate('STASH')}>
         {ifLijst()}
-        <FlatList  data={getLijstBijnaVervallen()}
+        <FlatList  data={getLijstBijnaVervallen()} extraData={this.state}
           keyExtractor={item => item.barcode + ""}
           renderItem={
             ({ item }) =>

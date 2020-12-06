@@ -64,7 +64,7 @@ function StatsStackNavigator(){
 }
 
 
-
+//TODO herschrijven naar een class
 function App() {
 
   const db = new Database();

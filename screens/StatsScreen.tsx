@@ -97,7 +97,7 @@ class StatsScreen extends Component {
   
     render() {
       setTimeout(() => {
-        
+        this.setState({ nr: db.length })
         
       }, 1000)
       return (
