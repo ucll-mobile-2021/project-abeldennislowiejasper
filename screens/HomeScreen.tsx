@@ -29,9 +29,6 @@ export function getTotalPrice() {
     totalPrice += element.price;
   });
 
-  /* if(date.getDate() === 17 && date.getHours() === 0 && date.getMinutes() === 27){
-    totalPrice = 0;
-    } */
   return Math.round((totalPrice * 100)) / 100;
 }
 
@@ -40,10 +37,7 @@ function getTotalWeight(){
   db.getLijstVervallen().forEach(element => {
     total += element.product_quantity;
 }); 
-  /* let totalresult = total;
-  if(date.getDate() === 1 && date.getHours() === 0){
-    totalresult = 0;
-    } */
+ 
   return total;
 }
 
