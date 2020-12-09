@@ -104,7 +104,6 @@ function App() {
         <Tab.Screen name="HOME" component={DrawerHomeNavigator} />
         <Tab.Screen name="STASH" component={DrawerStashNavigator} options={{ tabBarBadge: db.getLijstVervallen().length }} />
         <Tab.Screen name="SCAN" component={DrawerScannerNavigator} />
-        <Tab.Screen name="STATS" component={StatsStackNavigator} /> 
       </Tab.Navigator>
 
     </NavigationContainer>

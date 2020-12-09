@@ -65,7 +65,7 @@ export function DrawerContent({props, navigation} : any){
                     )}
                     label="Statistics"
                     labelStyle={styles.caption}
-                    onPress={() => {navigation.navigate('STATS')}}
+                    onPress={() => {navigation.navigate('StatsStack')}}
                 />
 
             </Drawer.Section>
