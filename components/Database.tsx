@@ -3,6 +3,7 @@ import Item from './Item'
 
 
 import Realm from 'realm'
+import { getAll } from '../screens/StashScreen'
 
 const ProductSchema = {
   name: 'Product',
@@ -108,6 +109,8 @@ class Database {
 
     return results;
   }
+
+  
 
   public addProduct(item: Item) {
 
@@ -507,6 +510,29 @@ class Database {
     return totalKcal;
   }
 
+  public mapExpirations(): Map<string, number> {
+    let map = new Map();
+    const lijst = realm.objects('Product')
+    Date.now = function now() {
+      return new Date().getMonth();
+    }
+    console.log(Date.now())
+
+    this.length = lijst.length;
+    for (let i = 0; i < lijst.length; ++i) {
+      
+      let amount = 0;
+      let year = lijst[i].expiration_date.getFullYear();
+      let month = lijst[i].expiration_date.getMonth();
+      let day = lijst[i].expiration_date.getDay();
+      let date = year+'-'+month+'-'+day;
+      
+      //TODO
+      map.set(date, amount + 1)
+      
+    }
+    return map;
+  }
 
 }
 

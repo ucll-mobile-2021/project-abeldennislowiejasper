@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Button, Image, StyleSheet, FlatList, TouchableOpacity, Dimensions} from 'react-native';
 import {
-    PieChart, BarChart, LineChart
+    PieChart, BarChart, ContributionGraph
   } from 'react-native-chart-kit';
 import { black } from 'react-native-paper/lib/typescript/src/styles/colors';
 import Database from '../components/Database';
@@ -9,6 +9,8 @@ import Database from '../components/Database';
 let refresh = false;
 let db = new Database();
 let lijst = db.getAllProducts();
+
+
 
 const data_pie = [
   {
@@ -58,6 +60,22 @@ const data_bar = {
   ]
 };
 
+
+
+const commitsData = [
+  { date: "2017-01-02", count: 1 },
+  { date: "2017-01-03", count: 2 },
+  { date: "2017-01-04", count: 3 },
+  { date: "2017-01-05", count: 4 },
+  { date: "2017-01-06", count: 5 },
+  { date: "2017-01-30", count: 2 },
+  { date: "2017-01-31", count: 3 },
+  { date: "2017-03-01", count: 2 },
+  { date: "2017-04-02", count: 4 },
+  { date: "2017-03-05", count: 2 },
+  { date: "2017-02-30", count: 4 }
+];
+
 const chartConfig_pie = {
 
   color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
@@ -67,6 +85,17 @@ const chartConfig_pie = {
 };
 
 const chartConfig_bar = {
+
+  color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+  strokeWidth: 2, // optional, default 3
+  barPercentage: 0.5,
+  backgroundColor: "#FFFFF",
+      backgroundGradientFrom: "#FFFFFF",
+      backgroundGradientTo: "#FFFFFF",
+  
+};
+
+const chartConfig_contr = {
 
   color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
   strokeWidth: 2, // optional, default 3
@@ -126,6 +155,17 @@ class StatsScreen extends Component {
   verticalLabelRotation={0}
   showValuesOnTopOfBars={true}
 /> 
+
+<ContributionGraph
+  values={commitsData}
+  endDate={new Date("2017-04-01")}
+  numDays={105}
+  width={screenWidth}
+  height={220}
+  chartConfig={chartConfig_contr}
+/>
+
+<Button title="map" onPress={() => {console.log(db.mapExpirations())}}>Log</Button>
 
         
         </View>
