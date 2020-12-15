@@ -24,12 +24,12 @@ function ScannerScreen({ navigation }: any) {
    const [valueAllergene, setAllergene] = useState("");
    const [valueDate, setDate] = useState(new Date(Date.now()));
    //statistics variables below
-   const [valueEnergy_kcal_value, setEnergy_kcal_value] = useState(0.0)
-   const [valueproteins_100g, setProteins_100g] = useState(0.0)
-   const [valueSugars_100g, setSugars_100g] = useState(0.0)
-   const [valueSodium_100g, setSodium_100g] = useState(0.0)
-   const [valueFat_100g, setFat_100g] = useState(0.0)
-   const [valueProduct_quantity, setProduct_quantity] = useState(0.0)
+   const [valueEnergy_kcal_value, setEnergy_kcal_value] = useState("0")
+   const [valueproteins_100g, setProteins_100g] = useState("0")
+   const [valueSugars_100g, setSugars_100g] = useState("0")
+   const [valueSodium_100g, setSodium_100g] = useState("0")
+   const [valueFat_100g, setFat_100g] = useState("0")
+   const [valueProduct_quantity, setProduct_quantity] = useState("0")
    //used to toggle DateTimePicker
    const [showDate, setShowDate] = useState(false);
    const changeBarcodeData = (props: { [x: string ]: any; } | { [x: string]: any; }) => {
@@ -74,15 +74,22 @@ function ScannerScreen({ navigation }: any) {
    const splitAllergenen = (allergenen: string) => {
       return allergenen.split(/[\s,]+/)
    }
+   const formatNumber = (number: string) => {
+      if(number.trim() == ""){return ""}
+      else{
+         return /^[\d\.,]+$/.test(number)?number:"0"
+      }
+   }
+   const cleanseNumber = (number: string) => {return number.trim()=="" || isNaN(parseFloat(number)) ? 0:parseFloat(number) }
    const submit = () => {
       let errors: string = "";
       if(valuePrice == ""){errors += "Invalid price, please try again\n"}
       if(valueName.trim() == ""){errors+= "Invalid name, please try again\n";}
       if(errors == ""){
          updateItems(new Item(Math.floor(Math.random() *1000), valueName, valueNutri,
-         splitAllergenen(valueAllergene), valueIMG,parseFloat(valuePrice), valueDate, valueEnergy_kcal_value,
-         valueproteins_100g, valueSugars_100g, valueSodium_100g,
-         valueFat_100g, valueProduct_quantity));
+         splitAllergenen(valueAllergene), valueIMG,cleanseNumber(valuePrice), valueDate, cleanseNumber(valueEnergy_kcal_value),
+         cleanseNumber(valueproteins_100g), cleanseNumber(valueSugars_100g), cleanseNumber(valueSodium_100g),
+         cleanseNumber(valueFat_100g), cleanseNumber(valueProduct_quantity)));
          
          setName("");
          setPrice("");
@@ -91,12 +98,12 @@ function ScannerScreen({ navigation }: any) {
          setAllergene("");
          setDate(new Date(Date.now()));
 
-         setEnergy_kcal_value(0)
-         setSugars_100g(0)
-         setProteins_100g(0)
-         setSodium_100g(0)
-         setFat_100g(0)
-         setProduct_quantity(0)
+         setEnergy_kcal_value("0")
+         setSugars_100g("0")
+         setProteins_100g("0")
+         setSodium_100g("0")
+         setFat_100g("0")
+         setProduct_quantity("0")
 
          navigation.navigate('STASH')
       }
@@ -143,31 +150,31 @@ function ScannerScreen({ navigation }: any) {
             <View style={{flexDirection:'row', flexWrap:'wrap', flex: 1}}> 
                <View style={{width: "35%"}}>
                   <Text style={styles.label}>kcal:</Text>
-                  <TextInput keyboardType={"numeric"} style={styles.textInput} value={valueEnergy_kcal_value.toString()} onChangeText={ecal => setEnergy_kcal_value(parseFloat(ecal))} />
+                  <TextInput keyboardType={"numeric"} style={styles.textInput} value={valueEnergy_kcal_value} onChangeText={ecal => setEnergy_kcal_value(formatNumber(ecal))} />
                </View>
                <View style={{width: "35%", marginLeft: "30%"}}>
                   <Text style={styles.label}>Proteins:</Text>
-                  <TextInput keyboardType={"numeric"} style={styles.textInput} value={valueproteins_100g.toString()} onChangeText={proteins_100g => setProteins_100g(parseFloat(proteins_100g))} />
+                  <TextInput keyboardType={"numeric"} style={styles.textInput} value={valueproteins_100g} onChangeText={proteins_100g => setProteins_100g(formatNumber(proteins_100g))} />
                </View>
             </View>
             <View style={{flexDirection:'row', flexWrap:'wrap', flex: 1}}>
                <View style={{width: "35%"}}>
                   <Text style={styles.label}>Sugar:</Text>
-                  <TextInput keyboardType={"numeric"} style={styles.textInput} value={valueSugars_100g.toString()} onChangeText={sugar => setSugars_100g(parseFloat(sugar))} />
+                  <TextInput keyboardType={"numeric"} style={styles.textInput} value={valueSugars_100g} onChangeText={sugar => setSugars_100g(formatNumber(sugar))} />
                </View>
                <View style={{width: "35%", marginLeft: "30%"}}>
                   <Text style={styles.label}>Sodium:</Text>
-                  <TextInput keyboardType={"numeric"} style={styles.textInput} value={valueSodium_100g.toString()} onChangeText={sod => setSodium_100g(parseFloat(sod))} />
+                  <TextInput keyboardType={"numeric"} style={styles.textInput} value={valueSodium_100g} onChangeText={sod => setSodium_100g(formatNumber(sod))} />
                </View>
             </View>
             <View style={{flexDirection:'row', flexWrap:'wrap', flex: 1}}>
                <View style={{width: "35%"}}>
                   <Text style={styles.label}>Fat:</Text>
-                  <TextInput keyboardType={"numeric"} style={styles.textInput} value={valueFat_100g.toString()} onChangeText={fat => setFat_100g(parseFloat(fat))} />
+                  <TextInput keyboardType={"numeric"} style={styles.textInput} value={valueFat_100g} onChangeText={fat => setFat_100g(formatNumber(fat))} />
                </View>
                <View style={{width: "35%", marginLeft: "30%"}}>
                   <Text style={styles.label}>Quantity:</Text>
-                  <TextInput keyboardType={"numeric"} style={styles.textInput} value={valueProduct_quantity.toString()} onChangeText={q => setProduct_quantity(parseFloat(q))} />
+                  <TextInput keyboardType={"numeric"} style={styles.textInput} value={valueProduct_quantity} onChangeText={q => setProduct_quantity(formatNumber(q))} />
                </View>
             </View>
             <Text style={{fontSize: 10}}><Text style={{color: "red"}}>*</Text>required</Text>
