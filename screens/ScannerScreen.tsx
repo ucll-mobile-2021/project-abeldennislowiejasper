@@ -81,6 +81,21 @@ function ScannerScreen({ navigation }: any) {
       }
    }
    const cleanseNumber = (number: string) => {return number.trim()=="" || isNaN(parseFloat(number)) ? 0:parseFloat(number) }
+   const clearInputs = () => {
+      setName("");
+      setPrice("");
+      setNutri("");
+      setIMG("");
+      setAllergene("");
+      setDate(new Date(Date.now()));
+
+      setEnergy_kcal_value("0")
+      setSugars_100g("0")
+      setProteins_100g("0")
+      setSodium_100g("0")
+      setFat_100g("0")
+      setProduct_quantity("0")
+   }
    const submit = () => {
       let errors: string = "";
       if(valuePrice == ""){errors += "Invalid price, please try again\n"}
@@ -92,20 +107,7 @@ function ScannerScreen({ navigation }: any) {
          cleanseNumber(valueproteins_100g), cleanseNumber(valueSugars_100g), cleanseNumber(valueSodium_100g),
          cleanseNumber(valueFat_100g), cleanseNumber(valueProduct_quantity)));
          
-         setName("");
-         setPrice("");
-         setNutri("");
-         setIMG("");
-         setAllergene("");
-         setDate(new Date(Date.now()));
-
-         setEnergy_kcal_value("0")
-         setSugars_100g("0")
-         setProteins_100g("0")
-         setSodium_100g("0")
-         setFat_100g("0")
-         setProduct_quantity("0")
-
+         clearInputs()
          navigation.navigate('STASH')
       }
          setError(errors)
@@ -145,6 +147,7 @@ function ScannerScreen({ navigation }: any) {
                   display="default"
                   onChange={onChangeDate}
                   minimumDate={new Date(Date.now()-( 60* 60 * 1000 * 24 * 365 * 10))} 
+                  maximumDate={new Date(Date.now()+( 60* 60 * 1000 * 24 * 365 * 18))} 
                   />}
             <Text style={styles.label}>Image:</Text>
             <TextInput style={styles.textInput} placeholder="http://url.com" value={valueIMG} onChangeText={img => setIMG(img)} />
