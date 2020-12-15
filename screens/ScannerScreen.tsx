@@ -86,7 +86,8 @@ function ScannerScreen({ navigation }: any) {
       if(valuePrice == ""){errors += "Invalid price, please try again\n"}
       if(valueName.trim() == ""){errors+= "Invalid name, please try again\n";}
       if(errors == ""){
-         updateItems(new Item(Math.floor(Math.random() *1000), valueName, valueNutri,
+         let realNutri:string = valueNutri==""?"Z":valueNutri;
+         updateItems(new Item(Math.floor(Math.random() *1000), valueName, realNutri,
          splitAllergenen(valueAllergene), valueIMG,cleanseNumber(valuePrice), valueDate, cleanseNumber(valueEnergy_kcal_value),
          cleanseNumber(valueproteins_100g), cleanseNumber(valueSugars_100g), cleanseNumber(valueSodium_100g),
          cleanseNumber(valueFat_100g), cleanseNumber(valueProduct_quantity)));
