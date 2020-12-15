@@ -10,8 +10,6 @@ let refresh = false;
 let db = new Database();
 let lijst = db.getAllProducts();
 
-
-
 const data_pie = [
   {
     name: "A",
@@ -60,20 +58,19 @@ const data_bar = {
   ]
 };
 
-
+for (let [key,value] of db.mapExpirations().entries()){
+  const commitsData = [
+    { date: key, count: value }
+  ];
+}
 
 const commitsData = [
-  { date: "2017-01-02", count: 1 },
-  { date: "2017-01-03", count: 2 },
-  { date: "2017-01-04", count: 3 },
-  { date: "2017-01-05", count: 4 },
-  { date: "2017-01-06", count: 5 },
-  { date: "2017-01-30", count: 2 },
-  { date: "2017-01-31", count: 3 },
-  { date: "2017-03-01", count: 2 },
-  { date: "2017-04-02", count: 4 },
-  { date: "2017-03-05", count: 2 },
-  { date: "2017-02-30", count: 4 }
+  { date: "2020-12-02", count: 1 },
+  { date: "2020-12-03", count: 2 },
+  { date: "2020-12-04", count: 3 },
+  { date: "2020-12-05", count: 4 },
+  { date: "2020-12-06", count: 5 },
+  { date: "2020-12-30", count: 2 },
 ];
 
 const chartConfig_pie = {
@@ -158,14 +155,14 @@ class StatsScreen extends Component {
 
 <ContributionGraph
   values={commitsData}
-  endDate={new Date("2017-04-01")}
+  endDate={new Date("2021-01-30")}
   numDays={105}
   width={screenWidth}
   height={220}
   chartConfig={chartConfig_contr}
 />
 
-<Button title="map" onPress={() => {console.log(db.mapExpirations())}}>Log</Button>
+{/* <Button title="map" onPress={() => {console.log(db.mapExpirations())}}>Log</Button> */}
 
         
         </View>

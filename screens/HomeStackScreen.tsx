@@ -9,6 +9,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Item from "../components/Item"
 import HomeScreen from "./HomeScreen"
 import StatsStackScreen from "./StatsStackScreen"
+import HelpStackScreen from "./HelpStackScreen"
 import ItemScreen from "./ItemScreen"
 import DrawerButton from "./DrawerButton"
 
@@ -45,6 +46,22 @@ function HomeStackScreen({ navigation }: any) {
   component={StatsStackScreen}
   options={({ navigation }) => ({
     title: 'Statistics',  headerStyle:{
+      backgroundColor: '#9ED2CE',
+    },
+    headerTintColor: '#fff',
+    
+    headerTitleStyle: {
+      fontWeight: 'bold',
+      color: '#3D5250',
+    },
+  })}
+/>
+
+<HomeStack.Screen
+  name="HelpStack"
+  component={HelpStackScreen}
+  options={({ navigation }) => ({
+    title: 'Help',  headerStyle:{
       backgroundColor: '#9ED2CE',
     },
     headerTintColor: '#fff',

@@ -513,10 +513,16 @@ class Database {
   public mapExpirations(): Map<string, number> {
     let map = new Map();
     const lijst = realm.objects('Product')
-    Date.now = function now() {
-      return new Date().getMonth();
-    }
-    console.log(Date.now())
+
+    let date = Date.now(); 
+    console.log(date)
+    //1607628850405 = Thursday, December 10, 2020 7:34:10.405 PM
+    let dateconvert = new Date(date);
+    console.log(dateconvert.getDay() + " is the day")
+    //returns 4 :-/
+
+    
+    
 
     this.length = lijst.length;
     for (let i = 0; i < lijst.length; ++i) {

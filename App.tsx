@@ -17,6 +17,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import Database from './components/Database'
 import { getAll } from './screens/StashScreen';
 import StatsStackScreen from './screens/StatsStackScreen';
+import HelpStackScreen from './screens/HelpStackScreen';
 const Drawer = createDrawerNavigator();
 
 
@@ -63,6 +64,14 @@ function StatsStackNavigator(){
     );
 }
 
+function HelpStackNavigator(){
+  return (
+    <Drawer.Navigator hideStatusBar={false} drawerContent={props => <DrawerContent {... props}/> }>
+      <Drawer.Screen name="HELP" component={HelpStackScreen} />
+    </Drawer.Navigator>
+    );
+}
+
 
 //TODO herschrijven naar een class
 function App() {
@@ -83,10 +92,6 @@ function App() {
             else if (route.name === 'SCAN') {
               iconName = focused ? 'barcode' : 'barcode';
             }
-            else if (route.name === 'STATS') {
-              iconName = focused ? 'stats-chart' : 'stats-chart';
-            }
-            
 
             // You can return any component that you like here!
             return <Ionicons name={iconName} size={size} color={color} />;

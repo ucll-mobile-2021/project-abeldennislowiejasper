@@ -41,7 +41,7 @@ function getTotalWeight(){
   return total;
 }
 
-let code : any;
+let code : any; //welk type zou dit moeten hebben
 function ifLijst() {
   if(getLijstBijnaVervallen().length == 0) {
      code = <Text>Nothing spoils soon</Text>
@@ -130,7 +130,7 @@ class Home extends Component {
       ifLijst();
       this.onRefresh();
       console.log('refreshed')
-    }, 2000)
+    }, 1000)
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 

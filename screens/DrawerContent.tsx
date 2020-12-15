@@ -69,19 +69,7 @@ export function DrawerContent({props, navigation} : any){
                 />
 
             </Drawer.Section>
-            <Drawer.Section style={styles.userInfoSection}>
-                <DrawerItem
-                    icon={({color, size}) => (
-                        <Icon name ="settings-outline"
-                        color='#759E9A'
-                        size={size}/>                            
-                    )}
-                    label="Settings"
-                    labelStyle={styles.caption}
-                    onPress={() => {}}
-                />
-
-            </Drawer.Section>
+            
             
             </View>
             </DrawerContentScrollView>
@@ -96,7 +84,7 @@ export function DrawerContent({props, navigation} : any){
                     )}
                     label="Help"
                     labelStyle={styles.caption}
-                    onPress={() => {}}
+                    onPress={() => {navigation.navigate('HelpStack')}}
                 />
             </Drawer.Section>
         </View>
