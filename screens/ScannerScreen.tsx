@@ -67,7 +67,7 @@ function ScannerScreen({ navigation }: any) {
    }
    //Check if nutriscore is A-F
    const setNutriVerification = (nutri: string) => {
-      ["A","B","C","D","E","F",""].includes(nutri.toUpperCase())?setNutri(nutri):""
+      ["A","B","C","D","E","F",""].includes(nutri.toUpperCase())?setNutri(nutri.toUpperCase()):""
    }
 
    //Split the Allergenen op , of spatie en zet in lijst
@@ -117,7 +117,7 @@ function ScannerScreen({ navigation }: any) {
          <View style={{marginLeft: "10%"}}><Text style={{color: "red"}}>{valueError}</Text></View>
          <View style={styles.form}>
             <View>
-               <Text style={styles.label}>Name<Text style={{color: "red"}}>*</Text>:</Text>
+               <Text style={styles.label}>Name:</Text>
                <TextInput style={styles.textInput} onChangeText={name => setName(name)} value={valueName}  />
             </View>
             <View style={{flexDirection:'row', flexWrap:'wrap', flex: 1}}>
