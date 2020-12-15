@@ -87,7 +87,7 @@ function ScannerScreen({ navigation }: any) {
       if(valueName.trim() == ""){errors+= "Invalid name, please try again\n";}
       if(errors == ""){
          let realNutri:string = valueNutri==""?"Z":valueNutri;
-         updateItems(new Item(Math.floor(Math.random() *1000), valueName, realNutri,
+         updateItems(new Item(Math.floor(Math.random() *1000), valueName, realNutri.toLocaleLowerCase(),
          splitAllergenen(valueAllergene), valueIMG,cleanseNumber(valuePrice), valueDate, cleanseNumber(valueEnergy_kcal_value),
          cleanseNumber(valueproteins_100g), cleanseNumber(valueSugars_100g), cleanseNumber(valueSodium_100g),
          cleanseNumber(valueFat_100g), cleanseNumber(valueProduct_quantity)));
@@ -118,7 +118,7 @@ function ScannerScreen({ navigation }: any) {
          <View style={{marginLeft: "10%"}}><Text style={{color: "red"}}>{valueError}</Text></View>
          <View style={styles.form}>
             <View>
-               <Text style={styles.label}>Name:</Text>
+               <Text style={styles.label}><Text style={{color: "red"}}>*</Text>Name:</Text>
                <TextInput style={styles.textInput} onChangeText={name => setName(name)} value={valueName}  />
             </View>
             <View style={{flexDirection:'row', flexWrap:'wrap', flex: 1}}>
@@ -144,7 +144,8 @@ function ScannerScreen({ navigation }: any) {
                   mode={"date"}
                   display="default"
                   onChange={onChangeDate}
-               />}
+                  minimumDate={new Date(Date.now()-( 60* 60 * 1000 * 24 * 365 * 10))} 
+                  />}
             <Text style={styles.label}>Image:</Text>
             <TextInput style={styles.textInput} placeholder="http://url.com" value={valueIMG} onChangeText={img => setIMG(img)} />
             
