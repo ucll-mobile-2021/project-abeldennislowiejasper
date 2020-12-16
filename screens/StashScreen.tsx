@@ -88,6 +88,7 @@ class Stash extends Component {
 }
 
 export function updateItems(item: Item) {
+  console.log(item);
   db.addProduct(item);
 }
 
