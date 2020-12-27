@@ -219,10 +219,10 @@ class Database {
     console.log("removeListItem reached")
     var item: ListItem;
     var temp = realm.objects('ListItem').filtered(`id = ${id}`)[0]
-    item = new ListItem(temp.toJSON().id, 
-      temp.toJSON().name, 
-      temp.toJSON().amount
-    );
+
+    realm.write(() => {
+      realm.delete(temp);
+    });
   }
 
 

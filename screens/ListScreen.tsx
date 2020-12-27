@@ -58,6 +58,8 @@ function updateItems(item: ListItem) {
 }
 
 function removeListItem(id: number){
+  console.log("remove")
+  console.log(id)
   db.removeListItem(id);
 }
 
