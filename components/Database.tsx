@@ -29,8 +29,7 @@ const ListItemSchema = {
   name: 'ListItem',
   properties: {
     id: 'int',
-    name: 'string',
-    nutriscore: 'int'
+    name: 'string'
   }
 }
 
@@ -94,8 +93,7 @@ class Database {
     for (let i = 0; i < lijstBoodschappen.length; ++i) {
       var item = lijstBoodschappen[i]
       this.resultsList.push(new ListItem(item.toJSON().id, 
-      item.toJSON().name, 
-      item.toJSON().amount));
+      item.toJSON().name));
     }
     this.length = lijst.length;
   }
@@ -205,8 +203,7 @@ class Database {
     realm.write(() => {
       const MyListItem = realm.create('ListItem', {
         id: item.id,
-        name: item.name,
-        nutriscore: item.amount
+        name: item.name
       })
     })
 

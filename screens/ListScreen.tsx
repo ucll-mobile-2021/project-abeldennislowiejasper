@@ -1,9 +1,5 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import { View, Text, Button, Image, StyleSheet, FlatList, TouchableOpacity, Dimensions, TextInput} from 'react-native';
-import {
-    PieChart, BarChart, ContributionGraph
-  } from 'react-native-chart-kit';
-import { black } from 'react-native-paper/lib/typescript/src/styles/colors';
 import Database from '../components/Database';
 import ListItem from '../components/ListItem';
 
@@ -11,16 +7,12 @@ const db = new Database();
 let lijstBoodschappen : Array<ListItem>;
 let refresh = false;
 let valueName: string;
-let valueAmount: string;
 let errorsList: string;
 
 function setName(name: string){
   valueName = name;
 }
 
-function setAmount(amount: string){
-  valueAmount = amount;
-}
 
 function setError(errors: string) {
   errorsList = errors;
@@ -44,7 +36,6 @@ function ifLijst() {
 
 const clearInputs = () => {
   setName("");
-  setAmount("");
 }
 
 function getLijstBoodschappen() {
@@ -86,16 +77,14 @@ class ListScreen extends Component {
       this.setState({ nr: db.length })
       getLijstBoodschappen();
       this.onRefresh();
-      console.log('refreshed')
     }, 1000)
 
     const submit = () => {
       let id = Math.random()
       let errors: string = "";
-      if(valueAmount == ""){errors += "Invalid amount, please try again\n"}
       if(valueName.trim() == ""){errors+= "Invalid name, please try again\n";}
       if(errors == ""){
-         updateItems(new ListItem(id, valueName, parseInt(valueAmount),));
+         updateItems(new ListItem(id, valueName));
          
          clearInputs()
       }
@@ -107,13 +96,12 @@ class ListScreen extends Component {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <FlatList  data={getLijstBoodschappen()} extraData={this.state}
-          keyExtractor={item => item.id + ""}
+          keyExtractor={listitem => listitem.id + ""}
           renderItem={
             ({ item }) =>
             <TouchableOpacity style={styles.item}>
                 
                 <Text style={styles.itemText}>{item.name}</Text>
-                <Text style={styles.itemText}>{item.amount}</Text>
                 <TouchableOpacity
         
         onPress={
@@ -138,12 +126,6 @@ class ListScreen extends Component {
                <Text style={styles.label}><Text style={{color: "red"}}>*</Text>Name:</Text>
                <TextInput style={styles.textInput} onChangeText={name => setName(name)} value={valueName}  />
             </View>
-            <View style={{flexDirection:'row', flexWrap:'wrap', flex: 1}}>
-               <View style={{width: "35%"}}>
-                  <Text style={styles.label}>Amount<Text style={{color: "red"}}>*</Text>:</Text>
-                  <TextInput keyboardType={"numeric"} style={styles.textInput} value={valueAmount} onChangeText={amount => setAmount(amount)} />
-               </View>
-               </View>
                <Text style={{fontSize: 10}}><Text style={{color: "red"}}>*</Text>required</Text>
             
             <View style={styles.buttonText}>
