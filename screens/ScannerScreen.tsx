@@ -67,7 +67,7 @@ function ScannerScreen({ navigation }: any) {
    }
    //Check if nutriscore is A-F
    const setNutriVerification = (nutri: string) => {
-      ["A","B","C","D","E","F",""].includes(nutri.toUpperCase())?setNutri(nutri.toUpperCase()):""
+      ["A","B","C","D","E",""].includes(nutri.toUpperCase())?setNutri(nutri.toUpperCase()):""
    }
 
    //Split the Allergenen op , of spatie en zet in lijst

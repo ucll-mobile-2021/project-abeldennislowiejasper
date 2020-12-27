@@ -7,6 +7,7 @@ import {removeItem} from './StashScreen'
 import Item from "../components/Item"
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { color } from 'react-native-reanimated';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
 const Stack = createStackNavigator();
@@ -20,6 +21,7 @@ function ItemScreen({route, navigation }: any) {
     var month = date.getMonth() + 1;
     var year = date.getFullYear();
     var datestring = day + "/" + month + "/" + year;
+    var currentDate = new Date()
     return (
       <ScrollView style={styles.items}>
         <Image   resizeMode="cover" style={styles.image} source={{ uri: IMGurl }}  />
@@ -28,6 +30,8 @@ function ItemScreen({route, navigation }: any) {
           <Text style={styles.informatie}>Information about {name}</Text>
 
           <Text style={styles.item}>Name: {name}</Text>
+          {expiration_date < currentDate && <Ionicons name={'md-warning'} style={{alignSelf: "center"}} size={40} color={'red'} /> }
+          {expiration_date < currentDate && <Text style={{alignSelf: "center"}}>This product is expired!</Text> }
           <Text><Text style={styles.textbold}>Nutri-Score:</Text> {nutriscore}</Text>
           <Text><Text style={styles.textbold}>Barcode:</Text> {barcode}</Text>
           <Text><Text style={styles.textbold}>Allergene:</Text> {allergene}</Text>
@@ -72,8 +76,8 @@ function ItemScreen({route, navigation }: any) {
       fontWeight: 'bold'
     },
     image: {
-      width: 500,
-      height: 250,
+      width: 400,
+      height: 200,
       alignSelf: "center",
       marginBottom: 20
     },

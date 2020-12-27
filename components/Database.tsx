@@ -66,7 +66,7 @@ class Database {
 
   constructor() {
     if (realm == null) {
-      realm = new Realm({ schema: [ProductSchema, RemovedSchema, ListItemSchema], schemaVersion: 7 })
+      realm = new Realm({ schema: [ProductSchema, RemovedSchema, ListItemSchema], schemaVersion: 8 })
     }
     const lijst = realm.objects('Product')
     this.length = lijst.length;
@@ -345,7 +345,7 @@ class Database {
       var item = lijst[i]
       resultsList.push(new ListItem(item.toJSON().id, 
       item.toJSON().name, 
-      item.toJSON().amount));
+      ));
     }
     
     this.resultsList = resultsList;
