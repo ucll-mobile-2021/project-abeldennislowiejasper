@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import Item from './Item'
+import ListItem from './ListItem'
 
 
-import Realm from 'realm'
+import Realm, { List } from 'realm'
 import { getAll } from '../screens/StashScreen'
 
 const ProductSchema = {
@@ -21,6 +22,15 @@ const ProductSchema = {
     sodium_100g: 'float',
     fat_100g: 'float',
     product_quantity: 'int'
+  }
+}
+
+const ListItemSchema = {
+  name: 'ListItem',
+  properties: {
+    id: 'int',
+    name: 'string',
+    nutriscore: 'int'
   }
 }
 
@@ -50,13 +60,14 @@ class Database {
 
   length: number = 0;
   results: Item[] = []
+  resultsList: ListItem[] = []
   lengthRemoved: number = 0;
   lijstRemoved: Item[] = []
   lijstBijnaVervallen: Item[] = [];
 
   constructor() {
     if (realm == null) {
-      realm = new Realm({ schema: [ProductSchema, RemovedSchema], schemaVersion: 7 })
+      realm = new Realm({ schema: [ProductSchema, RemovedSchema, ListItemSchema], schemaVersion: 7 })
     }
     const lijst = realm.objects('Product')
     this.length = lijst.length;
@@ -77,6 +88,16 @@ class Database {
       item.toJSON().product_quantity));
     }
     this.lijstBijnaVervallen = this.getLijstBijnaVervallen();
+
+    const lijstBoodschappen = realm.objects('ListItem')
+    this.length = lijstBoodschappen.length;
+    for (let i = 0; i < lijstBoodschappen.length; ++i) {
+      var item = lijstBoodschappen[i]
+      this.resultsList.push(new ListItem(item.toJSON().id, 
+      item.toJSON().name, 
+      item.toJSON().amount));
+    }
+    this.length = lijst.length;
   }
 
   public getItemsCount(): number {
@@ -173,9 +194,34 @@ class Database {
         product_quantity: item.product_quantity
       })
     });
+    
 
     const lijstRemoved = realm.objects('Removed')
     this.lengthRemoved = lijstRemoved.length;
+  }
+
+  public addListItem(item: ListItem) {
+
+    realm.write(() => {
+      const MyListItem = realm.create('ListItem', {
+        id: item.id,
+        name: item.name,
+        nutriscore: item.amount
+      })
+    })
+
+    const lijst = realm.objects('ListItem')
+    this.length = lijst.length;
+
+  }
+
+  public removeListItem(id: number) {
+    var item: ListItem;
+    var temp = realm.objects('ListItem').filtered(`id = ${id}`)[0]
+    item = new ListItem(temp.toJSON().id, 
+      temp.toJSON().name, 
+      temp.toJSON().amount
+    );
   }
 
 
@@ -292,7 +338,23 @@ class Database {
 
   }
 
-   public getNutriScoreAmount(String : any): number {
+  public getLijstBoodschappen(): ListItem[] {
+    let resultsList: ListItem[] = []
+    const lijst = realm.objects('ListItem')
+    this.length = lijst.length;
+    for (let i = 0; i < lijst.length; ++i) {
+      var item = lijst[i]
+      resultsList.push(new ListItem(item.toJSON().id, 
+      item.toJSON().name, 
+      item.toJSON().amount));
+    }
+    
+    this.results = resultsList;
+
+    return resultsList;
+  }
+
+   public getNutriScoreAmount(String : Text): number {
     let score = String;
     let a = 0;
     let b = 0;

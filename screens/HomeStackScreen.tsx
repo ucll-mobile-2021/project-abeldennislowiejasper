@@ -10,6 +10,7 @@ import Item from "../components/Item"
 import HomeScreen from "./HomeScreen"
 import StatsStackScreen from "./StatsStackScreen"
 import HelpStackScreen from "./HelpStackScreen"
+import ListStackScreen from "./ListStackScreen"
 import ItemScreen from "./ItemScreen"
 import DrawerButton from "./DrawerButton"
 
@@ -61,7 +62,7 @@ function HomeStackScreen({ navigation }: any) {
   name="HelpStack"
   component={HelpStackScreen}
   options={({ navigation }) => ({
-    title: 'Boodschappenlijstje',  headerStyle:{
+    title: 'Help',  headerStyle:{
       backgroundColor: '#9ED2CE',
     },
     headerTintColor: '#fff',
@@ -74,10 +75,10 @@ function HomeStackScreen({ navigation }: any) {
 />
 
 <HomeStack.Screen
-  name="BoodschappenStack"
-  component={BoodschappenStackScreen}
+  name="ListStack"
+  component={ListStackScreen}
   options={({ navigation }) => ({
-    title: 'Help',  headerStyle:{
+    title: 'Shopping List',  headerStyle:{
       backgroundColor: '#9ED2CE',
     },
     headerTintColor: '#fff',

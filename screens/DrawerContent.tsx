@@ -52,7 +52,7 @@ export function DrawerContent({props, navigation} : any){
                     )}
                     label="Shopping List"
                     labelStyle={styles.caption}
-                    onPress={() => {}}
+                    onPress={() => {navigation.navigate('ListStack')}}
                 />
 
             </Drawer.Section>

@@ -11,9 +11,10 @@ import Database from '../components/Database';
 
 import { getAll } from './StashScreen';
 import { totalmem } from 'os';
+import { List } from 'realm';
 
 const db = new Database();
-let lijstBijnaVervallen : any;
+let lijstBijnaVervallen : Array<Item>;
 let refresh = false;
 
 
