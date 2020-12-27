@@ -215,7 +215,7 @@ class Database {
 
   }
 
-  public removeListItem(id: number) {
+  public removeListItem(id: int) {
     var item: ListItem;
     var temp = realm.objects('ListItem').filtered(`id = ${id}`)[0]
     item = new ListItem(temp.toJSON().id, 
