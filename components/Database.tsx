@@ -283,6 +283,7 @@ class Database {
   public getLijstBijnaVervallen(): Item[] {
     let results: Item[] = []
     let currentdate = new Date();
+    currentdate.setDate(currentdate.getDate() - 1)
     let weeklaterdate = new Date();
     weeklaterdate.setDate(weeklaterdate.getDate() + 7)
 
@@ -313,7 +314,7 @@ class Database {
   public getLijstVervallen(): Item[] {
     let results: Item[] = []
     let currentdate = new Date();
-
+    currentdate.setDate(currentdate.getDate() - 1)
 
     const lijst = realm.objects('Product').filtered("expiration_date < $0", currentdate)
     this.length = lijst.length;
