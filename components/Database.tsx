@@ -218,10 +218,10 @@ class Database {
   public removeListItem(id: number) {
     var item: ListItem;
     var temp = realm.objects('ListItem').filtered(`id = ${id}`)[0]
-    item = new ListItem(temp.toJSON().id, 
-      temp.toJSON().name, 
-      temp.toJSON().amount
-    );
+
+    realm.write(() => {
+      realm.delete(temp);
+    });
   }
 
 
@@ -350,7 +350,7 @@ class Database {
       item.toJSON().amount));
     }
     
-    this.results = resultsList;
+    this.resultsList = resultsList;
 
     return resultsList;
   }
