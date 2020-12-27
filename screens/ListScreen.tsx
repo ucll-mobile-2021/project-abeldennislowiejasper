@@ -10,9 +10,37 @@ import ListItem from '../components/ListItem';
 const db = new Database();
 let lijstBoodschappen : Array<ListItem>;
 let refresh = false;
-const [valueName, setName] = useState("");
-const [valueAmount, setAmount] = useState("");
-const [valueError, setError] = useState("");
+let valueName: string;
+let valueAmount: string;
+let errorsList: string;
+
+function setName(name: string){
+  valueName = name;
+}
+
+function setAmount(amount: string){
+  valueAmount = amount;
+}
+
+function setError(errors: string) {
+  errorsList = errors;
+}
+
+function getError() {
+  return errorsList;
+}
+
+
+let code : any; //welk type zou dit moeten hebben
+function ifLijst() {
+  let errors = getError
+  if(errors.length == 0) {
+     code = <Text>{getError()}</Text>
+  } else { return null;}
+  return code;
+  
+}
+
 
 const clearInputs = () => {
   setName("");
@@ -27,6 +55,10 @@ function getLijstBoodschappen() {
 function updateItems(item: ListItem) {
   console.log(item);
   db.addListItem(item);
+}
+
+function removeListItem(id: number){
+  db.removeListItem(id);
 }
 
 const cleanseNumber = (number: string) => {return number.trim()=="" || isNaN(parseFloat(number)) ? 0:parseFloat(number) }
@@ -61,33 +93,17 @@ class ListScreen extends Component {
       if(valueAmount == ""){errors += "Invalid amount, please try again\n"}
       if(valueName.trim() == ""){errors+= "Invalid name, please try again\n";}
       if(errors == ""){
-         updateItems(new ListItem(id, valueName, cleanseNumber(valueAmount),));
+         updateItems(new ListItem(id, valueName, parseInt(valueAmount),));
          
          clearInputs()
       }
          setError(errors)
+         
    }
 
 
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <View style={styles.form}>
-            <View>
-               <Text style={styles.label}><Text style={{color: "red"}}>*</Text>Name:</Text>
-               <TextInput style={styles.textInput} onChangeText={name => setName(name)} value={valueName}  />
-            </View>
-            <View style={{flexDirection:'row', flexWrap:'wrap', flex: 1}}>
-               <View style={{width: "35%"}}>
-                  <Text style={styles.label}>Amount<Text style={{color: "red"}}>*</Text>:</Text>
-                  <TextInput keyboardType={"numeric"} style={styles.textInput} value={valueAmount.toString()} onChangeText={amount => setAmount(amount)} />
-               </View>
-               </View>
-               <Text style={{fontSize: 10}}><Text style={{color: "red"}}>*</Text>required</Text>
-
-            <View style={styles.buttonText}>
-              <Button title="Add item" color='#8AB8B4' onPress={() => {submit()}} />
-            </View>
-      </View>
         <FlatList  data={getLijstBoodschappen()} extraData={this.state}
           keyExtractor={item => item.id + ""}
           renderItem={
@@ -96,11 +112,43 @@ class ListScreen extends Component {
                 
                 <Text style={styles.itemText}>{item.name}</Text>
                 <Text style={styles.itemText}>{item.amount}</Text>
-                <Text style={styles.arrow}>{'X'}</Text>
+                <TouchableOpacity
+        
+        onPress={
+          () => {removeListItem(item.id); 
+           
+          }
+        }
+        style={styles.button}
+      > 
+      <Text style={styles.buttontext}>Delete product</Text>
+      </TouchableOpacity> 
+                
 
-              </TouchableOpacity>             
+              </TouchableOpacity>
+              
+                    
           }
         />
+        <View style={styles.form}>
+        {ifLijst()}
+            <View>
+               <Text style={styles.label}><Text style={{color: "red"}}>*</Text>Name:</Text>
+               <TextInput style={styles.textInput} onChangeText={name => setName(name)} value={valueName}  />
+            </View>
+            <View style={{flexDirection:'row', flexWrap:'wrap', flex: 1}}>
+               <View style={{width: "35%"}}>
+                  <Text style={styles.label}>Amount<Text style={{color: "red"}}>*</Text>:</Text>
+                  <TextInput keyboardType={"numeric"} style={styles.textInput} value={valueAmount} onChangeText={amount => setAmount(amount)} />
+               </View>
+               </View>
+               <Text style={{fontSize: 10}}><Text style={{color: "red"}}>*</Text>required</Text>
+            
+            <View style={styles.buttonText}>
+              <Button title="Add item" color='#8AB8B4' onPress={() => {submit()}} />
+            </View>
+      </View>
+        
       </View>
       
     );
@@ -120,6 +168,24 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     alignItems: 'center'
 
+  },
+  button: {
+    elevation: 8,
+    color: '#ffffff',
+    backgroundColor:'#f0655b',
+    marginTop: 20,
+    marginBottom: 20,
+    borderRadius: 10,
+
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+    width: Dimensions.get('window').width - 20
+  },
+  buttontext: {
+    color: '#ffffff',
+    fontWeight: 'bold'
   },
   headerBox: {
     justifyContent: 'flex-start',
@@ -221,7 +287,7 @@ const styles = StyleSheet.create({
     margin: 0
  },
  buttonText: {
-    paddingTop: 20
+    paddingTop: 70
  }
 });
 

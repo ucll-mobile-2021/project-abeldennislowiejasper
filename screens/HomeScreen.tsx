@@ -42,7 +42,7 @@ function getTotalWeight(){
   return total;
 }
 
-let code : any; //welk type zou dit moeten hebben
+let code : any; 
 function ifLijst() {
   if(getLijstBijnaVervallen().length == 0) {
      code = <Text>Nothing spoils soon</Text>
