@@ -58,20 +58,14 @@ const data_bar = {
   ]
 };
 
+const commitsData : any = [];
 for (let [key,value] of db.mapExpirations().entries()){
-  const commitsData = [
-    { date: key, count: value }
-  ];
+ 
+    commitsData.push({ date: key, count: value }, )
+  
 }
 
-const commitsData = [
-  { date: "2020-12-02", count: 1 },
-  { date: "2020-12-03", count: 2 },
-  { date: "2020-12-04", count: 3 },
-  { date: "2020-12-05", count: 4 },
-  { date: "2020-12-06", count: 5 },
-  { date: "2020-12-30", count: 2 },
-];
+
 
 const chartConfig_pie = {
 
@@ -86,23 +80,19 @@ const chartConfig_bar = {
   color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
   strokeWidth: 2, // optional, default 3
   barPercentage: 0.5,
-  backgroundColor: "#FFFFF",
+  backgroundColor: "#FFFFFF",
       backgroundGradientFrom: "#FFFFFF",
       backgroundGradientTo: "#FFFFFF",
   
 };
 
 const chartConfig_contr = {
-
   color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-  strokeWidth: 2, // optional, default 3
-  barPercentage: 0.5,
-  backgroundColor: "#FFFFF",
+  backgroundColor: "#000000",
       backgroundGradientFrom: "#FFFFFF",
       backgroundGradientTo: "#FFFFFF",
   
 };
-
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -152,17 +142,16 @@ class StatsScreen extends Component {
   verticalLabelRotation={0}
   showValuesOnTopOfBars={true}
 /> 
-
-<ContributionGraph
+<Text>Expiration dates</Text>
+ <ContributionGraph
   values={commitsData}
   endDate={new Date("2021-01-30")}
   numDays={105}
   width={screenWidth}
   height={220}
   chartConfig={chartConfig_contr}
-/>
-
-{/* <Button title="map" onPress={() => {console.log(db.mapExpirations())}}>Log</Button> */}
+  
+/> 
 
         
         </View>
