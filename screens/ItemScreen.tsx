@@ -23,7 +23,9 @@ function ItemScreen({route, navigation }: any) {
     var datestring = day + "/" + month + "/" + year;
     return (
       <ScrollView style={styles.items}>
-        <Image   resizeMode="cover" style={styles.image} source={{ uri: IMGurl }}  />
+        {IMGurl != "" && 
+          <Image   resizeMode="cover" style={styles.image} source={{ uri: IMGurl }}  />
+        }
 
         <View style={styles.view}>
           <Text style={styles.informatie}>Information about {name}</Text>
