@@ -53,7 +53,20 @@ class Stash extends Component {
           keyExtractor={item => item.barcode + ""}
           renderItem={
             ({ item }) =>
-              <TouchableOpacity style={styles.item}  onPress={() => this.props.navigation.navigate('ItemScreen', item)}>
+              <TouchableOpacity style={styles.item}  onPress={() => this.props.navigation.navigate('ItemScreen', {
+                name: item.name, 
+                barcode: item.barcode,
+                nutriscore: item.nutriscore,
+                allergene: item.allergene,
+                IMGurl: item.IMGurl,
+                price: item.price,
+                expiration_date: (item.expiration_date).getTime()/ 1000,
+                energy_kcal_value: item.energy_kcal_value,
+                proteins_100g: item.proteins_100g,
+                sugars_100g: item.sugars_100g,
+                sodium_100g: item.sodium_100g,
+                fat_100g: item.fat_100g,
+                product_quantity: item.product_quantity})}>
                 <View style={styles.imageView}>
                 <Image   resizeMode="cover" style={styles.image} source={item.IMGurl ? { uri: item.IMGurl } : { uri:"https://pdsohio.com/wp-content/uploads/2017/04/default-image.jpg"}}  />
                 </View>
@@ -75,6 +88,7 @@ class Stash extends Component {
 }
 
 export function updateItems(item: Item) {
+  console.log(item);
   db.addProduct(item);
 }
 
