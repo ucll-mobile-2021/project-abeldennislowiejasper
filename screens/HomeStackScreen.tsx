@@ -61,6 +61,22 @@ function HomeStackScreen({ navigation }: any) {
   name="HelpStack"
   component={HelpStackScreen}
   options={({ navigation }) => ({
+    title: 'Boodschappenlijstje',  headerStyle:{
+      backgroundColor: '#9ED2CE',
+    },
+    headerTintColor: '#fff',
+    
+    headerTitleStyle: {
+      fontWeight: 'bold',
+      color: '#3D5250',
+    },
+  })}
+/>
+
+<HomeStack.Screen
+  name="BoodschappenStack"
+  component={BoodschappenStackScreen}
+  options={({ navigation }) => ({
     title: 'Help',  headerStyle:{
       backgroundColor: '#9ED2CE',
     },
