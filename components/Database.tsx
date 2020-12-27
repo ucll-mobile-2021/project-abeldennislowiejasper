@@ -515,11 +515,8 @@ class Database {
     const lijst = realm.objects('Product')
 
     let date = Date.now(); 
-    console.log(date)
-    //1607628850405 = Thursday, December 10, 2020 7:34:10.405 PM
     let dateconvert = new Date(date);
-    console.log(dateconvert.getDay() + " is the day")
-    //returns 4 :-/
+
 
     
     
@@ -529,8 +526,8 @@ class Database {
       
       let amount = 0;
       let year = lijst[i].expiration_date.getFullYear();
-      let month = lijst[i].expiration_date.getMonth();
-      let day = lijst[i].expiration_date.getDay();
+      let month = lijst[i].expiration_date.getMonth() + 1 ;
+      let day = lijst[i].expiration_date.getDate();
       let date = year+'-'+month+'-'+day;
       
       //TODO
