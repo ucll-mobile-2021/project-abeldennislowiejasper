@@ -130,7 +130,6 @@ class Home extends Component {
       getLijstBijnaVervallen();
       ifLijst();
       this.onRefresh();
-      console.log('refreshed')
     }, 1000)
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>

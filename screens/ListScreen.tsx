@@ -77,7 +77,7 @@ class ListScreen extends Component {
       this.setState({ nr: db.length })
       getLijstBoodschappen();
       this.onRefresh();
-    }, 1000)
+    }, 500)
 
     const submit = () => {
       let id = Math.random()
@@ -99,7 +99,7 @@ class ListScreen extends Component {
           keyExtractor={listitem => listitem.id + ""}
           renderItem={
             ({ item }) =>
-            <TouchableOpacity style={styles.item}>
+            <View style={styles.item}>
                 
                 <Text style={styles.itemText}>{item.name}</Text>
                 <TouchableOpacity
@@ -115,7 +115,7 @@ class ListScreen extends Component {
       </TouchableOpacity> 
                 
 
-              </TouchableOpacity>
+              </View>
               
                     
           }
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 10,
 
-    height: 50,
+    height: 40,
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'stretch',
@@ -188,6 +188,8 @@ const styles = StyleSheet.create({
   },
   itemText: {
     fontSize: 25,
+    alignItems: 'center',
+    justifyContent: 'center',
     width: "60%",
     alignSelf: "center",
     paddingLeft: 15,
@@ -255,7 +257,7 @@ const styles = StyleSheet.create({
  },
  form: {
     width: '75%',
-    marginLeft: '12.5%'
+    marginLeft: '1%'
  },
  cameraButtonContainer: {
     width: "50%",
@@ -271,7 +273,8 @@ const styles = StyleSheet.create({
     margin: 0
  },
  buttonText: {
-    paddingTop: 70
+    paddingTop: 30,
+    paddingBottom: 20
  }
 });
 

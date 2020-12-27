@@ -226,7 +226,8 @@ const styles = StyleSheet.create({
       margin: 0
    },
    buttonText: {
-      paddingTop: 20
+      paddingTop: 20,
+      paddingBottom: 20
    }
 });
 

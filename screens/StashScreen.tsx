@@ -6,7 +6,6 @@ import Item from "../components/Item";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ItemScreen from "../screens/ItemScreen";
 import { State, TouchableOpacity } from 'react-native-gesture-handler';
-import { white } from 'react-native-paper/lib/typescript/src/styles/colors';
 import Database from '../components/Database'
 
 
@@ -46,7 +45,7 @@ class Stash extends Component {
     setTimeout(() => {
       this.setState({ nr: db.length })
       lijst = db.getAllProducts();
-    }, 300)
+    }, 1000)
     let currentdate = new Date();
     currentdate.setDate(currentdate.getDate() - 1);
     return (

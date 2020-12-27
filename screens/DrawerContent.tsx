@@ -33,19 +33,6 @@ export function DrawerContent({props, navigation} : any){
             <Drawer.Section style={styles.userInfoSection}>
                 <DrawerItem
                     icon={({color, size}) => (
-                        <Icon name ="person-circle-outline"
-                        color='#759E9A'
-                        size={size}/>                            
-                    )}
-                    label="My profile"
-                    labelStyle={styles.caption}
-                    onPress={() => {}}
-                />
-
-            </Drawer.Section>
-            <Drawer.Section style={styles.userInfoSection}>
-                <DrawerItem
-                    icon={({color, size}) => (
                         <Icon name ="document-text-outline"
                         color='#759E9A'
                         size={size}/>                            

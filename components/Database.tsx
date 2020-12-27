@@ -28,7 +28,7 @@ const ProductSchema = {
 const ListItemSchema = {
   name: 'ListItem',
   properties: {
-    id: 'int',
+    id: 'float',
     name: 'string'
   }
 }
@@ -66,7 +66,7 @@ class Database {
 
   constructor() {
     if (realm == null) {
-      realm = new Realm({ schema: [ProductSchema, RemovedSchema, ListItemSchema], schemaVersion: 8 })
+      realm = new Realm({ schema: [ProductSchema, RemovedSchema, ListItemSchema], schemaVersion: 9 })
     }
     const lijst = realm.objects('Product')
     this.length = lijst.length;
@@ -213,8 +213,6 @@ class Database {
   }
 
   public removeListItem(id: number) {
-    console.log("removeListItem reached")
-    var item: ListItem;
     var temp = realm.objects('ListItem').filtered(`id = ${id}`)[0]
 
     realm.write(() => {
