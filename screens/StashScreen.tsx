@@ -46,7 +46,9 @@ class Stash extends Component {
     setTimeout(() => {
       this.setState({ nr: db.length })
       lijst = db.getAllProducts();
-    }, 1000)
+    }, 300)
+    let currentdate = new Date();
+    currentdate.setDate(currentdate.getDate() - 1);
     return (
       <View style={styles.container}>
         <FlatList style={styles.flatlist} data={lijst} extraData={this.state}
@@ -72,7 +74,7 @@ class Stash extends Component {
                 </View>
                 {/* dees toevoegen als een item vervallen is */}
                 <View style={styles.icon}>
-                  {item.expiration_date < Date.now() && <Ionicons name={'md-warning'} style={{alignSelf: "center"}} size={35} color={'red'} /> }
+                  {item.expiration_date < currentdate && <Ionicons name={'md-warning'} style={{alignSelf: "center"}} size={35} color={'red'} /> }
                 </View>
                 <Text style={styles.itemText}>{item.name}</Text>
                 <Text style={styles.arrow}>{'→'}</Text>
