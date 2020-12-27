@@ -216,6 +216,7 @@ class Database {
   }
 
   public removeListItem(id: number) {
+    console.log("removeListItem reached")
     var item: ListItem;
     var temp = realm.objects('ListItem').filtered(`id = ${id}`)[0]
     item = new ListItem(temp.toJSON().id, 
@@ -350,7 +351,7 @@ class Database {
       item.toJSON().amount));
     }
     
-    this.results = resultsList;
+    this.resultsList = resultsList;
 
     return resultsList;
   }
