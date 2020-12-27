@@ -77,7 +77,7 @@ class ListScreen extends Component {
       this.setState({ nr: db.length })
       getLijstBoodschappen();
       this.onRefresh();
-    }, 500)
+    }, 1000)
 
     const submit = () => {
       let id = Math.random()

@@ -101,7 +101,8 @@ class StatsScreen extends Component {
     constructor(props: any) {
       super(props);
       this.state = {
-        
+        nr: db.length,
+        refreshing: refresh
       }
     }
   
@@ -115,10 +116,12 @@ class StatsScreen extends Component {
       setTimeout(() => {
         this.setState({ nr: db.length })
         
-      }, 1000)
+      }, 500)
       return (
         <View style={styles.container}>
-          <Text>NutriScore ratio</Text>
+          <View style={styles.title}>
+          <Text style={styles.title}>NutriScore ratio</Text>
+          </View>
           <PieChart
           data={data_pie}
           width={screenWidth}
@@ -129,7 +132,8 @@ class StatsScreen extends Component {
           paddingLeft="20"
           absolute
         />
-        <Text>Nutrient ratio</Text>
+        <View style={styles.title}>
+        <Text style={styles.title}>Nutrient ratio</Text></View>
 
   
  <BarChart
@@ -142,7 +146,7 @@ class StatsScreen extends Component {
   verticalLabelRotation={0}
   showValuesOnTopOfBars={true}
 /> 
-<Text>Expiration dates</Text>
+<View style={styles.title}><Text style={styles.title}>Expiration dates</Text></View>
  <ContributionGraph
   values={commitsData}
   endDate={new Date("2021-01-30")}
@@ -161,7 +165,15 @@ class StatsScreen extends Component {
   }
 
   const styles = StyleSheet.create({
-    container: {},
+    container: {
+      
+    },
+    title: {
+      
+      alignItems: 'center',
+      fontSize: 20
+      
+    }
   });
 
   export default StatsScreen;

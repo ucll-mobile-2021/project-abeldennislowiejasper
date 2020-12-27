@@ -33,7 +33,7 @@ export function getTotalPrice() {
   return Math.round((totalPrice * 100)) / 100;
 }
 
-function getTotalWeight(){
+export function getTotalWeight(){
   let total = 0;
   db.getLijstVervallen().forEach(element => {
     total += element.product_quantity;
@@ -117,9 +117,12 @@ class Home extends Component {
   onRefresh() {
     refresh = true;
     getTotalPrice();
+    db.getLijstVers();
     getLijstBijnaVervallen();
-    
+    db.getLijstBijnaVervallen();
+    db.getLijstVervallen();
     ifLijst();
+    getTotalWeight()
     refresh = false;
   }
 
@@ -127,7 +130,11 @@ class Home extends Component {
     setTimeout(() => {
       this.setState({ nr: db.length })
       getTotalPrice();
+      getTotalWeight();
+      db.getLijstBijnaVervallen();
+    db.getLijstVervallen();
       getLijstBijnaVervallen();
+      db.getLijstVers();
       ifLijst();
       this.onRefresh();
     }, 1000)
