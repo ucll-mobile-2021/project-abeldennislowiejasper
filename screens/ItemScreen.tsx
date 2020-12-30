@@ -22,6 +22,7 @@ function ItemScreen({route, navigation }: any) {
     var month = date.getMonth() + 1;
     var year = date.getFullYear();
     var datestring = day + "/" + month + "/" + year;
+    if(nutriscore == 'z') nutriscore = "N/A"
     return (
       <ScrollView style={styles.items}>
         {IMGurl != "" && 
