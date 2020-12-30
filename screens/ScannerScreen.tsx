@@ -96,10 +96,15 @@ function ScannerScreen({ navigation }: any) {
       setFat_100g("0")
       setProduct_quantity("0")
    }
+
    const submit = () => {
       let errors: string = "";
-      if(valuePrice == ""){errors += "Invalid price, please try again\n"}
+      const numericRegex = /^[0-9]{0,20}(\.[0-9]{1,2})?$/
       if(valueName.trim() == ""){errors+= "Invalid name, please try again\n";}
+      if(valuePrice.trim() == ""){errors += "Invalid price, please try again\n"}
+      if(!numericRegex.test(valuePrice)){
+         errors += "Price must be a number (max. 2 decimals)\n"
+      }
       if(errors == ""){
          let realNutri:string = valueNutri==""?"Z":valueNutri;
          updateItems(new Item(Math.floor(Math.random() *1000), valueName, realNutri.toLocaleLowerCase(),
@@ -126,7 +131,7 @@ function ScannerScreen({ navigation }: any) {
             <View style={{flexDirection:'row', flexWrap:'wrap', flex: 1}}>
                <View style={{width: "35%"}}>
                   <Text style={styles.label}>Price<Text style={{color: "red"}}>*</Text>:</Text>
-                  <TextInput keyboardType={"numeric"} style={styles.textInput} value={valuePrice.toString()} onChangeText={price => setPrice(price)} />
+                  <TextInput keyboardType={"numeric"} style={styles.textInput} value={valuePrice.toString()} onChangeText={price => setPrice(price.trim())} />
                </View>
                <View style={{width: "35%", marginLeft: "30%"}}>
                   <Text style={styles.label}>Nutriscore:</Text>

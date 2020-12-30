@@ -8,6 +8,7 @@ import Item from "../components/Item"
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { color } from 'react-native-reanimated';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { ThemeConsumer } from 'react-native-elements';
 
 
 const Stack = createStackNavigator();
@@ -34,7 +35,7 @@ function ItemScreen({route, navigation }: any) {
           <Text><Text style={styles.textbold}>Nutri-Score:</Text> {nutriscore}</Text>
           <Text><Text style={styles.textbold}>Barcode:</Text> {barcode}</Text>
           <Text><Text style={styles.textbold}>Allergene:</Text> {allergene}</Text>
-          <Text><Text style={styles.textbold}>Price:</Text> €{price}</Text>
+          <Text><Text style={styles.textbold}>Price:</Text> €{price.toFixed(2)}</Text>
           <Text><Text style={styles.textbold}>Expiration Date:</Text> {datestring}</Text>
           <Text><Text style={styles.textbold}>Energy:</Text> {energy_kcal_value} kcal</Text>
           <Text><Text style={styles.textbold}>Protein (100g):</Text> {proteins_100g} g</Text>
@@ -46,8 +47,8 @@ function ItemScreen({route, navigation }: any) {
         <TouchableOpacity
         
         onPress={
-          () => { removeItem(barcode); 
-            navigation.navigate('Stash');
+          () => { removeItem(barcode);
+            navigation.pop()
           }
         }
         style={styles.button}

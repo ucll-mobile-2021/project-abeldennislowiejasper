@@ -45,7 +45,7 @@ class Stash extends Component {
     setTimeout(() => {
       this.setState({ nr: db.length })
       lijst = db.getAllProducts();
-    }, 300)
+    }, 100)
     let currentdate = new Date();
     currentdate.setDate(currentdate.getDate() - 1);
     return (

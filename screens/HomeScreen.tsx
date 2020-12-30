@@ -67,31 +67,32 @@ function test() {
   });
 }
 
-
-const data = [
-  {
-    name: "Fresh",
-    amount: db.getLijstVers().length,
-    color: "#93C4C0",
-    legendFontColor: "#7F7F7F",
-    legendFontSize: 15
-  },
-  {
-    name: "Spoils soon",
-    amount: db.getLijstBijnaVervallen().length,
-    color: '#779E9B',
-    legendFontColor: "#7F7F7F",
-    legendFontSize: 15
-  },
-  {
-    name: "Spoiled",
-    amount: db.getLijstVervallen().length,
-    color: "#2A3837",
-    legendFontColor: "#7F7F7F",
-    legendFontSize: 15
-  },
-
-];
+function getData(){
+  return [
+    {
+      name: "Fresh",
+      amount: db.getLijstVers().length,
+      color: "#93C4C0",
+      legendFontColor: "#7F7F7F",
+      legendFontSize: 15
+    },
+    {
+      name: "Spoils soon",
+      amount: db.getLijstBijnaVervallen().length,
+      color: '#779E9B',
+      legendFontColor: "#7F7F7F",
+      legendFontSize: 15
+    },
+    {
+      name: "Spoiled",
+      amount: db.getLijstVervallen().length,
+      color: "#2A3837",
+      legendFontColor: "#7F7F7F",
+      legendFontSize: 15
+    },
+  
+  ];
+}
 
 const chartConfig = {
 
@@ -110,6 +111,9 @@ class Home extends Component {
     super(props);
     this.state = {
       nr: db.length,
+      moneyWasted: getTotalPrice(),
+      weightWasted: getTotalWeight(),
+      pieChartData: getData(),
       refreshing: refresh
     }
   }
@@ -128,7 +132,11 @@ class Home extends Component {
 
   render() {
     setTimeout(() => {
-      this.setState({ nr: db.length })
+      this.setState({ nr: db.length,
+        moneyWasted: getTotalPrice(),
+        weightWasted: getTotalWeight(),
+        pieChartData: getData()
+       })
       getTotalPrice();
       getTotalWeight();
       db.getLijstBijnaVervallen();
@@ -147,7 +155,7 @@ class Home extends Component {
       color='#8AB8B4'
     /> */}
         <PieChart
-          data={data}
+          data={this.state.pieChartData}
           width={screenWidth}
           height={180}
           chartConfig={chartConfig}
@@ -158,11 +166,11 @@ class Home extends Component {
         />
         <View style={styles.bla}>
           <View style={styles.stattext}>
-            <Text style={styles.bli}>€ {getTotalPrice()}</Text>
+            <Text style={styles.bli}>€ {this.state.moneyWasted}</Text>
             <Text style={styles.blu}>wasted</Text>
           </View>
           <View style={styles.stattext}>
-            <Text style={styles.bli}>{ getTotalWeight()/1000} kg</Text>
+            <Text style={styles.bli}>{ this.state.weightWasted/1000} kg</Text>
             <Text style={styles.blu}>wasted</Text>
           </View>
         </View>
@@ -215,9 +223,7 @@ const styles = StyleSheet.create({
     borderColor: "#759E9A",
     backgroundColor: "#9ED2CE",
     borderWidth: 2,
-    borderRadius: 6,
-    alignItems: 'center'
-
+    borderRadius: 6
   },
   headerBox: {
     justifyContent: 'flex-start',

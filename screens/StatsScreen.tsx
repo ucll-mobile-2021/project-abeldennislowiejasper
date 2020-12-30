@@ -10,62 +10,65 @@ let refresh = false;
 let db = new Database();
 let lijst = db.getAllProducts();
 
-const data_pie = [
-  {
-    name: "A",
-    amount: db.getNutriScoreAmount('a'),
-    color: "#12FA83",
-    legendFontColor: "#7F7F7F",
-    legendFontSize: 15
-  },
-  {
-    name: "B",
-    amount: db.getNutriScoreAmount('b'),
-    color: '#B7FA54',
-    legendFontColor: "#7F7F7F",
-    legendFontSize: 15
-  },
-  {
-    name: "C",
-    amount: db.getNutriScoreAmount('c'),
-    color: "#FAED01",
-    legendFontColor: "#7F7F7F",
-    legendFontSize: 15
-  },
-  {
-    name: "D",
-    amount: db.getNutriScoreAmount('d'),
-    color: "#FA7C2C",
-    legendFontColor: "#7F7F7F",
-    legendFontSize: 15
-  },
-  {
-    name: "E",
-    amount: db.getNutriScoreAmount('e'),
-    color: "#FA2929",
-    legendFontColor: "#7F7F7F",
-    legendFontSize: 15
-  },
-
-];
-
-const data_bar = {
-  labels: ["Sugar / 100g", "Fat / 100g", "Sodium / 100g", "Proteins / 100g"],
-  datasets: [
+function getDataPie() {
+  return [
     {
-      data: [Math.round(db.getTotalSugar()), Math.round(db.getTotalFat()), Math.round(db.getTotalSodium()), Math.round(db.getTotalProteins())]
-    }
-  ]
-};
-
-const commitsData : any = [];
-for (let [key,value] of db.mapExpirations().entries()){
- 
-    commitsData.push({ date: key, count: value }, )
+      name: "A",
+      amount: db.getNutriScoreAmount('a'),
+      color: "#12FA83",
+      legendFontColor: "#7F7F7F",
+      legendFontSize: 15
+    },
+    {
+      name: "B",
+      amount: db.getNutriScoreAmount('b'),
+      color: '#B7FA54',
+      legendFontColor: "#7F7F7F",
+      legendFontSize: 15
+    },
+    {
+      name: "C",
+      amount: db.getNutriScoreAmount('c'),
+      color: "#FAED01",
+      legendFontColor: "#7F7F7F",
+      legendFontSize: 15
+    },
+    {
+      name: "D",
+      amount: db.getNutriScoreAmount('d'),
+      color: "#FA7C2C",
+      legendFontColor: "#7F7F7F",
+      legendFontSize: 15
+    },
+    {
+      name: "E",
+      amount: db.getNutriScoreAmount('e'),
+      color: "#FA2929",
+      legendFontColor: "#7F7F7F",
+      legendFontSize: 15
+    },
   
+  ];
 }
 
+function getDataBar(){
+  return {
+    labels: ["Sugar / 100g", "Fat / 100g", "Sodium / 100g", "Proteins / 100g"],
+    datasets: [
+      {
+        data: [Math.round(db.getTotalSugar()), Math.round(db.getTotalFat()), Math.round(db.getTotalSodium()), Math.round(db.getTotalProteins())]
+      }
+    ]
+  };
+}
 
+function getCommitsData(){
+  let commitsData : any = [];
+  for (let [key,value] of db.mapExpirations().entries()){
+    commitsData.push({ date: key, count: value })
+  }
+  return commitsData
+}
 
 const chartConfig_pie = {
 
@@ -102,6 +105,9 @@ class StatsScreen extends Component {
       super(props);
       this.state = {
         nr: db.length,
+        dataPie: getDataPie(),
+        dataBar: getDataBar(),
+        commitsData: getCommitsData(),
         refreshing: refresh
       }
     }
@@ -114,7 +120,11 @@ class StatsScreen extends Component {
   
     render() {
       setTimeout(() => {
-        this.setState({ nr: db.length })
+        this.setState({ nr: db.length,
+          dataPie: getDataPie(),
+          dataBar: getDataBar(),
+          commitsData: getCommitsData()
+         })
         
       }, 500)
       return (
@@ -123,7 +133,7 @@ class StatsScreen extends Component {
           <Text style={styles.title}>NutriScore ratio</Text>
           </View>
           <PieChart
-          data={data_pie}
+          data={this.state.dataPie}
           width={screenWidth}
           height={200}
           chartConfig={chartConfig_pie}
@@ -137,7 +147,7 @@ class StatsScreen extends Component {
 
   
  <BarChart
-  data={data_bar}
+  data={this.state.dataBar}
   width={screenWidth}
   height={200}
   yAxisLabel=""
@@ -148,7 +158,7 @@ class StatsScreen extends Component {
 /> 
 <View style={styles.title}><Text style={styles.title}>Expiration dates</Text></View>
  <ContributionGraph
-  values={commitsData}
+  values={this.state.commitsData}
   endDate={new Date("2021-01-30")}
   numDays={105}
   width={screenWidth}

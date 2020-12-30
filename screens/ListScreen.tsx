@@ -1,18 +1,15 @@
+import { HeaderStyleInterpolators } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { View, Text, Button, Image, StyleSheet, FlatList, TouchableOpacity, Dimensions, TextInput} from 'react-native';
+import { NotificationChannel } from 'react-native-notifications/lib/dist/interfaces/NotificationChannel';
 import Database from '../components/Database';
 import ListItem from '../components/ListItem';
 
 const db = new Database();
 let lijstBoodschappen : Array<ListItem>;
 let refresh = false;
-let valueName: string;
+let valueName: string = "";
 let errorsList: string;
-
-function setName(name: string){
-  valueName = name;
-}
-
 
 function setError(errors: string) {
   errorsList = errors;
@@ -31,11 +28,6 @@ function ifLijst() {
   } else { return null;}
   return code;
   
-}
-
-
-const clearInputs = () => {
-  setName("");
 }
 
 function getLijstBoodschappen() {
@@ -60,11 +52,11 @@ class ListScreen extends Component {
   constructor(props: {} | Readonly<{}>) {
     super(props);
     this.state = {
-      nr: db.length,
+      lijstBoodschappen: getLijstBoodschappen(),
       refreshing: refresh
     }
   }
-
+  
   onRefresh() {
     refresh = true;
     getLijstBoodschappen();
@@ -72,27 +64,20 @@ class ListScreen extends Component {
     refresh = false;
   }
 
+  submit(){
+    let id = Math.random()
+    let errors: string = "";
+    if(valueName == "" || valueName.trim() == ""){errors+= "Invalid name, please try again\n";}
+    if(errors == ""){
+       updateItems(new ListItem(id, valueName));
+       this.setState({lijstBoodschappen: getLijstBoodschappen()})
+       valueName = ""
+       this.textInput.clear()
+    }
+    setError(errors)
+  }
+
   render() {
-    setTimeout(() => {
-      this.setState({ nr: db.length })
-      getLijstBoodschappen();
-      this.onRefresh();
-    }, 1000)
-
-    const submit = () => {
-      let id = Math.random()
-      let errors: string = "";
-      if(valueName.trim() == ""){errors+= "Invalid name, please try again\n";}
-      if(errors == ""){
-         updateItems(new ListItem(id, valueName));
-         
-         clearInputs()
-      }
-         setError(errors)
-         
-   }
-
-
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <FlatList  data={getLijstBoodschappen()} extraData={this.state}
@@ -105,8 +90,9 @@ class ListScreen extends Component {
                 <TouchableOpacity
         
         onPress={
-          () => {removeListItem(item.id); 
-           
+          () => {
+            removeListItem(item.id); 
+            this.setState({lijstBoodschappen: getLijstBoodschappen()})
           }
         }
         style={styles.button}
@@ -124,12 +110,12 @@ class ListScreen extends Component {
         {ifLijst()}
             <View>
                <Text style={styles.label}><Text style={{color: "red"}}>*</Text>Name:</Text>
-               <TextInput style={styles.textInput} onChangeText={name => setName(name)} value={valueName}  />
+               <TextInput ref={input => { this.textInput = input }} onSubmitEditing={(e) => this.submit()} style={styles.textInput} onChangeText={newName => valueName = newName}/>
             </View>
                <Text style={{fontSize: 10}}><Text style={{color: "red"}}>*</Text>required</Text>
             
             <View style={styles.buttonText}>
-              <Button title="Add item" color='#8AB8B4' onPress={() => {submit()}} />
+              <Button title="Add item" color='#8AB8B4' onPress={() => {this.submit()}} />
             </View>
       </View>
         
