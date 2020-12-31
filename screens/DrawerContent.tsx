@@ -21,13 +21,13 @@ export function DrawerContent({props, navigation} : any){
             <View style={{flexDirection:'row',marginTop: 15, marginLeft: 10}}>
             <Avatar.Image
                                 source={{
-                                    uri: 'https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png'
+                                    uri: 'https://papi.ucll.be/public/photo/15692/key/WhoIsWho/sha256/6b77e5d71cb0811e6e90aefcc3a9205f1d815e2c8a6e8cb0c83b4e03b8693365'
                                 }}
                                 size={50}
                                 color='#759E9A'
                             />
                  <View style={{marginLeft: 5, flexDirection:'column'}}>
-                                <Title style={styles.title}>Dennis</Title>                                
+                                <Title style={styles.title}>Mr. Vogels</Title>                                
                             </View></View>
             
             <Drawer.Section style={styles.userInfoSection}>

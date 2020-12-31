@@ -144,14 +144,16 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     backgroundColor:'#f0655b',
     marginTop: 20,
+    marginRight: 10,
+    marginLeft: 10,
     marginBottom: 20,
     borderRadius: 10,
 
-    height: 40,
+    height: 30,
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'stretch',
-    width: Dimensions.get('window').width - 20
+    width: Dimensions.get('window').width - 45
   },
   buttontext: {
     color: '#ffffff',
@@ -165,12 +167,12 @@ const styles = StyleSheet.create({
   item: {
     marginTop: 15,
     //paddingTop: 25,
-    backgroundColor: "#80ABA7", //#9ED2CE
+    backgroundColor: "#9ED2CE", //#9ED2CE
     flexDirection: 'row',
     flexWrap: 'wrap',
     width: "99%",
     borderRadius: 12,
-    marginLeft: "0%",
+    marginLeft: 0
   },
   itemText: {
     fontSize: 25,

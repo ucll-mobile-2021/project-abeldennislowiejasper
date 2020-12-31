@@ -130,7 +130,7 @@ function ScannerScreen({ navigation }: any) {
             </View>
             <View style={{flexDirection:'row', flexWrap:'wrap', flex: 1}}>
                <View style={{width: "35%"}}>
-                  <Text style={styles.label}>Price<Text style={{color: "red"}}>*</Text>:</Text>
+                  <Text style={styles.label}><Text style={{color: "red"}}>*</Text>Price:</Text>
                   <TextInput keyboardType={"numeric"} style={styles.textInput} value={valuePrice.toString()} onChangeText={price => setPrice(price.trim())} />
                </View>
                <View style={{width: "35%", marginLeft: "30%"}}>
@@ -139,11 +139,11 @@ function ScannerScreen({ navigation }: any) {
                </View>
             </View>
             
-            <Text style={styles.label}>Allergene:</Text>
+            <Text style={styles.label}>Allergenes:</Text>
             <TextInput style={styles.textInput} onChangeText={allergene => setAllergene(allergene)} value={valueAllergene} />
 
             <Text style={styles.label}>Expiration date: {dateToDDMMYYYY()}</Text>
-            <View style={{ width: "75%", marginLeft: "12.5%" }}><Button color='#8AB8B4' onPress={toggleShowDate} title="Show date picker!" /></View>
+            <View style={{ width: "75%", marginLeft: "12.5%" }}><Button color='#8AB8B4' onPress={toggleShowDate} title="Choose date" /></View>
             {showDate &&
                <DateTimePicker
                   testID="dateTimePicker"
@@ -159,31 +159,31 @@ function ScannerScreen({ navigation }: any) {
             
             <View style={{flexDirection:'row', flexWrap:'wrap', flex: 1}}> 
                <View style={{width: "35%"}}>
-                  <Text style={styles.label}>kcal:</Text>
+                  <Text style={styles.label}>Kcal/100g:</Text>
                   <TextInput keyboardType={"numeric"} style={styles.textInput} value={valueEnergy_kcal_value} onChangeText={ecal => setEnergy_kcal_value(formatNumber(ecal))} />
                </View>
                <View style={{width: "35%", marginLeft: "30%"}}>
-                  <Text style={styles.label}>Proteins:</Text>
+                  <Text style={styles.label}>Proteins/100g:</Text>
                   <TextInput keyboardType={"numeric"} style={styles.textInput} value={valueproteins_100g} onChangeText={proteins_100g => setProteins_100g(formatNumber(proteins_100g))} />
                </View>
             </View>
             <View style={{flexDirection:'row', flexWrap:'wrap', flex: 1}}>
                <View style={{width: "35%"}}>
-                  <Text style={styles.label}>Sugar:</Text>
+                  <Text style={styles.label}>Sugar/100g:</Text>
                   <TextInput keyboardType={"numeric"} style={styles.textInput} value={valueSugars_100g} onChangeText={sugar => setSugars_100g(formatNumber(sugar))} />
                </View>
                <View style={{width: "35%", marginLeft: "30%"}}>
-                  <Text style={styles.label}>Sodium:</Text>
+                  <Text style={styles.label}>Sodium/100g:</Text>
                   <TextInput keyboardType={"numeric"} style={styles.textInput} value={valueSodium_100g} onChangeText={sod => setSodium_100g(formatNumber(sod))} />
                </View>
             </View>
             <View style={{flexDirection:'row', flexWrap:'wrap', flex: 1}}>
                <View style={{width: "35%"}}>
-                  <Text style={styles.label}>Fat:</Text>
+                  <Text style={styles.label}>Fat/100g:</Text>
                   <TextInput keyboardType={"numeric"} style={styles.textInput} value={valueFat_100g} onChangeText={fat => setFat_100g(formatNumber(fat))} />
                </View>
                <View style={{width: "35%", marginLeft: "30%"}}>
-                  <Text style={styles.label}>Quantity:</Text>
+                  <Text style={styles.label}>Weight/g:</Text>
                   <TextInput keyboardType={"numeric"} style={styles.textInput} value={valueProduct_quantity} onChangeText={q => setProduct_quantity(formatNumber(q))} />
                </View>
             </View>

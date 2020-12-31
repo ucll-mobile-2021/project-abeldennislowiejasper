@@ -41,7 +41,7 @@ function ItemScreen({route, navigation }: any) {
           <Text><Text style={styles.textbold}>Energy:</Text> {energy_kcal_value} kcal</Text>
           <Text><Text style={styles.textbold}>Protein (100g):</Text> {proteins_100g} g</Text>
           <Text><Text style={styles.textbold}>Sugar (100g):</Text> {sugars_100g} g</Text>
-          <Text><Text style={styles.textbold}>Sodium (100g):</Text> {sodium_100g} mg</Text>
+          <Text><Text style={styles.textbold}>Sodium (100g):</Text> {sodium_100g} g</Text>
           <Text><Text style={styles.textbold}>Fat (100g):</Text> {fat_100g} g</Text>
           <Text><Text style={styles.textbold}>Quantity:</Text> {product_quantity}</Text>
         
