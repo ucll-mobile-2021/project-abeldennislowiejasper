@@ -51,6 +51,7 @@ function ScannerScreen({ navigation }: any) {
       setDate(currentDate);
    };
    const changeDateData = (data: string) => {
+      console.log(data)
       // data: DD.MM.YYYY -> DD/MM/YYYY
       let replacedString: string = data.replace(/\./gi, "/")
       let formattedDate: string[] = replacedString.split("/")
@@ -59,11 +60,18 @@ function ScannerScreen({ navigation }: any) {
          year= "20" + formattedDate[2].toString();
       }else{
          year = formattedDate[2].toString();
-
+         let currYear = new Date().getFullYear();
+         if(parseInt(year) > currYear + 17){
+            year = (currYear + 17).toString();
+         }
       }
       var dateObject = new Date(parseInt(year), parseInt(formattedDate[1]) - 1, +formattedDate[0]) || valueDate;
-      console.log(formattedDate)
-      console.log(dateObject)
+      var future = new Date();
+      future.setFullYear(future.getFullYear() + 30);
+      var past = new Date();
+      past.setFullYear(past.getFullYear() - 10);
+      if( dateObject > future){dateObject = future;}
+      if( dateObject < past){dateObject = past;}
       setDate(dateObject);
    }
    const toggleShowDate = () => {
