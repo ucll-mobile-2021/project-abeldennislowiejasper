@@ -54,8 +54,16 @@ function ScannerScreen({ navigation }: any) {
       // data: DD.MM.YYYY -> DD/MM/YYYY
       let replacedString: string = data.replace(/\./gi, "/")
       let formattedDate: string[] = replacedString.split("/")
+      let year: string;
+      if(formattedDate[2].toString().length == 2){
+         year= "20" + formattedDate[2].toString();
+      }else{
+         year = formattedDate[2].toString();
 
-      var dateObject = new Date(+formattedDate[2], parseInt(formattedDate[1]) - 1, +formattedDate[0]) || valueDate;
+      }
+      var dateObject = new Date(parseInt(year), parseInt(formattedDate[1]) - 1, +formattedDate[0]) || valueDate;
+      console.log(formattedDate)
+      console.log(dateObject)
       setDate(dateObject);
    }
    const toggleShowDate = () => {
