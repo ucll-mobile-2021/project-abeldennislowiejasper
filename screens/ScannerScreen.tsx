@@ -122,7 +122,7 @@ function ScannerScreen({ navigation }: any) {
          errors += "Price must be a number (max. 2 decimals)\n"
       }
       if(errors == ""){
-         let realNutri:string = valueNutri==""?"Z":valueNutri;
+         let realNutri:string = valueNutri=="" || valueNutri == undefined ?"Z":valueNutri;
          updateItems(new Item(Math.floor(Math.random() *1000), valueName, realNutri.toLocaleLowerCase(),
          splitAllergenen(valueAllergene), valueIMG,cleanseNumber(valuePrice), valueDate, cleanseNumber(valueEnergy_kcal_value),
          cleanseNumber(valueproteins_100g), cleanseNumber(valueSugars_100g), cleanseNumber(valueSodium_100g),
